@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TCM Museum Exhibits</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f6fa; margin: 0; padding: 0; color: #2c3e50; line-height: 1.6; }
+  header { background: #8b2121; color: #fff; padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  h1 { font-size: 1.2rem; margin: 0 0 12px 0; text-align: center; font-weight: 600; }
+  input { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; outline: none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+  
+  main { padding: 15px; max-width: 800px; margin: 0 auto; }
+  .list-container { display: flex; flex-direction: column; gap: 10px; }
+  
+  .item { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; border-left: 4px solid #8b2121; }
+  .item-header { padding: 16px 15px; font-weight: bold; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+  .item-header:active { background: #f0f0f0; }
+  .toggle-icon { color: #8b2121; transition: transform 0.3s; font-size: 0.9em; }
+  
+  .item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #faf9f5; }
+  .item.active .item-content { max-height: 5000px; border-top: 1px solid #eee; }
+  .text-box { padding: 15px; white-space: pre-wrap; font-size: 0.95rem; color: #333; }
+  
+  .empty { text-align: center; padding: 30px; color: #7f8c8d; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TCM Museum Exhibits</h1>
+  <input type="text" id="searchBox" placeholder="Search exhibits, herbs, or keywords..." onkeyup="filterList()">
+</header>
+
+<main>
+  <div id="exhibitList" class="list-container"></div>
+</main>
+
+<script>
+// Complete English Content from "博物馆陈列品介绍.docx"
+const database = [
+  {
+    title: "Introduction: Rare Plant Medicines",
+    content: `In the plant garden, you saw herbs growing in the soil — alive, green, unremarkable-looking. This room is going to show you what happens when certain plants become so rare, so difficult to obtain, or so extraordinary in their properties that they stop being "herbs" and start being treasures. Some of these are worth more than gold. Some take decades to form. And some have stories so strange that if I made them up, you wouldn't believe me.[cite: 1]`
+  },
+  {
+    title: "P1：沉香 — Agarwood",
+    content: `Let's start with this dark, irregular chunk of wood. It doesn't look like much, does it? A piece of rotten driftwood, maybe. But lean in and smell it.
+
+That deep, warm, complex fragrance — sweet, woody, almost hypnotic. Some people say it smells like the inside of an ancient temple. That scent is why this ugly piece of wood can be worth more per gram than gold. This is 沉香 — Agarwood.
+
+Here's how it forms: there's a type of tropical tree called Aquilaria. When it's healthy, its wood is pale, soft, and worthless. But when the tree gets injured — by insects, by fungal infection, by physical damage — it starts producing a dark, aromatic resin as a defense mechanism. Over years, sometimes decades, this resin saturates the wood, turning it dense, dark, and incredibly fragrant.
+
+So 沉香 is literally the tree's scar tissue. Its wound response. The tree has to suffer to produce it. An uninjured tree produces nothing of value.
+
+The name 沉香 tells you the quality test: 沉 means "sink." The best agarwood is so dense with resin that it sinks in water. A piece that half-sinks is decent. A piece that floats? Low grade. You literally throw it in a bowl of water and the water tells you what it's worth.
+
+In Chinese medicine, 沉香 is used to warm the kidneys, calm the mind, and relieve pain. In the Islamic world, it's the most prized incense for religious ceremonies. In Japanese culture, there's an entire art form called 香道 (Kōdō) — "The Way of Fragrance" — dedicated to appreciating agarwood. And in the global luxury market, top-grade agarwood oil sells for up to $80,000 per liter.
+
+One piece of injured tree. Religion, medicine, art, and luxury — all from a wound.[cite: 1]`
+  },
+  {
+    title: "P2：冬虫夏草 — Cordyceps",
+    content: `OK. This next one is going to test your comfort zone. Look at this — what do you think you're seeing?
+
+It looks like a caterpillar with a twig growing out of its head. And that's... basically exactly what it is.
+
+This is 冬虫夏草 — and its name is one of the best in all of Chinese medicine: "Winter Worm, Summer Grass." In winter, it's a worm. In summer, it's a plant. How is that possible?
+
+Here's what actually happens: high up on the Tibetan Plateau — 3,000 to 5,000 meters altitude — there's a type of moth caterpillar that lives underground, eating plant roots. At some point, a fungal spore lands on the caterpillar and infects it. The fungus grows inside the caterpillar's body, slowly consuming it from the inside out. The caterpillar dies, its body stiffened by fungal tissue. Then, when summer comes, the fungus sends a thin stalk up through the soil — that "twig" you see poking out of the head — to release its spores into the wind. The caterpillar's body is now a mummy filled with fungus. The "grass" is the fungus's reproductive structure.
+
+It's not a worm. It's not a plant. It's a caterpillar that has been body-snatched by a fungus. Nature's zombie movie.
+
+In Chinese medicine, it's used to tonify the lungs and kidneys — it's considered both a yin and yang tonic, which is unusual. Very few medicines do both. At its peak around 2010-2015, high-quality Cordyceps was selling for more than twice the price of gold per gram. An entire economy in rural Tibet revolves around the few weeks each year when the stalks poke above ground and locals race to dig them up.
+
+Is it worth the price? The scientific evidence for its health claims is mixed. But the story — a fungal parasite turning a caterpillar into a zombie that sprouts a mushroom from its forehead — that story is absolutely priceless.[cite: 1]`
+  },
+  {
+    title: "P3：天麻 — Gastrodia",
+    content: `This next one looks boring — a yellowish-brown, translucent, dried tuber. Not pretty. Not fragrant. But it has a secret: this plant is a cheater.
+
+This is 天麻 — Gastrodia. It's an orchid. But it's an orchid that has given up on being a plant. It has NO leaves. NO green color. It does NOT photosynthesize. It cannot make its own food. So how does it survive?
+
+It parasitizes a fungus. Specifically, it tricks a fungus called 蜜环菌 (Armillaria, the honey mushroom) into connecting with its root system, and then steals nutrients from the fungus. The fungus, meanwhile, is getting ITS nutrients from decaying wood in the forest floor. So 天麻 is essentially a plant that eats a fungus that eats dead trees. It's freeloading off a freeloader.
+
+And for centuries, nobody could figure out how to farm it, because you can't just plant a seed. You have to establish the fungus first, let it colonize a suitable log, and THEN introduce the 天麻 tuber and hope the two form a relationship. It's like trying to arrange a marriage between two strangers who don't speak the same language.
+
+Medicinally, 天麻 is one of the most important herbs for headaches, dizziness, and tremors. If you get migraines, or if you feel dizzy when you stand up, or if your hands shake — traditional doctors reach for 天麻. Modern research has found compounds called gastrodin and vanillyl alcohol that do have genuine neuroprotective and anti-inflammatory effects in the brain.
+
+So: a plant that can't make food, that parasitizes a fungus, that can barely be cultivated, that happens to be one of the best headache medicines in traditional pharmacology. Nature is weird.[cite: 1]`
+  },
+  {
+    title: "P4：灵芝 — Reishi / Lingzhi",
+    content: `Now — this one you've almost certainly seen before, even if you didn't know what it was. Look at this shape.
+
+A fan-shaped, kidney-shaped bracket, with concentric rings on the surface and a glossy, almost lacquered sheen. Deep reddish-brown, sometimes with a yellow-white edge. It looks like it belongs in a fantasy movie. And in Chinese culture, it basically IS a fantasy object — it's the legendary "Mushroom of Immortality."
+
+This is 灵芝, Lingzhi, known in the West as Reishi. It's not actually a plant — it's a fungus, a bracket fungus that grows on dead or dying trees. But in Chinese mythology, it's ranked among the most precious substances in the universe. Finding a wild 灵芝 in the mountains was considered a sign that heaven was pleased. Emperors sent expeditions to search for it. Taoist monks believed it could grant eternal life.
+
+The most famous story: in the legend of the White Snake — 《白蛇传》— one of China's four great folktales — the heroine Bai Suzhen risks her life to steal a 灵芝 from a sacred mountain to save her dying husband. The scene is performed in every Chinese opera company. Every child in China knows it. 灵芝 isn't just medicine — it's a character in the national mythology.
+
+Can it actually make you immortal? No. But modern research has found that 灵芝 contains over 400 different bioactive compounds — polysaccharides, triterpenes, peptides — with documented effects on immune modulation, anti-inflammation, and liver protection. It's one of the most-researched medicinal fungi in the world. It won't make you live forever, but it might help you live better.
+
+Today, 灵芝 is widely cultivated on logs and sawdust — you can buy it cheaply. But wild 灵芝, growing naturally on an old tree deep in the mountains? That still commands enormous prices. Because in China, some things are valued not just for their chemistry, but for their story.[cite: 1]`
+  },
+  {
+    title: "P5：雪莲花 — Snow Lotus",
+    content: `This next specimen comes from one of the harshest environments on Earth.
+
+This is 雪莲花 — Snow Lotus. It grows at 4,000 to 5,000 meters altitude — that's higher than any mountain in the lower 48 US states. Above the tree line. Above the grass line. In bare rock and gravel, surrounded by snow, blasted by ultraviolet radiation that would give you a sunburn in twenty minutes, at temperatures that drop below freezing almost every night even in summer.
+
+And somehow, this plant not only survives — it flowers. Those thick, woolly, white bracts you see wrapped around the flower — those are natural insulation. The plant literally wraps itself in a fur coat to protect its reproductive parts from the cold. It's one of the most extreme examples of plant adaptation on Earth.
+
+In Chinese martial arts novels — which are basically the equivalent of Lord of the Rings for Chinese readers — 雪莲 is the ultimate miracle drug. The hero is poisoned, beaten, left for dead on a cliff... and then finds a Snow Lotus growing in a crevice, eats it, and instantly recovers with doubled martial arts power. This happens in approximately 400 different novels. It's the most overused plot device in Chinese fiction.
+
+In real medicine, it's used to warm the kidneys, strengthen bones, and regulate menstruation. Nothing as dramatic as curing poisoning and doubling your kung fu. But the romance of a flower that blooms in the snow, alone, at the edge of the livable world — that image has kept 雪莲 in the cultural imagination for centuries.
+
+Unfortunately, overharvesting for both medicine and tourism has made wild Snow Lotus genuinely endangered. It's now protected in China, and commercial harvesting is restricted. The irony: a plant tough enough to survive 5,000-meter altitude couldn't survive human demand.[cite: 1]`
+  },
+  {
+    title: "P6：藏红花（西红花）— Saffron",
+    content: `This tiny glass vial contains a few dozen dark red threads — each one thinner than a hair, each one worth more than you'd expect. Does anyone recognize this?
+
+If you cook, you might know this as saffron — the world's most expensive spice. A pinch of these threads can turn a pot of rice golden yellow. Saffron risotto, saffron paella, Persian saffron rice — it's in cuisines across the Mediterranean, the Middle East, and South Asia.
+
+But here in this museum, it's not a spice. It's a medicine: 藏红花, also called 西红花 — Saffron Crocus. And its medical function is one that Chinese medicine takes very seriously: it moves blood. When blood is stuck, stagnant, pooling where it shouldn't — causing pain, dark menstrual clots, bruising, or emotional depression tied to poor circulation — saffron gets it moving again.
+
+Now, why is it so expensive? Look closely at these threads. Each one is a single stigma — the pollen-receiving tip of a flower's female anatomy. Each crocus flower produces exactly THREE stigmas. They must be picked by hand, one flower at a time, usually at dawn before the sun damages them. To produce one kilogram of dried saffron, you need roughly 150,000 flowers. One hundred and fifty thousand flowers. Picked by hand. For one kilo.
+
+That's why saffron costs $5,000 to $10,000 per kilogram. It's not rare because the plant is rare — crocus grows easily. It's expensive because the harvest is absurdly labor-intensive.
+
+One important warning: the Chinese name 藏红花 starts with 藏, which means "Tibetan." This leads many people to believe it comes from Tibet. It does NOT. Saffron is originally from Iran and the Mediterranean. It arrived in China via Tibet — along ancient trade routes — so the Chinese named it "the red flower that came through Tibet." It's a geographical misunderstanding baked permanently into the name.
+
+And don't confuse it with 红花 — that's a completely different plant, safflower, from the daisy family. Cheaper. Different. Both move blood, but they're as different as a Ferrari and a pickup truck. Both get you there, but one costs a lot more.[cite: 1]`
+  },
+  {
+    title: "P7：龙血竭 — Dragon's Blood",
+    content: `The name alone brought you to this display case, right? Dragon's Blood.
+
+This dark, wine-red resin is called 龙血竭 — and yes, the English name is also "Dragon's Blood." Not because any dragons were harmed in the making of this product, but because when you dissolve it in alcohol or heat it, it liquefies into a deep crimson fluid that looks unsettlingly like blood. Ancient traders thought it must come from the blood of dragons and elephants locked in mortal combat. The real source is much less dramatic: it oozes from the fruit of certain palm trees in Southeast Asia, or from the bark of dragon trees in the Canary Islands and Socotra.
+
+In Chinese medicine, Dragon's Blood is applied externally to wounds — cuts, ulcers, bruises — to stop bleeding, reduce swelling, promote healing, and relieve pain. Think of it as a natural wound sealant. The resin forms a protective coating over the injury, like a biological bandage. Internally, it's used in small doses to move stagnant blood.
+
+But here's the cross-cultural fun: Dragon's Blood resin has been used by the ancient Romans, the medieval Arabs, indigenous South American peoples, and Chinese physicians — all independently. The Romans used it as a dye and a varnish. Italian violin makers used it to stain the wood of Stradivarius violins — yes, THOSE Stradivarius violins. Some researchers believe Dragon's Blood resin is part of the "lost secret" of the Stradivarius varnish that gives those instruments their legendary tone.
+
+So the same substance that Chinese doctors put on wounds, Italian luthiers put on violins. Medicine and music, sharing the same blood — dragon's blood.[cite: 1]`
+  },
+  {
+    title: "P8：肉苁蓉 — Cistanche / 'Desert Ginseng'",
+    content: `This looks like a prop from a science fiction movie. What IS this thing?
+
+It's a plant. I promise. But it doesn't look like any plant you've ever seen. No leaves. No green color. Just this thick, fleshy, golden-brown stalk covered in overlapping scales — like a giant asparagus that's been buried in sand and came out looking like an alien artifact.
+
+This is 肉苁蓉 — Cistanche — and it grows in one of the most inhospitable environments on Earth: the deserts of northwestern China and Mongolia. It's a parasite — it attaches to the roots of a desert shrub called 梭梭 (Haloxylon), tapping into the shrub's water and nutrient supply, because there's no way to photosynthesize when you have no leaves and you're buried under sand.
+
+The harvesting is an event. Local herders dig through desert sand to find these hidden stalks, sometimes going down half a meter or more. When they pull one out — golden, heavy, glistening — it's like pulling buried treasure from the earth. Which, economically, it basically is. Good 肉苁蓉 fetches high prices, and it's the primary cash crop for some desert communities.
+
+The nickname is "Desert Ginseng" — 沙漠人参 — because like ginseng, it's a powerful yang tonic. It warms the kidneys, strengthens the lower back, and has been traditionally used for sexual health. In modern marketing, that makes it one of the most commercially hyped herbs in China.
+
+But the ecological story is important: 肉苁蓉 can only grow where 梭梭 grows. 梭梭 is a key species for preventing desert expansion — its root systems hold sand in place. So there's been a fascinating dual conservation effort: plant 梭梭 trees to fight desertification, and then harvest 肉苁蓉 from their roots as an economic incentive for locals to keep planting trees. Medicine and environmental restoration, working together. That's a pretty good deal.[cite: 1]`
+  },
+  {
+    title: "P9：铁皮石斛 — Dendrobium / 'Rock-Clinging Orchid'",
+    content: `Another orchid — but this one lives on rock faces and tree trunks, not in the ground.
+
+This is 铁皮石斛 — a type of Dendrobium orchid. In the wild, it grows on cliffs, on boulders, on the bark of old trees — anywhere it can cling to a surface with its aerial roots. It hangs there, drinking fog and rain, with no soil whatsoever. It's an epiphyte — a plant that grows on other surfaces without parasitizing them. Just hanging on for dear life.
+
+See the stem? Thin, jointed, with a slightly metallic sheen on the skin — that's the "铁皮" part: "iron skin." When fresh, you can chew the stem and it releases a thick, mucilaginous juice — slimy, viscous, with a mild sweetness. That sliminess IS the medicine. In Chinese medicine terms, it "generates fluids" — it nourishes the yin, moistens what's dry, replenishes what's depleted. When someone is dehydrated from a long illness, or an elderly person has chronic dry mouth and throat, or someone's been running a low-grade fever for weeks — 石斛 restores the moisture their body has lost.
+
+Now look at this other form — see these tiny, dark, coiled spirals?
+
+This is called 枫斗 — the dried and processed form. Workers take the fresh stems, heat them gently, and twist them by hand into these tight little curls. It's entirely cosmetic — the twisting doesn't change the medicine. But it concentrates the stem into a compact, storable form, and the craftsmanship of the twisting itself is considered an art. Tightly, evenly twisted 枫斗 is a sign of quality — it means a skilled worker took time with each individual stem.
+
+In Chinese popular culture, 石斛 has been marketed as the "#1 Immortality Herb of China" — 中华九大仙草之首. That's mostly marketing. But the actual medicinal properties — yin-nourishing, fluid-generating, stomach-soothing — are well-established in clinical practice and increasingly supported by modern pharmacological research on Dendrobium polysaccharides.[cite: 1]`
+  },
+  {
+    title: "P10：血竭 — Dragon's Blood (from Dracaena)",
+    content: `Wait — didn't we already see Dragon's Blood? Yes. But this is a different Dragon's Blood. From a completely different source. With a completely different story.
+
+The previous one — 龙血竭 — came from palm trees. This one — 血竭 — comes from the Dracaena tree, the Dragon Blood Tree. And the Dragon Blood Tree is one of the most visually extraordinary trees on Earth.
+
+Imagine an enormous umbrella turned inside out by the wind — a thick trunk that branches into a dense, mushroom-shaped canopy. Now imagine that when you cut the bark, it bleeds dark red resin. That's a Dragon Blood Tree. They grow on the island of Socotra, off the coast of Yemen, and in parts of the Canary Islands. They can live for over a thousand years. They look like they belong on another planet. UNESCO considers the Socotra dragon trees a World Heritage treasure.
+
+The resin — 血竭 — has essentially the same medical uses as the palm-derived version: stopping bleeding, healing wounds, moving stagnant blood. The two products have been confused, substituted, and mixed up for centuries, across every culture that traded in them. Arab, Chinese, European, and Indian pharmacies all used "Dragon's Blood," and half the time nobody was entirely sure which tree it came from.
+
+I put them side by side here for a reason: this is a perfect example of how different plants, from different continents, can produce nearly identical medicinal products. It happened with Dragon's Blood. It happened with aspirin-like compounds from willow bark (European) and meadowsweet (European) and wintergreen (Native American). Convergent evolution doesn't just happen in animals — it happens in pharmacy too. Nature invents the same solutions more than once.[cite: 1]`
+  },
+  {
+    title: "P11：乳香与没药 — Frankincense & Myrrh",
+    content: `These two are displayed together because they've been partners for about 3,000 years. And if you grew up in a Christian household, you already know their names.
+
+Frankincense and Myrrh. Two of the three gifts the Wise Men brought to the baby Jesus — gold, frankincense, and myrrh. The fact that two of the three most precious gifts in the most famous birth story in Western civilization are tree resins tells you exactly how valuable these substances were in the ancient world.
+
+Both come from small, tough trees that grow in the harshest, driest parts of northeastern Africa and the Arabian Peninsula — Somalia, Ethiopia, Oman, Yemen. The trees are slashed with knives, and the resin that weeps from the wounds hardens into these "tears" or lumps that you see here.
+
+In Chinese medicine, they're almost always used together as a pair:
+
+乳香 (frankincense) — moves qi, the energy flow. It gets things circulating.
+没药 (myrrh) — moves blood, the physical fluid. It breaks up stagnation.
+
+Together: qi moves AND blood moves. Pain stops. Swelling goes down. Wounds heal faster. They're a classic combination for traumatic injuries — sprains, bruises, fractures, post-surgical pain.
+
+What I love about this pair is the Silk Road story. These resins traveled from East Africa, across the Arabian desert, through Persia, along the Silk Road, and into Chinese pharmacies — a journey of thousands of miles, taking months or years. The same resins traveled west from Arabia into Egypt, Greece, and Rome. Chinese doctors and Roman doctors, at opposite ends of the ancient world, were prescribing the same tree resins for the same conditions — pain, wounds, inflammation — without any communication between them.
+
+The Silk Road wasn't just a trade route. It was a medical supply chain. And frankincense and myrrh were its bestselling products for a thousand years.[cite: 1]`
+  },
+  {
+    title: "P12：阿魏 — Asafoetida / 'Devil's Dung'",
+    content: `Fair warning: this next one has an... aggressive personality. I'm going to open this container, and I want you to be ready.
+
+That smell. YES. That is 阿魏 — Asafoetida — and its English nickname is "Devil's Dung." That should tell you everything about the first impression.
+
+It's a resin from the root of a giant fennel-like plant that grows in Iran, Afghanistan, and Central Asia. When the root is cut, it exudes this brownish, gummy substance with a smell that has been described as "concentrated garlic that got into a fight with rotten onions and both lost." It is, by a wide margin, the most aggressively smelly substance in this entire museum.
+
+So why would ANYONE use this? Two reasons.
+
+First, in cooking: if you've ever eaten Indian food, you've almost certainly eaten this. In Indian cuisine, it's called Hing, and when you heat a tiny pinch in oil, something magical happens — the horrific raw smell transforms into a smooth, savory, onion-garlic-umami flavor that forms the base of countless dal, curry, and vegetable dishes. Some Indian communities that avoid onions and garlic for religious reasons use asafoetida as a complete replacement. Raw, it's devil's dung. Cooked, it's delicious.
+
+Second, in medicine: Chinese doctors have used 阿魏 for centuries to kill intestinal parasites and break up abdominal masses. The intense chemistry that makes it smell so terrible also makes it biologically very active. It arrived in China via the Silk Road from Persia — the name 阿魏 is actually a transliteration of a Persian word.
+
+So: the worst-smelling substance in the room is simultaneously a beloved cooking ingredient for a billion Indians, a traditional Chinese deworming medicine, and a Silk Road trade commodity from ancient Persia. Never judge a medicine by its smell. Or... actually, maybe DO judge this one. But use it anyway.[cite: 1]`
+  },
+  {
+    title: "P13-P15：Storax, Rosewood, Camphor",
+    content: `Let me show you three more quickly before we move to the animal section.
+
+P13：苏合香 — Storax：
+This amber-colored, honey-like balsam is 苏合香 — Storax, from the Liquidambar tree. Yes — the same genus as the American sweetgum tree that drops those annoying spiky balls all over your driveway. A close relative of that "trash tree" produces one of the most valued aromatic medicines in Chinese pharmacy. It's a key ingredient in 苏合香丸 — a famous emergency pill used to revive unconscious patients. The strong aromatic compounds "open the senses" and stimulate the nervous system. Think of it as the Chinese version of smelling salts — but in pill form, and far more sophisticated. This resin traveled the Silk Road from the Mediterranean to China, and its name 苏合 is a transliteration of the ancient kingdom of Syria/Seleucid — proof of its western origin, embedded right in the Chinese name.
+
+P14：降香（黄花梨）— Dalbergia / Rosewood：
+This piece of dark, richly grained wood is 降香 — and it comes from the same tree that produces the most expensive furniture wood in the world: 海南黄花梨, Hainan Huanghuali rosewood. A single antique chair made from this wood has sold at auction for over $80 million. The sawdust and shavings from woodworking? Those go to the pharmacy. In Chinese medicine, 降香 moves qi, stops bleeding, and relieves pain. So the same tree that furnishes imperial palaces also fills medicine cabinets. One tree, two industries — and the "waste" from one is the product of the other. In woodworking circles, they say the most expensive sawdust in the world is Huanghuali sawdust — because every gram of it is also medicine.
+
+P15：樟脑 — Camphor：
+And these white, crystalline flakes — smell them.
+
+Sharp, penetrating, cool, slightly medicinal. This is 樟脑 — camphor — extracted from the camphor laurel tree through steam distillation. It might be one of the earliest examples of chemical extraction in human history — Chinese artisans figured out how to distill pure crystalline camphor from wood centuries before European chemistry existed as a science.
+
+You already know this substance even if you don't realize it: camphor is in Tiger Balm, in Vicks VapoRub, in moth balls, and in a dozen other products in your bathroom cabinet. It opens the nasal passages, relieves muscle pain, and repels insects. Your grandmother probably rubbed it on your chest when you had a cold. She was practicing Chinese medicine and didn't know it.
+
+The camphor tree itself is the reason your grandmother's clothes didn't get eaten by moths: 樟木箱 — camphor wood chests — naturally repel insects because the wood continuously releases camphor vapor. Before plastic garment bags, a camphor chest was the only reliable way to protect silk and wool from moths. The tree protects itself with chemistry. Humans borrowed the idea.[cite: 1]`
+  },
+  {
+    title: "Intro: Animal Medicines — 'The Controversial Cabinet'",
+    content: `That's our plant section — from dragon's blood to devil's dung, from zombie caterpillars to desert parasites. Plants are creative, but they have limits. When Chinese medicine needed even stranger materials, it turned to the animal kingdom. And I should warn you: some of what you're about to see is controversial, some is disturbing, and some has been banned. But all of it is part of the history, and ignoring it doesn't make it go away. Let's go in with open minds.
+
+OK. I need to set the tone before we walk in here. This section of the museum contains animal-derived medicines. Some of these are still used today. Some have been banned by the Chinese government. Some are the subject of fierce international debate — involving conservation, animal rights, cultural tradition, and science, all tangled together.
+
+I'm going to show you everything honestly. I'm not going to pretend the controversial ones don't exist, and I'm not going to defend practices that have caused real harm to endangered species. What I WILL do is explain what each substance was traditionally used for, why it was valued, and what's happened since. You're adults. You can handle complexity.
+
+The display cases in here are divided into three groups: red labels are BANNED — these are historical specimens only, no longer legally used. Yellow labels are RESTRICTED or CONTROVERSIAL — still in use but with significant ethical debates. And green labels are generally accepted — either from abundant species, from non-lethal harvesting, or from byproducts of existing industries.
+
+Let's start with the red labels. The hard stuff.[cite: 1]`
+  },
+  {
+    title: "A1：犀角 — Rhinoceros Horn",
+    content: `This curved, dark, conical object behind the glass is a rhinoceros horn. And as of 1993, it is completely, absolutely, unequivocally banned from use in Chinese medicine. Period. It is here purely as a historical exhibit.
+
+For centuries, 犀角 was considered the ultimate emergency medicine for life-threatening heat conditions — extremely high fever, delirium, convulsions, bleeding from multiple orifices. The classical texts describe it as the most powerful "blood-cooling" substance in the entire pharmacopoeia. When every other herb had failed and the patient was on the edge of death, 犀角 was the last resort.
+
+Now — here's the part that frustrates scientists: the horn is made of keratin. The same protein that makes up your fingernails and your hair. Pharmacologically, there is no convincing evidence that keratin has any unique fever-reducing or blood-cooling properties that you couldn't get from other sources. Multiple studies have tried to find the "magic ingredient." None have succeeded convincingly.
+
+So was the traditional use completely wrong? That's genuinely debated. Some researchers argue that the specific keratin structure of rhino horn might have trace bioactive compounds, or that the traditional processing method — grinding it into powder and dissolving it in liquid — might release peptides not present in other keratin sources. Others say it's pure placebo, amplified by centuries of reputation.
+
+What is NOT debated: the demand for rhino horn drove rhinoceros populations to the brink of extinction. The Javan rhino, the Sumatran rhino — functionally gone from the wild, or nearly so. Poaching remains a catastrophic problem in Africa despite international bans.
+
+China banned rhino horn in 1993 and replaced it in all official formulas with 水牛角 — water buffalo horn. Water buffalo are domestic farm animals, abundant, not endangered. Whether the substitution is medically equivalent is debated, but the conservation impact is clear: the legal Chinese market for rhino horn is closed.
+
+This specimen stays in the museum as a reminder: traditional medicine does not exist in a vacuum. When demand for a medicine threatens to erase an entire species from the planet, tradition must yield. This is one case where it did — too late for some populations, but it did.[cite: 1]`
+  },
+  {
+    title: "A2：虎骨 — Tiger Bone",
+    content: `Next to the rhino horn — tiger bone. Also banned in 1993, same decree.
+
+虎骨 was used for centuries to treat "wind-damp" conditions — what Western medicine would call rheumatoid arthritis, chronic joint pain, muscle weakness, lower back pain. The logic was almost poetic: the tiger is the most powerful, agile, muscular animal in the Chinese cultural imagination. Consume its bones, absorb its strength. Your weak joints gain the tiger's power.
+
+This is a form of reasoning called "sympathetic magic" in anthropology — the idea that consuming something transfers its qualities to you. It exists in traditions worldwide. Eating a lion's heart for courage. Eating an eagle's eye for sharp vision. It's a very human instinct, and it's mostly wrong.
+
+Modern analysis of tiger bone finds... calcium, phosphorus, collagen, and some amino acids. Nothing you couldn't get from cow bone, pig bone, or frankly a calcium supplement from the drugstore.
+
+But the cultural belief was enormously powerful. 虎骨酒 — tiger bone wine — was a famous tonic product, prestigious, expensive, given as a luxury gift. Demand contributed directly to the catastrophic decline of wild tiger populations across Asia. From roughly 100,000 wild tigers a century ago to fewer than 4,000 today.
+
+The ban was the right call. Multiple substitutes have been developed — 狗骨 (dog bone), synthetic alternatives, and herbal formulas that address the same symptoms without any animal bone. The medical loss is minimal. The conservation gain is enormous.
+
+If there's one lesson from this display case, it's this: not everything in a 2,000-year-old tradition deserves to be preserved. Some things deserve to be put behind glass, studied, understood — and retired.[cite: 1]`
+  },
+  {
+    title: "A3：熊胆 — Bear Bile",
+    content: `This one is still making headlines. And it's the most ethically complex case in this entire museum.
+
+Bear bile — 熊胆 — contains a compound called ursodeoxycholic acid, UDCA. In Chinese medicine, it's been used for centuries to clear heat from the liver, stop convulsions in children, and treat eye diseases. The bile is harvested from the gallbladder of Asiatic black bears.
+
+And here's where it gets complicated on every level.
+
+First, the medical level: UDCA genuinely works. This is not placebo. This is not sympathetic magic. UDCA is an approved pharmaceutical drug in Western medicine — prescribed under the brand name Ursodiol for gallstones and primary biliary cholangitis. It dissolves gallstones. It protects liver cells. It's on the WHO Essential Medicines List. Bear bile's traditional use was, in this case, validated by modern pharmacology.
+
+Second, the chemistry level: UDCA can be — and IS — chemically synthesized. You do not need a bear to make it. Synthetic UDCA is identical to bear-derived UDCA, molecule for molecule. It's cheaper, purer, and infinitely more ethical. It has been available for decades.
+
+Third, the animal welfare level: in the 1980s and '90s, China developed "bear farming" — keeping Asiatic black bears in small cages with permanent tubes surgically inserted into their gallbladders for continuous bile extraction. The suffering documented at these farms is among the most disturbing in any animal industry worldwide. International animal welfare organizations — particularly the Animals Asia Foundation — have campaigned for decades to close them. Some farms have been shut down. But the practice continues in some areas.
+
+So the question becomes: when a traditional medicine turns out to be genuinely effective, AND can be perfectly replicated synthetically, AND its natural harvest involves extreme animal suffering — what do you do? The answer seems obvious: use the synthetic version. And increasingly, that IS happening. But the transition is slower than it should be, partly because some practitioners insist that "natural" bear bile is superior to synthetic UDCA, a claim that has no chemical basis.
+
+This is Chinese medicine at its most conflicted: a tradition that correctly identified a powerful medicine a thousand years before Western chemistry could explain why it works — and then couldn't let go of the animal source even after the lab could make the same molecule in a flask.[cite: 1]`
+  },
+  {
+    title: "A4：玳瑁 — Hawksbill Turtle Shell",
+    content: `This beautiful, mottled, amber-and-brown shell fragment is from the hawksbill sea turtle — one of the most endangered sea turtles on Earth. In Chinese medicine, 玳瑁 was used to clear heat and calm convulsions, especially in children with high fevers. It's now banned under CITES — the Convention on International Trade in Endangered Species — and has been removed from clinical practice. The shell is also prized for jewelry and decorative objects, which is actually the larger driver of demand. Medical use was always secondary to the luxury trade. Substitutes include water buffalo horn and various mineral alternatives.[cite: 1]`
+  },
+  {
+    title: "A5：麝香 — Musk",
+    content: `Lean close to this display — but don't touch the glass. Even through the seal, you might catch a hint of it.
+
+This is 麝香 — musk — and it was, for centuries, the single most valuable animal product in Chinese medicine by weight. More expensive than gold. More expensive than saffron. And its source is one of the strangest in nature.
+
+The musk deer is a small, fanged, solitary deer that lives in the mountain forests of central and northeastern Asia. The male has no antlers — instead, it has long, protruding canine teeth, like vampire fangs. And on its belly, it has a gland — the musk pod — that produces a waxy, intensely aromatic secretion used to attract females. That secretion, dried and powdered, is 麝香.
+
+The smell is extraordinary — heavy, animalic, warm, penetrating, almost overwhelmingly complex. It was the base note of virtually every great perfume in European history before synthetic musks were developed. Chanel No. 5 originally contained natural musk. The entire French perfume industry depended on musk deer from Tibet and Siberia.
+
+In Chinese medicine, musk is the ultimate "opener" — an aromatic substance so powerful that it can "open" the senses of an unconscious patient. It's a key ingredient in 安宫牛黄丸 — the most famous emergency pill in Chinese medicine, used for stroke and coma. The idea: the intense aromatic stimulation breaks through whatever is blocking consciousness and "wakes the mind."
+
+The problem: harvesting natural musk required killing the deer. Populations collapsed. The musk deer is now endangered across its range.
+
+The solution: in the 1990s, Chinese pharmaceutical companies developed 人工麝香 — artificial musk — a synthetic formula designed to replicate the key aromatic compounds. It's now used in the vast majority of musk-containing formulas. Natural musk is essentially no longer harvested for pharmaceutical use, though illegal poaching continues for the perfume black market.
+
+This is actually a success story — one of the few cases where the industry developed a synthetic replacement AND widely adopted it. The emergency pills still work. The deer are slowly recovering. Tradition adapted. Not fast enough, and not without damage — but it adapted.[cite: 1]`
+  },
+  {
+    title: "A22：穿山甲（甲片）— Pangolin Scale",
+    content: `And one more red-label item — this one is the most recent to be banned, and it's arguably the most important conservation story in modern Chinese medicine.
+
+These flat, overlapping, brownish scales — they look like oversized fingernails, or the shingles on a roof — come from the pangolin. If you've never heard of a pangolin, picture an anteater wearing a suit of armor. It's the only mammal on Earth that's fully covered in scales. When threatened, it rolls into a ball — a perfect sphere of interlocking scales that no predator can bite through. Lions try. Leopards try. They all fail. The pangolin is basically a living tank.
+
+Tragically, the scales can't protect it from humans. The pangolin is the most trafficked mammal on Earth. More pangolins are smuggled across borders than any other mammal — driven primarily by demand for the scales in Chinese medicine and demand for the meat as a luxury food item.
+
+In traditional Chinese medicine, pangolin scales — 穿山甲 — were used to "break through" blockages: promoting lactation in new mothers, reducing abscesses, moving blood through blocked channels. The name 穿山甲 literally means "boring-through-mountains armor" — the folk belief was that pangolins could dig through solid rock, and consuming their scales would give you that same penetrating power.
+
+The scales are made of keratin. Same material as rhino horn. Same material as your fingernails. There is no credible evidence that pangolin keratin contains any unique bioactive compound not found in other keratin sources.
+
+In 2020, China removed pangolin scales from the official pharmacopoeia and raised the pangolin's protection status to the highest level. This was a landmark moment — the formal, institutional acknowledgment that a traditional medicine needed to be abandoned for the survival of a species.
+
+The pangolin is behind glass now. Where it belongs. And out in the wild, it has a slightly better chance of surviving because of that decision.[cite: 1]`
+  },
+  {
+    title: "A6：牛黄 — Ox Gallstone / Bezoar",
+    content: `Now — the yellow labels. These are the complicated ones. Still in use, still legal, but each carrying questions about ethics, sustainability, or cultural perception. No easy answers here.
+
+This small, golden-orange sphere — smooth on the outside, layered like an onion on the inside — is 牛黄. And it's essentially a gallstone from a cow.
+
+Yes. A gallstone. A stone that forms inside the gallbladder of cattle, made of bilirubin and bile acids, produced by the cow's liver. You would normally consider this a disease byproduct — something the veterinarian finds during slaughter and throws away. In Chinese medicine, it's one of the most precious substances in the entire pharmacopoeia.
+
+天然牛黄 — natural ox gallstone — is astonishingly rare. You might slaughter a thousand cattle and find one or two stones. Maybe none. The stone forms spontaneously in a small percentage of animals, and you can't predict which ones. It's like finding a pearl in an oyster — except rarer. And because it's so rare, natural 牛黄 costs more per gram than gold. Significantly more.
+
+What makes it so valued? It's the "monarch" ingredient in 安宫牛黄丸 — "Calm the Palace Ox Gallstone Pill" — which is arguably the single most famous emergency medicine in Chinese history. Used for stroke, high fever with delirium, coma, convulsions. When someone collapses from a stroke in China, one of the first things the family reaches for — even before the ambulance arrives — is 安宫牛黄丸. Pharmacies keep it behind the counter like a controlled substance. It's expensive, revered, and deeply trusted.
+
+Because natural 牛黄 is so scarce, three alternatives have been developed: 人工牛黄 (synthetic, made in a lab — cheap but considered less effective by traditional practitioners), 培植牛黄 (cultivated — a gallstone is deliberately induced to grow inside a living cow's gallbladder through a minor surgical procedure), and 体外培育牛黄 (in-vitro — grown in a bioreactor using real bovine bile, without needing a cow). The in-vitro version is considered closest to natural and is increasingly accepted.
+
+But here's the cultural reality: if someone's parent has a stroke, and the family can afford it, they want the NATURAL one. Not the synthetic. Not the cultivated. The REAL stone from a REAL cow. Because when someone you love is dying, you don't want to take chances with the generic version. That emotional logic — rational or not — is why natural 牛黄 remains one of the most expensive biological substances in China.[cite: 1]`
+  },
+  {
+    title: "A7：羚羊角 — Saiga Antelope Horn",
+    content: `This slender, slightly curved, translucent horn is from the saiga antelope — an ice-age survivor with a bizarre, bulbous nose that looks like a short elephant trunk. It's one of the strangest-looking mammals alive. And it's critically endangered.
+
+In Chinese medicine, 羚羊角 is the go-to medicine for high fever convulsions — when a patient is seizing, shaking, eyes rolled back. It's classified as the most powerful "wind-extinguishing, tremor-stopping" substance. The horn is shaved into thin shavings, boiled separately, and added to emergency formulas.
+
+The saiga was once one of the most abundant large mammals in Central Asia — millions roamed the steppes of Kazakhstan, Mongolia, and Russia. Then came demand for horns (primarily from Chinese medicine), combined with habitat loss and mysterious mass die-offs from bacterial infections. Population crashed by over 95% in two decades. International conservation efforts have helped somewhat — Kazakhstan's herds have partially recovered — but the species remains on the critical list.
+
+The standard substitute is 山羊角 — domestic goat horn. Far less expensive, abundant, and no conservation impact. Whether it's equally effective is debated, but it's the responsible choice, and most official guidelines now recommend it.[cite: 1]`
+  },
+  {
+    title: "A8：鹿茸 — Deer Antler Velvet",
+    content: `Now, this one might surprise some of you — because the biggest producer of this product isn't China. It's New Zealand.
+
+This is 鹿茸 — deer antler velvet. See the fuzzy, velvety surface? That's actual hair-like tissue covering the antler while it's still growing. And see the cross-section — that dark red interior? That's blood vessels. Living, blood-rich tissue. This antler was harvested while it was still growing — before it hardened into solid bone.
+
+Every year, male deer grow a completely new set of antlers. They're one of the fastest-growing tissues in the animal kingdom — up to 2 centimeters per DAY. The antlers start soft, covered in velvet, full of blood vessels and growth factors. Over summer, they harden, the velvet dries and peels off, the deer uses them for fighting during mating season, and then they fall off. The whole cycle starts again next year.
+
+In Chinese medicine, deer antler velvet — harvested during the soft, growing phase — is considered the most powerful yang tonic in the entire pharmacopoeia. It warms the kidneys, strengthens bones, boosts energy, and has been traditionally used for sexual health, fatigue, and recovery from chronic illness. It's the ultimate "vitality" medicine.
+
+Now, here's the twist: this product is harvested from live deer without killing them. The antler is cut — under anesthesia, on regulated farms — and the deer regrows it. It's more like shearing wool from a sheep than hunting an animal. New Zealand has a massive deer farming industry — originally for venison — and antler velvet has become a major secondary product, exported primarily to China and Korea.
+
+So the biggest supplier of one of the most iconic Chinese medicines is a country in the South Pacific, run by farmers of European descent, raising red deer originally imported from Scotland. Globalization works in surprising directions.
+
+Is it medically effective? The growth factors in velvet antler — including IGF-1 (insulin-like growth factor) — are real and measurable. Whether oral consumption delivers those factors in bioactive form is less clear. Research continues. But at least the ethical situation is relatively straightforward: the deer survive the harvest, they regrow the antler, and the farming industry is regulated. Among animal medicines, this is one of the more defensible ones.[cite: 1]`
+  },
+  {
+    title: "A9：阿胶 — Donkey-Hide Gelatin",
+    content: `This glossy, dark amber block — almost like a slab of very expensive chocolate — is 阿胶, and it might be the most commercially successful animal medicine in modern China.
+
+阿胶 is gelatin made from donkey skin. That's it. Donkey skin, slowly boiled in water — traditionally the spring water from the Ah Well in Dong'e County, Shandong Province — until the collagen dissolves. Then filtered, concentrated, and cooled into these dense, glossy blocks.
+
+In Chinese medicine, it's the queen of blood tonics — used for anemia, heavy menstrual bleeding, dry coughs, and insomnia. It's particularly associated with women's health. During pregnancy, postpartum recovery, and menopause, 阿胶 is the go-to supplement for millions of Chinese women. It's been marketed as a beauty and anti-aging product as well, which has sent demand — and prices — through the roof.
+
+How through the roof? The leading brand, 东阿阿胶, has raised its price over 3,000% since the year 2000. A single box can cost hundreds of dollars. It's become a luxury health product, a status gift, a cultural symbol.
+
+And the consequences have been global and devastating — for donkeys. China's domestic donkey population has collapsed from 11 million to about 3 million as animals are slaughtered faster than they can reproduce. When domestic supply ran out, Chinese buyers turned to Africa. Donkeys in Kenya, Burkina Faso, Niger, and Tanzania are now being bought and slaughtered in huge numbers. In some African communities, donkeys are essential working animals — they carry water, firewood, building materials. Losing them to the export market has real human consequences.
+
+Several African countries have now banned donkey skin exports. The African Union has called for a continent-wide moratorium. And in China, there's a growing movement to develop plant-based or synthetic alternatives.
+
+阿胶 is a case study in what happens when traditional medicine meets modern marketing and global supply chains. A modest, centuries-old tonic for women's health has been transformed into a luxury consumer product with international ecological and social consequences that nobody in the 17th century could have imagined.[cite: 1]`
+  },
+  {
+    title: "A10：蛤蚧 — Tokay Gecko",
+    content: `These two dried geckos — pinned to a board in a spread-eagle position, always sold as a PAIR, one male and one female — are 蛤蚧, the Tokay Gecko.
+
+If you've ever traveled in Southeast Asia, you've heard this animal. It's the one that sits on your hotel room ceiling and screams "GEH-KO! GEH-KO!" at 2 AM. Loudly. The word "gecko" in English actually comes from this sound.
+
+In Chinese medicine, the pair is used together — male and female, yin and yang — to tonify the lungs and kidneys. Specifically for chronic cough, asthma, and shortness of breath. The fact that they're always prescribed as a couple is a nice illustration of the yin-yang balance principle applied literally: you need both halves.
+
+Conservation status is a growing concern — wild Tokay populations have declined significantly due to harvesting for medicine and the exotic pet trade.[cite: 1]`
+  },
+  {
+    title: "A11：全蝎 — Scorpion",
+    content: `OK, who's afraid of scorpions? Because I've got a whole jar of them right here.
+
+These dried, curled-up little nightmares are 全蝎 — whole scorpion. And yes, the entire animal is the medicine — tail, pincers, legs, stinger, everything. That's what 全 means: whole. Nothing removed, nothing wasted.
+
+In Chinese medicine, scorpion is classified as a "wind-extinguishing" medicine. What does "wind" mean here? Not weather — it's the traditional term for symptoms that move: tremors, convulsions, spasms, seizures, facial paralysis, numbness that travels from one area to another. Anything that shakes, twitches, or migrates. Traditional doctors observed that these symptoms behave like wind — unpredictable, moving, hard to pin down — so they called the category "wind," and they reached for animals that are themselves fast, unpredictable, and hard to pin down. Like scorpions.
+
+The venom is the key. Scorpion venom contains a cocktail of neurotoxic peptides that affect ion channels in nerve cells. Modern pharmaceutical research is actively investigating scorpion venom peptides for epilepsy, chronic pain, and even brain tumors. A compound called chlorotoxin, originally isolated from the deathstalker scorpion, is being developed as a "tumor paint" — it binds specifically to brain cancer cells and makes them glow during surgery, helping surgeons see exactly where the tumor ends and healthy tissue begins.
+
+So the traditional insight — that scorpion venom affects the nervous system — was absolutely correct. Traditional doctors just didn't describe it in terms of ion channels and peptides. They described it as "extinguishing wind" and "opening channels." Different language, same observation.
+
+Oh, and if you ever visit Beijing: fried scorpions on a stick are a common street snack at the Wangfujing Night Market. Tourists eat them on a dare. Locals eat them because they're crunchy and salty. 药食同源 — medicine and food, same origin — even when the food has a stinger.[cite: 1]`
+  },
+  {
+    title: "A12：蜈蚣 — Centipede",
+    content: `And right next to the scorpion — its partner in crime.
+
+This is 蜈蚣 — centipede. And in Chinese medicine, scorpion and centipede are almost always prescribed together, as a pair. They're the Batman and Robin of the "wind-extinguishing" category. Scorpion is better at stopping convulsions. Centipede is better at unblocking channels and relieving severe pain. Together, they handle the full spectrum of "wind" conditions.
+
+Look at how it's prepared: the centipede is dried and pinned to a thin bamboo strip to keep it straight and flat. Without the bamboo, it would curl up into an unmanageable tangle of legs. The bamboo is the stretcher. Pharmacists sell them in pairs — always even numbers. And they're typically placed into the decoction near the end of the cooking time, because centipede — like mint — has volatile active compounds that break down with prolonged boiling.
+
+Now, centipedes are venomous. Not "kind of" venomous — genuinely, painfully venomous. A bite from a large Chinese centipede — 蚣 — is described as excruciating, far worse than a wasp sting. The venom contains a compound called SsTx that blocks potassium channels in nerve cells, causing intense pain.
+
+And THAT is exactly why it's medicine. The same venom that causes pain can, in controlled doses, treat pain. This is the principle of "以毒攻毒" — "using poison to attack poison" — one of the oldest ideas in Chinese medicine. A tiny amount of the substance that damages the nervous system can, paradoxically, reset or calm a malfunctioning nervous system. Modern pharmacology calls this concept hormesis. Chinese medicine called it 以毒攻毒 about 1,500 years earlier.[cite: 1]`
+  },
+  {
+    title: "A13：水蛭 — Leech",
+    content: `This one is going to surprise you. Not because it's exotic — but because it's the one animal medicine in this room that Western hospitals ALSO use. Right now. Today. In 2026.
+
+These dried, flat, dark strips are 水蛭 — leeches. In Chinese medicine, dried leech has been used for over a thousand years to "break blood stasis" — to dissolve blood clots, clear blocked vessels, and restore circulation. It's prescribed for stroke recovery, severe bruising, and blood clots.
+
+Now here's the Western medicine connection: after microsurgery — reattaching severed fingers, reconstructing flaps of skin, transplanting tissue — surgeons sometimes have a problem: the reattached tissue has good arterial blood flowing IN, but the tiny veins are too damaged to let blood flow OUT. Blood pools. The tissue swells, turns purple, and starts to die. The surgery fails.
+
+The solution? Live medicinal leeches. Applied directly to the tissue. The leech bites, begins feeding, and — crucially — its saliva contains a compound called hirudin that prevents blood from clotting. The bite wound keeps oozing for hours after the leech is removed, allowing the trapped blood to drain. This gives the tiny veins time to heal and reconnect.
+
+Medicinal leeches — Hirudo medicinalis — are FDA-approved medical devices. Yes, a living animal classified as a "medical device." They're bred in sterile laboratories, shipped to hospitals in temperature-controlled containers, and applied by surgeons wearing gloves. This happens in the best hospitals in America, Europe, and Asia, every single day.
+
+Hirudin itself has been synthesized and developed into pharmaceutical anticoagulants — drugs like bivalirudin, used in heart surgery. So the leech's chemistry has entered the mainstream pharmaceutical pipeline.
+
+Chinese medicine: using leeches for blood stasis since the Han Dynasty, roughly 200 AD. Western microsurgery: using leeches for blood stasis since the 1980s. Same animal. Same principle. Same result. Separated by 1,800 years.[cite: 1]`
+  },
+  {
+    title: "A14：僵蚕 — Stiff Silkworm",
+    content: `This next one is another "body snatcher" story — like the Cordyceps caterpillar we saw in the plant section, but with a different cast of characters.
+
+This is 僵蚕 — the "stiff silkworm." It's a silkworm that has been infected and killed by a white fungus called Beauveria bassiana. The fungus invades the silkworm's body, consumes its tissues, and replaces them with fungal mass. The dead silkworm becomes rigid — stiff as a twig — and coated in a layer of white powdery fungal spores. It looks like a small, white, frosted stick.
+
+In Chinese medicine, this zombie silkworm is used to "extinguish wind" (stop spasms and convulsions), "dissolve phlegm" (clear thick mucus from the throat), and "disperse nodules" (reduce swollen lumps like swollen lymph nodes or thyroid nodules). It's a relatively common ingredient — not rare, not expensive — because silkworm farming produces millions of silkworms, and some percentage always die from this particular fungal infection. The silk industry's loss is the pharmacy's gain.
+
+There's a nice symmetry here: the healthy silkworm produces silk — one of China's greatest contributions to material culture. The infected silkworm produces medicine — a contribution to medical culture. Same animal, two outcomes, both useful. China has been farming silkworms for 5,000 years, and nothing goes to waste.[cite: 1]`
+  },
+  {
+    title: "A15：蝉蜕 — Cicada Slough",
+    content: `Now — this one is my personal favorite in the entire animal section. Because nobody had to die.
+
+Look at this. It's beautiful, isn't it? A perfect, translucent, amber-colored shell in the exact shape of a cicada — legs, eyes, wings, everything intact. You can see through it. It's as light as a breath of air. And it's completely empty.
+
+This is 蝉蜕 — cicada slough. It's the exoskeleton that a cicada nymph leaves behind when it climbs out of the ground, cracks open its old skin, and flies away as an adult. The cicada is gone. Alive. Free. Flying around screaming in the trees. What's left is this hollow ghost of its former self — and THAT is the medicine.
+
+No animal was harmed. No animal was killed. The cicada voluntarily abandoned this shell as part of its natural life cycle. All the pharmacist does is collect the empty shells from tree trunks and fence posts in late summer. It's the most ethical animal medicine in the entire pharmacopoeia — a medicine made from something an animal threw away.
+
+Medicinally, 蝉蜕 is used for two main things: first, dispersing "wind-heat" — early-stage sore throat, hoarse voice, red itchy eyes, skin rashes. The idea is that it "ventilates" the surface of the body, like opening a window. Second, it's used for childhood convulsions — again the "wind-extinguishing" category.
+
+But there's a poetic dimension too. In Chinese literature, the cicada shedding its shell is a metaphor for spiritual transformation — leaving behind the old, heavy, earthbound body and emerging as something new, light, and free. The philosopher Zhuangzi used this image. Buddhist texts use it. Even politicians used it — a corrupt official caught doing something wrong might claim he had "shed his cicada shell" and become a new person.
+
+A medicine, a metaphor, and a marvel of natural engineering — all in one empty shell.[cite: 1]`
+  },
+  {
+    title: "A16：珍珠 — Pearl",
+    content: `From the lightest specimen in the room to one of the most glamorous.
+
+You all know what a pearl is. But you probably think of it as jewelry. In Chinese medicine, it's been a drug for 2,000 years.
+
+珍珠 — pearl — is formed when an irritant enters a mollusk's shell. The animal coats the irritant in layer after layer of nacre — the iridescent calcium carbonate material that lines the inside of the shell. Over years, those layers build up into a pearl. So a pearl is literally a marine animal's response to pain and irritation — a wound wrapped in beauty. There's a theme emerging here, isn't there? Agarwood is a tree's wound response. Pearl is an oyster's wound response. Some of the most valuable medicines come from suffering.
+
+In the pharmacy, pearls are ground into an extremely fine powder — 珍珠粉. This powder is used internally to calm the mind, stop tremors, and clear the eyes. Externally, it's been applied to the skin as a beauty treatment for centuries. Empress Dowager Cixi — the most powerful woman in Chinese history, who ruled China for nearly half a century — reportedly consumed pearl powder daily and applied it to her face every night. Whether it actually preserved her beauty is debatable. But the tradition persists: pearl powder face masks and pearl-containing skincare products are a multi-billion-dollar industry in Asia today.
+
+Modern analysis: pearl is about 90% calcium carbonate, plus amino acids and a few trace proteins. The calcium is bioavailable. The amino acids may have mild skin-conditioning effects. It's not magic, but it's not nothing either. And the cultural power of putting a ground-up gemstone on your face — the sheer luxury of it — has a psychological effect that shouldn't be underestimated. Sometimes believing a treatment works is part of how it works.[cite: 1]`
+  },
+  {
+    title: "A17：龟甲 / 鳖甲 — Tortoise/Turtle Shell",
+    content: `These two specimens look similar but come from different animals and do different things. Let me explain both quickly.
+
+On the left: 龟甲 — the ventral shell (the belly plate) of a freshwater tortoise. In Chinese medicine, it's considered the most powerful yin tonic in the animal kingdom. If deer antler is the king of yang, tortoise shell is the queen of yin. It nourishes the deepest, coldest, most fundamental yin in the body — kidney yin. It's used for chronic conditions: night sweats, hot flashes, brittle bones, ringing in the ears, insomnia. Slow, deep, long-term conditions that come from the yin being depleted over years or decades.
+
+On the right: 鳖甲 — the shell of the Chinese soft-shelled turtle, the one you see in Chinese restaurants. Yes, the soup turtle. Its shell is softer, more flexible, and medicinally it's used to clear chronic low-grade fevers and soften hard masses — like liver or spleen enlargement.
+
+Both animals are now overwhelmingly farm-raised. The soft-shelled turtle is one of the most farmed aquatic animals in China — tens of millions are raised for food, and the shells go to the pharmacy as a byproduct. So this is one case where the medicine is a secondary product of the food industry, not the primary driver of demand.
+
+Oh — and 龟苓膏, tortoise jelly, the dark, bitter herbal jelly you see in Hong Kong dessert shops? The traditional recipe uses ground tortoise shell. Today most commercial versions use plant-based substitutes. But the name — and the concept — remain.[cite: 1]`
+  },
+  {
+    title: "A18：蟾酥 — Toad Venom",
+    content: `Don't touch this one. Seriously.
+
+This dark brown disk is 蟾酥 — dried toad venom. It's collected from the parotid glands behind the ears of the Chinese toad. When the toad is stressed, these glands secrete a milky, toxic liquid. Collectors carefully squeeze the glands — the toad survives — and the liquid is dried into this hard, resinous cake.
+
+It is EXTREMELY potent. If you touched this and then rubbed your eyes, you'd be in the emergency room. If you ingested even a small amount without proper medical preparation, you could go into cardiac arrest. This is one of the most dangerous substances in the Chinese pharmacy.
+
+So why is it here? Because in precisely controlled doses, it's a heart medicine. 蟾酥 contains bufalin and related compounds called bufadienolides — and these are chemically very similar to digoxin, the famous Western heart drug derived from foxglove (Digitalis). Both substances strengthen heart contractions in failing hearts. Both are lethal in overdose. Both require extreme dosing precision.
+
+蟾酥 is a key ingredient in 六神丸 — "Six-Spirit Pill" — one of the most widely used traditional pills for sore throat and heart palpitations. The pill is tiny — about the size of a grain of rice — precisely BECAUSE the dose must be tiny. A few pills: medicine. A handful: death.
+
+The parallel between toad venom (Chinese) and foxglove (European) is one of the most striking in the history of medicine. Two completely different cultures, two completely different organisms — an amphibian and a flower — producing nearly identical cardiac-active molecules. And both traditions figuring out that the same compound can save a heart or stop it, depending entirely on the dose.
+
+Paracelsus was right: the dose makes the poison. And the toad proves it.[cite: 1]`
+  },
+  {
+    title: "A19：紫河车 — Human Placenta",
+    content: `This one is going to make some of you uncomfortable. Fair warning.
+
+紫河车. The name sounds poetic: "Purple River Vehicle." The actual substance is... dried human placenta.
+
+Yes. The placenta — the organ that forms inside the uterus during pregnancy, nourishes the fetus through the umbilical cord, and is delivered after the baby is born. In Chinese medicine, it was collected after birth, cleaned, steamed, dried, and ground into powder. It was used as a powerful tonic for severe deficiency — extreme fatigue, infertility, chronic asthma, wasting diseases. The logic was straightforward: this organ sustained an entire human life for nine months. It must contain concentrated life-giving energy.
+
+And biochemically? The placenta IS rich in hormones, growth factors, iron, and proteins. It's not crazy to think it has bioactive properties. In fact, "placentophagy" — eating the placenta — exists in many mammalian species. Dogs, cats, horses, and most other mammals eat the placenta after giving birth. Some advocates in the modern Western wellness movement have promoted human placenta consumption — dried, encapsulated, and sold as postpartum supplements. The practice is controversial in both Chinese and Western contexts.
+
+In 2020, 紫河车 was removed from the Chinese Pharmacopoeia. The stated reasons were ethical — concerns about consent (whose placenta is this? did the mother agree?), hygiene (risk of transmitting infections including HIV and hepatitis), and moral discomfort with commercializing human tissue.
+
+So: a medicine that was used for centuries, that has plausible biological activity, removed not because it doesn't work, but because modern society decided that trading in human organs — even afterbirth — crosses a line. Sometimes the reason a medicine gets retired has nothing to do with pharmacology and everything to do with ethics. And that's OK. Ethics evolving is a sign of a healthy civilization.[cite: 1]`
+  },
+  {
+    title: "A20：五灵脂 — Flying Squirrel Feces",
+    content: `And now — from human placenta to... squirrel poop. I promise the museum designers have a sense of humor.
+
+These dark brown pellets are 五灵脂 — and they are, without euphemism, the dried feces of the flying squirrel (technically a species of sugar glider native to Chinese mountains). Yes. Poop. Medicine.
+
+Before you make a face — think about what these squirrels eat. They're not city pigeons rummaging through garbage. These are forest-dwelling animals eating a diet of pine nuts, tree resin, berries, and bark. Their droppings are basically concentrated, pre-digested forest phytochemicals — plant compounds that have already been processed by the squirrel's digestive system. Think of it less as "feces" and more as "very small, animal-processed herbal pills." It helps. A little.
+
+In Chinese medicine, 五灵脂 is used to invigorate blood and relieve pain — particularly menstrual pain and post-injury pain. It's almost always combined with 蒲黄 (cattail pollen) in a famous two-herb formula called 失笑散 — "Powder of Lost Smiles." The name is supposed to mean "the powder that makes pain vanish so fast you forget to smile" — but honestly, every student in Chinese medical school interprets it as "the powder that makes you lose your smile when you find out what's in it."
+
+Medically, there IS some logic. The squirrel's digestive processing may concentrate and transform certain plant compounds into more bioavailable forms. Fermentation — which is essentially what digestion is — can create new compounds not present in the original food. Kopi luwak, the famous expensive coffee made from beans eaten and excreted by civets, works on the same principle: the animal's digestion changes the chemistry of the bean. 五灵脂 is the medical version of civet coffee. Except you don't enjoy it nearly as much.[cite: 1]`
+  },
+  {
+    title: "A21：海马 — Seahorse",
+    content: `This delicate, dried creature — curled tail, tube-shaped snout, armored body — is exactly what it looks like: a seahorse.
+
+海马 — seahorse — has been used in Chinese medicine for centuries as a kidney and yang tonic. It's prescribed for impotence, infertility, lower back pain, and — in combination with other herbs — asthma and urinary incontinence.
+
+But the reason I want you to look at this animal has nothing to do with medicine. It has to do with biology. Because seahorses have one of the most remarkable reproductive systems in the animal kingdom: the MALE gets pregnant. The female deposits her eggs into a pouch on the male's belly. The male fertilizes them, carries them, nourishes them, and — after weeks of "pregnancy" — gives birth. He contracts, he labors, and tiny fully-formed baby seahorses squirt out of his pouch, sometimes hundreds at a time.
+
+In Chinese medicine, this might be the subconscious reason seahorse was classified as a "kidney" tonic. The kidneys in Chinese medicine govern reproduction and sexual function. An animal where the male does the reproductive heavy lifting — that's an animal that embodies reproductive power in a way that no other creature does.
+
+The conservation concern is real: seahorses are threatened worldwide. An estimated 150 million seahorses are harvested annually, primarily for traditional medicine and aquarium trade. CITES has listed them, and trade is regulated. Seahorse farming is being developed, but it's technically difficult — seahorses are fragile, disease-prone, and expensive to raise. This is an ongoing case where medical demand and conservation are in direct tension, without a clear resolution yet.[cite: 1]`
+  },
+  {
+    title: "A9 补充 & 蝉蜕 revisited",
+    content: `We already talked about the Tokay Gecko. But I forgot to mention: the specific way geckos are prepared for sale is itself memorable. They're pinned to a bamboo frame with their limbs spread out — one male and one female, face to face, like they're slow-dancing. This is how every Chinese pharmacy has displayed 蛤蚧 for centuries. If you've ever walked through a traditional medicine street in Guangzhou or Hong Kong, you've seen pairs of spread-eagled geckos in the shop windows, staring at each other from their bamboo frames. It's both slightly creepy and oddly romantic.
+
+And let me do something here. Cicada shells are inexpensive and harmless. If the museum has extras — and most do — I'd like everyone to hold one.
+
+Hold it in your palm. Feel how light it is. Look through it. See the world through the eyes of a ghost. This is a creature's entire outer body — every leg joint, every eye facet, every antenna segment — perfectly preserved in transparent chitin. The animal inside grew too big for this shell, broke free, and flew away. What you're holding is the boundary it outgrew.
+
+In a way, that's what this whole day has been. You walked in this morning with no framework for understanding Chinese medicine. You sat through lectures about thermostats and elevators and orchestras. You walked through a garden and smelled mint and fish herbs. You watched a pharmacist weigh herbs on a bronze scale. You saw the back workshop where raw roots become refined medicine. And now you're standing in a museum holding the shed skin of a cicada — a creature that left its old self behind and became something new.
+
+Take it home. Put it on your desk. And when someone asks you what it is, you have a story to tell.[cite: 1]`
+  },
+  {
+    title: "Intro: Mineral Medicines — 'The Pharmacy Under Your Feet'",
+    content: `One more room. The mineral kingdom. Rocks, metals, fossils, and crystals. This is where Chinese medicine gets geological — and where some of the best stories in this entire museum are hiding.
+
+Plants grow. Animals move. But rocks? Rocks just... sit there. For millions of years. And yet Chinese medicine looked at rocks, crystals, metals, fossils, and mineral salts and said: "We can use those too."
+
+This room is where medicine meets geology. Some of these specimens are genuinely beautiful. Some contain elements that would make a chemistry teacher nervous — mercury, arsenic, lead. Some are older than any living thing on Earth. And one of them accidentally led to the discovery of the earliest known writing in Chinese civilization.
+
+Let's start with the most dangerous ones. Because that's always more interesting.[cite: 1]`
+  },
+  {
+    title: "M1：朱砂 — Cinnabar",
+    content: `This is the most visually striking thing in this room. Look at that color.
+
+Deep, pure, blazing red. Like fresh blood on snow. This is 朱砂 — cinnabar — and it's been the most important red pigment in Chinese civilization for over 3,000 years. The Forbidden City's red walls? Cinnabar. The red ink that emperors used to write comments on official documents — called 朱批, "vermillion comments"? Cinnabar. The red lacquer on ancient Chinese furniture? Cinnabar. The paint on the faces of opera performers? Cinnabar. This one mineral colored an entire civilization.
+
+In Chinese medicine, cinnabar is used to calm the mind and stop palpitations. When someone can't sleep because their heart is racing, their thoughts are spinning, they feel anxious and restless — cinnabar is the traditional "heavy anchor" that pulls the mind downward and quiets it. The Chinese term is 重镇安神 — "settle by weight." The idea is almost physical: your mind is floating upward like a balloon, and cinnabar is the heavy stone tied to the string that brings it back down.
+
+Now — the chemistry. Cinnabar is mercury sulfide. HgS. It contains mercury. The same mercury that your dentist stopped putting in fillings. The same mercury that makes thermometers dangerous if they break. Mercury.
+
+Is this safe? Here's the nuanced answer: cinnabar in its mineral sulfide form (HgS) is relatively insoluble in water and in stomach acid. This means that when you swallow a small amount of cinnabar powder, very little mercury actually enters your bloodstream. It mostly passes through. This is VERY different from organic mercury compounds — like methylmercury in contaminated fish — which are highly absorbable and highly toxic. Traditional practitioners argue that cinnabar at traditional doses, for short periods, has an acceptable safety profile precisely because of this low bioavailability.
+
+Modern regulators are less comfortable. Many countries have restricted or banned cinnabar in internal medicines. China still permits it in certain traditional formulas at controlled doses, but with warnings.
+
+The Taoist connection is irresistible: for centuries, Taoist alchemists believed that cinnabar was the key to immortality. They heated it in furnaces, producing liquid mercury (which they called "living silver"), and combined it with other substances in attempts to create the "elixir of eternal life." Multiple Chinese emperors died from consuming these mercury-based "immortality pills." They were literally poisoning themselves in pursuit of eternal life. The most famous case: Emperor Qin Shi Huang — the first emperor of unified China, builder of the Great Wall, commander of the Terracotta Army — is widely believed to have died from mercury poisoning caused by his alchemists' elixirs.
+
+So cinnabar is a pigment, a medicine, a poison, and a failed key to immortality. That's a lot of resume for one red rock.[cite: 1]`
+  },
+  {
+    title: "M2：雄黄 — Realgar",
+    content: `From mercury to arsenic. Staying in the danger zone.
+
+This orange-yellow mineral is 雄黄 — realgar — and its chemical formula is As₂S₂. Arsenic sulfide. Yes, arsenic. The most famous poison in European murder mysteries, right here in a Chinese medicine cabinet.
+
+But before you panic: like cinnabar, realgar in its mineral sulfide form has very low bioavailability. The arsenic is tightly bound to sulfur and doesn't readily dissolve in body fluids. Traditional external use — applied to the skin for sores, insect bites, and parasites — involves minimal systemic absorption. Internal use is much more controversial and increasingly restricted.
+
+Now — forget the chemistry for a moment, because 雄黄 has the best story in Chinese folklore. Have you heard of the Legend of the White Snake? 《白蛇传》?
+
+It's one of China's four great folk tales. A beautiful woman named Bai Suzhen is actually a thousand-year-old white snake spirit who has taken human form. She falls in love with a human man, Xu Xian, and they marry. Everything is wonderful until the Dragon Boat Festival — 端午节 — when tradition says everyone should drink 雄黄酒, rice wine mixed with powdered realgar, to ward off evil spirits and venomous creatures.
+
+Xu Xian offers his wife a cup of realgar wine. She tries to refuse — she knows what will happen — but he insists. She drinks it. And the realgar forces her to reveal her true form: she transforms back into a giant white snake, right there in their bedroom. Xu Xian sees his wife become a serpent and drops dead from shock. (Don't worry, she steals the Lingzhi mushroom from the sacred mountain and brings him back to life. That's the 灵芝 story we already heard.)
+
+This tale is performed in every Chinese opera house, made into dozens of movies and TV shows, and known by essentially every Chinese person alive. And at the center of the plot: 雄黄酒. A mineral medicine that reveals the truth.
+
+To this day, during the Dragon Boat Festival in June, some Chinese families still put a dab of realgar wine on children's foreheads to protect them from evil spirits and poisonous insects. It's one of the oldest continuously practiced medicinal folk rituals in the world. Is it medically effective? The arsenic compounds ARE genuinely toxic to insects and parasites. Is it safe to put on a child's forehead? In the tiny amounts used, probably. Would a modern toxicologist recommend it? Probably not. But would a Chinese grandmother stop doing it? Absolutely not.[cite: 1]`
+  },
+  {
+    title: "M3：石膏 — Gypsum",
+    content: `OK, let's step away from the poisons and meet a mineral that's completely harmless. In fact, you've probably eaten it today.
+
+This beautiful, white, semi-translucent crystal is 石膏 — gypsum. Calcium sulfate dihydrate. CaSO₄·2H₂O. And it's one of the most commonly prescribed minerals in the entire Chinese pharmacopoeia.
+
+Its job is simple: put out fire. When a patient has a raging high fever — face red, sweating heavily, extremely thirsty, wants to chug ice water — that's what Chinese medicine calls 阳明经热, intense heat in the Yangming channel. And gypsum is the fire truck. It's the "monarch" herb — yes, a mineral can be "monarch" — in a famous formula called 白虎汤, "White Tiger Decoction." White Tiger is one of the four divine beasts of Chinese mythology, and it represents the west, autumn, metal, and — most importantly — the color white. White Tiger Decoction is white because of the gypsum. And it's cold. Very cold. It brings high fevers down fast.
+
+Now here's the fun part: gypsum is also the coagulant used to make tofu. When soy milk is warm and you add a small amount of gypsum powder, the proteins clump together and solidify into soft bean curd. The gypsum acts as a calcium salt bridge between protein molecules. So every time you eat tofu, you're eating a food solidified by a Chinese medicine. 药食同源 — one more time.
+
+Gypsum is also the material in plaster of Paris — the stuff orthopedic doctors use to make casts for broken bones. And it's in drywall — the panels that make up the walls of your house. So this mineral cools your fever, makes your tofu, sets your broken arm, AND builds your living room. Not bad for a white rock.[cite: 1]`
+  },
+  {
+    title: "M4：滑石 — Talc",
+    content: `This smooth, soapy-feeling white mineral is 滑石 — talc. The softest mineral on the Mohs hardness scale. Rub it between your fingers — feel how slippery it is? Like wet soap.
+
+In Chinese medicine, talc is the main ingredient in a famous summer formula called 六一散 — "Six-to-One Powder" — six parts talc to one part licorice. It's used for summer heat stroke: hot, thirsty, scanty dark urine. The talc "slides" heat and dampness out through the urinary tract. The name "滑" literally means "slippery" — it makes things slide through.
+
+But you already know talc. It's the main ingredient in baby powder. Talcum powder. The stuff your parents dusted on your bottom when you were a baby to prevent diaper rash. Johnson & Johnson built a billion-dollar business on it.
+
+So next time you see a bottle of baby powder, you're looking at a Chinese herbal formula ingredient. The connection between traditional medicine and your bathroom cabinet is closer than you ever imagined.[cite: 1]`
+  },
+  {
+    title: "M5：芒硝 — Mirabilite",
+    content: `These translucent, prismatic crystals are 芒硝 — mirabilite. Hydrated sodium sulfate. And the Latin name "mirabilite" literally means "wonderful salt" — because when 17th-century European chemists first isolated it, they were amazed by its powerful purgative effect.
+
+In plain language: it makes you poop. Fast. Thoroughly. Without negotiation.
+
+In Chinese medicine, 芒硝 is used to purge severe constipation — specifically the kind with hard, dry, immovable stool. It works by osmosis: the salt draws water into the intestines, softening everything and making it move. This is the exact same mechanism as modern osmotic laxatives like MiraLAX. Same principle, same result. MiraLAX uses polyethylene glycol. 芒硝 uses sodium sulfate. Different salt, identical physics.
+
+The Chinese figured this out about 1,800 years before MiraLAX hit the pharmacy shelf. Sometimes innovation isn't discovering something new. It's discovering that something old was right all along.[cite: 1]`
+  },
+  {
+    title: "M6：龙骨 — Dragon Bone",
+    content: `Now. The single best story in this entire museum.
+
+These grayish-white, chalky fragments are labeled 龙骨 — "Dragon Bone." And for centuries, traditional pharmacists bought them, ground them into powder, and prescribed them for anxiety, insomnia, palpitations, and seizures. The medicine was classified as "heavy settling" — like cinnabar, the idea was that these heavy mineral fragments would weigh down the restless spirit and calm the mind.
+
+Nobody knew what they actually were. They were sold as "dragon bones" because, well, they were bones, and they were very old, and dragons seemed like a reasonable explanation. They were dug up by farmers in the Yellow River region and sold to medicine shops by the sack.
+
+Then, in 1899, a scholar named Wang Yirong was sick. He went to a pharmacy in Beijing and bought some 龙骨 for his prescription. While waiting for his medicine to be prepared, he looked at the bones. And he noticed something: some of them had markings. Not random cracks — organized, deliberate scratches. Patterns that looked like... writing.
+
+Wang Yirong happened to be one of the leading antiquarian scholars in China. He recognized that these scratches were a form of ancient Chinese script. He immediately started buying every "dragon bone" he could find, paying premium prices. Other scholars joined in. Within a few years, they had assembled thousands of inscribed fragments.
+
+Those fragments turned out to be oracle bones — 甲骨文 — dating to the Shang Dynasty, roughly 1200 to 1050 BC. Over three thousand years old. They are the oldest known examples of Chinese writing. The inscriptions are divination records: questions posed to ancestors and gods, with answers interpreted from the cracks produced by heating the bones. They've provided more information about Shang Dynasty culture, religion, politics, and language than any other archaeological source.
+
+The discovery of oracle bones is considered one of the most important archaeological events in Chinese history. It rewrote the timeline of Chinese civilization, confirmed the historical existence of the Shang Dynasty (previously considered semi-legendary), and launched an entirely new academic field.
+
+And it all started because a sick scholar looked at his medicine and thought, "Wait — is that WRITING?"
+
+For who knows how many decades or centuries before 1899, farmers had been digging up priceless archaeological treasures, selling them to pharmacists, and pharmacists had been GRINDING THEM INTO POWDER AND FEEDING THEM TO PATIENTS. Thousands of oracle bones — irreplaceable records of ancient civilization — were consumed as anxiety medicine, dissolved in water, and swallowed. Gone forever.
+
+So: 龙骨 is a medicine that turned out to be the key to understanding ancient Chinese civilization. It calmed people's nerves for centuries — and then blew the minds of historians when someone finally looked closely enough to read what was written on it.
+
+Never, ever assume that a "boring" medicine has nothing to say.[cite: 1]`
+  },
+  {
+    title: "M7：龙齿 — Dragon Teeth",
+    content: `And right next to the dragon bones — 龙齿, "Dragon Teeth." Same source: ancient mammalian fossils. But these are teeth instead of bones — you can see the enamel surface, the root structure. Some of these teeth are from species that went extinct tens of thousands of years ago: ancient horses, rhinoceroses, elephants.
+
+Same medical function as dragon bone — calming the mind, settling anxiety. But there's something poignant about holding a tooth from an animal that walked this earth during the Ice Age, and knowing that for centuries it was sitting in a drawer in a pharmacy, labeled "dragon tooth," waiting to be someone's sleeping pill.
+
+Geology, paleontology, and pharmacy — all in one drawer.[cite: 1]`
+  },
+  {
+    title: "M8：磁石 — Magnetite",
+    content: `Now something interactive. Watch this.
+
+This black, heavy stone just grabbed those iron filings right out of the air. This is 磁石 — magnetite — natural magnetic iron oxide. Fe₃O₄. A rock that pulls metal toward it without touching it. For ancient people who had no concept of electromagnetic fields, this must have seemed genuinely magical.
+
+In Chinese medicine, magnetite is used to "weigh down" the rising energy — calm the liver, anchor floating yang, and treat dizziness, tinnitus (ringing in the ears), and blurry vision. The logic follows the same pattern we've seen with dragon bone and cinnabar: heavy things pull downward. If your symptoms involve things going UP — dizziness (head feels light), ringing ears (sound rising), anxiety (mind floating) — you prescribe something HEAVY to pull everything back down.
+
+But magnetite has a second life that's even more important than its medical one: the magnetic compass. The Chinese discovery that magnetite consistently points north-south — and the subsequent invention of the compass — is one of the Four Great Inventions of Chinese civilization, alongside paper, printing, and gunpowder. The tool that made global navigation possible, that enabled Columbus, Magellan, and every age of exploration — started as a rock in a Chinese medicine cabinet that happened to have a strange affinity for iron.
+
+So next time you use a compass app on your phone, or any GPS system that still references magnetic north — thank a Chinese pharmacist who noticed that one of his rocks was doing something weird.[cite: 1]`
+  },
+  {
+    title: "M9：赭石 — Hematite",
+    content: `This heavy, reddish-brown stone is 赭石 — hematite. Iron oxide, Fe₂O₃. The name 赭 literally IS the Chinese word for this red-brown color — the stone named the color, not the other way around.
+
+Medicinally, it's used to push energy downward — specifically to stop vomiting and stop hiccups. If someone can't stop vomiting, or has hiccups that won't quit for hours, 赭石 is the heavy anchor that forces the rebellious stomach energy back DOWN where it belongs. Remember the elevator? Vomiting is the elevator going UP when it should be going DOWN. 赭石 hits the "down" button. Hard.
+
+But here's the art history connection: hematite powder — red ochre — is one of the oldest pigments used by humans. The cave paintings at Lascaux, Altamira, Chauvet — those stunning images of bison, horses, and human hands painted 30,000 to 40,000 years ago — were painted with hematite. The same mineral that Chinese doctors grind up for hiccups, Stone Age artists ground up to create some of the earliest known works of art. Forty thousand years of human creativity, starting with this rock.[cite: 1]`
+  },
+  {
+    title: "M10：自然铜 — Pyrite ('Fool's Gold')",
+    content: `This one looks like treasure. Literally.
+
+Look at that metallic, golden shine. If you found this in a stream during the California Gold Rush, you'd start celebrating. And then a geologist would break the bad news: this is pyrite — iron sulfide — commonly known as "Fool's Gold." It looks like gold. It shines like gold. It is absolutely, positively, NOT gold.
+
+But in Chinese medicine, Fool's Gold has a real job: fixing broken bones. 自然铜 is the traditional go-to mineral for fractures. The raw mineral is calcined — heated to high temperature — then quenched in vinegar, which makes it brittle and easy to grind. The resulting powder is taken internally to "reconnect bones and mend tendons."
+
+Does iron sulfide actually help bones heal? The iron content may contribute to blood formation, and the sulfur may play a role in collagen synthesis — both relevant to bone repair. The evidence is circumstantial, not definitive. But the traditional pairing is consistent: 自然铜 shows up in almost every classical formula for traumatic fractures, alongside bone-knitting herbs like 续断 ("reconnect the broken") and 骨碎补 ("repair the shattered bone" — even the herb names tell you the function).
+
+But honestly, the best thing about this mineral is the metaphor: something that LOOKS valuable but ISN'T (gold), turns out to BE valuable for something nobody expected (medicine). Appearances deceive. Worth isn't always where you think it is. Fool's Gold is only "fool's" if you're looking for gold. If you're looking for medicine, it's the real thing.[cite: 1]`
+  },
+  {
+    title: "M11：炉甘石 — Calamine",
+    content: `Quick show of hands: who has ever had calamine lotion put on them as a kid? For a mosquito bite, poison ivy, chickenpox?
+
+All of you. Good. Now look at this pink-white mineral. THIS is what calamine lotion is made from. 炉甘石 — calamine — zinc carbonate. The same pink liquid your mom dabbed on your itchy mosquito bites when you were seven.
+
+In Chinese medicine, calamine has been used topically for centuries — for itchy skin, oozing sores, red swollen eyes, and weeping eczema. It dries, it soothes, it protects. It forms a thin, protective, slightly astringent coating on damaged skin.
+
+In Western pharmacology — exactly the same. Calamine lotion is in every drugstore in America. Same mineral. Same function. Same application method. No translation needed.
+
+This is the cleanest example in this entire museum of a medicine that exists independently in BOTH Chinese and Western traditions with ZERO disagreement about what it does. No debate about yin and yang. No controversy about animal ethics. No mysticism. Just: "This pink stuff makes itching stop." Everyone agrees. East and west. Ancient and modern. Your grandmother and your dermatologist.
+
+Sometimes medicine isn't complicated. Sometimes a rock is just really good at stopping itching.[cite: 1]`
+  },
+  {
+    title: "M12：硫黄 — Sulfur",
+    content: `This bright yellow crystalline material is 硫黄 — sulfur. Smell it — carefully.
+
+Rotten eggs, right? That smell is hydrogen sulfide — a gas that sulfur releases in trace amounts. Unmistakable and unforgettable.
+
+In Chinese medicine, sulfur is used externally to kill parasites and fungi on the skin — particularly for scabies, the intensely itchy mite infection that burrows into your skin. Sulfur ointments for scabies have been used across cultures for thousands of years — Chinese, Greek, Roman, Arab, Indian. It's one of the most universally recognized skin medicines in human history.
+
+But sulfur has two other identities that are way more dramatic.
+
+First: it's one of the two pillars of Taoist alchemy. Remember cinnabar — mercury sulfide? Taoist alchemists believed that mercury represented yin, sulfur represented yang, and combining them would create the elixir of immortality. 朱砂 + 硫黄 = eternal life. (It didn't work. Multiple emperors died trying. But the theory was elegant.)
+
+Second: sulfur is one of the three ingredients in gunpowder. Sulfur + charcoal + potassium nitrate = the explosive that changed the world. Gunpowder is one of China's Four Great Inventions — alongside the compass (which started as magnetite from the pharmacy), paper, and printing. Two of China's Four Great Inventions started their careers as entries in the Chinese medicine cabinet. The pharmacy literally changed the course of world history.[cite: 1]`
+  },
+  {
+    title: "M13：白矾（明矾）— Alum",
+    content: `These clear, glassy crystals are 白矾 — alum. Potassium aluminum sulfate. And this mineral has been doing double duty in Chinese daily life for centuries.
+
+In medicine: it dries dampness, stops itching, and detoxifies. Used externally for skin conditions and internally (in tiny doses) for chronic diarrhea and excessive vaginal discharge.
+
+In daily life: before modern water treatment plants existed, Chinese people purified their drinking water by dropping a small piece of alum into the bucket. The alum causes suspended particles and bacteria to clump together and sink to the bottom — a process called flocculation. Clean water on top, sediment on the bottom. Pour off the clean water, discard the rest. An ancient water purification system that's chemically identical to what modern treatment plants do with aluminum sulfate.
+
+Oh, and if you've ever seen a "crystal deodorant" — those translucent rock-shaped natural deodorant sticks sold at health food stores? That's alum. Pure alum. Marketed as a "natural alternative" to chemical deodorants. Chinese grandmothers have been using it for centuries. The health food store just put it in nicer packaging.[cite: 1]`
+  },
+  {
+    title: "M14：青黛 — Indigo",
+    content: `This deep blue powder is going to connect Chinese medicine to your wardrobe.
+
+青黛 — indigo. A rich, dark blue pigment extracted from plants in the same family as 板蓝根 (the cold medicine root we discussed in the pharmacy tour). In fact, the leaf of the indigo plant is 大青叶 (a heat-clearing medicine), the root is 板蓝根 (the sore throat medicine everyone panic-buys), and the blue pigment processed from the leaves is 青黛 (used for high fevers, convulsions, and skin conditions). Three medicines, one plant, plus a world-changing dye.
+
+Because this blue pigment is the original dye for denim. As in: jeans. Levi's. Blue jeans were originally dyed with natural indigo — the same compound that Chinese pharmacists were using as medicine. The same blue that's on the jeans you're probably wearing RIGHT NOW was, in another context, a Chinese fever medicine.
+
+Before synthetic indigo was invented in the late 1800s, natural indigo was one of the most traded commodities on Earth — up there with sugar, cotton, and spices. Indigo plantations drove colonial economies across India, Central America, and the American South. Wars were fought over indigo. Fortunes were made and lost. All because of a blue powder that Chinese medicine classifies as "salty and cold, entering the liver channel, clearing heat and cooling blood."
+
+Your jeans are dyed with Chinese medicine. You're welcome.[cite: 1]`
+  },
+  {
+    title: "M15：琥珀 — Amber",
+    content: `This translucent, golden-orange gem is something most of you know from one specific movie.
+
+Amber. And if this piece contains a visible insect trapped inside — look closely — then you're looking at the exact premise of Jurassic Park. In the movie, scientists extract dinosaur DNA from a mosquito preserved in amber for millions of years. The movie is fiction. But the amber is real — and so is the preservation.
+
+Amber is fossilized tree resin — not sap, resin. Millions of years ago, a tree oozed sticky resin, an insect landed on it and got stuck, more resin flowed over the insect, and over geological time, the resin hardened into this translucent stone. The insect inside is perfectly preserved — wings, legs, antennae — in a golden time capsule.
+
+In Chinese medicine, amber is ground into powder and used to calm the mind and settle anxiety — same "heavy settling" category as dragon bone and magnetite. It's also used to "invigorate blood" and promote urination. The calming function may have been inspired by the fact that when you hold amber up to light, it glows with this warm, honeyed luminosity that is genuinely soothing to look at.
+
+And amber is also a gem. Amber jewelry has been prized from the Baltic to China for thousands of years. The Amber Room in the Catherine Palace in Russia — an entire room paneled in amber — was called the "Eighth Wonder of the World" before it was looted by the Nazis in World War II and disappeared. So amber is a fossil, a gem, a missing art treasure, a movie plot device, AND a Chinese sedative. For a blob of ancient tree sap, that's an impressive CV.[cite: 1]`
+  },
+  {
+    title: "M16-M20: Coral, Stalactite, Ophicalcite, Calcite, Limonite",
+    content: `M16：珊瑚 — Coral
+This branching, white-to-pink structure is 珊瑚 — coral. Calcium carbonate skeleton of marine coral animals. Used traditionally to calm convulsions and clear the eyes. Now, of course, coral reefs are among the most endangered ecosystems on Earth — bleaching, acidification, warming oceans. Medicinal use of coral has essentially stopped in mainstream Chinese pharmacy. Tibetan medicine still values it. This specimen stays here as a reminder that the ocean's pharmacy, like the forest's pharmacy, has limits. When the ecosystem dies, the medicine dies with it.
+
+M17：钟乳石 — Stalactite
+This elongated, cone-shaped mineral — dripping with frozen-in-time layers of calcium carbonate — is 钟乳石, a stalactite. Yes, the kind that hangs from cave ceilings. It forms one drop at a time: mineral-rich water drips from a cave roof, the water evaporates, a microscopic layer of calcium carbonate is left behind. Repeat for 100,000 years. You get this.
+
+In Chinese medicine, stalactite is warmed and used to warm the lungs — chronic cold-type asthma, cold hands and feet, impotence from kidney yang deficiency. There's a poetic logic: a mineral formed by slow accumulation over millennia is prescribed for conditions of slow, chronic depletion. The medicine's timescale matches the disease's timescale. Deep medicine for deep problems.
+
+But here's the conservation note: stalactites take hundreds of thousands of years to form. Breaking one off for medicine is permanent — it will never regrow in any human-relevant timeframe. Many Chinese caves now prohibit harvesting. This specimen is from a time before those protections existed.
+
+M18：花蕊石 — Ophicalcite
+This stone — look at the pattern. See those swirling veins of green and white? Like marble that's been mixed with jade. The name 花蕊石 means "flower-stamen stone" because the patterns resemble flower stamens frozen in rock.
+
+It's a metamorphic rock — limestone that's been transformed by heat and pressure, with serpentine minerals creating those green veins. Medicinally, it's used to stop bleeding and dissolve blood clots — a wound medicine for traumatic injuries. The traditional preparation involves calcining it — heating to extreme temperatures — then quenching it, grinding it, and applying it to wounds or taking it internally for internal bleeding.
+
+Honestly, I include this one mostly because it's beautiful. Sometimes a medicine's first job is to make you stop and look.
+
+M19：寒水石 — Calcite / "Cold Water Stone"
+This pale, cool-to-the-touch mineral is 寒水石 — and the name tells you everything: "Cold Water Stone." Feel it.
+
+Cool, right? Even at room temperature, calcite and gypsum-type minerals feel cooler than the air. That's because of their thermal conductivity — they pull heat from your skin faster than wood or plastic do. And that cooling sensation is exactly why it's in the pharmacopoeia: it clears heat. When a patient has a raging fever and feels like they're burning, this stone's nature is to be cold. Cold stone cools hot body. The principle could not be simpler.
+
+Sometimes Chinese medicine is profoundly complex. And sometimes it's just: "this rock feels cold, so let's use it to cool things down." Both approaches coexist. And both work.
+
+M20：禹余粮 — Limonite / "Yu's Leftover Grain"
+Last one. And the name is a legend.
+
+禹余粮 — "Yu's Leftover Grain." 禹 is the Great Yu — the mythical founder of the Xia Dynasty, the legendary hero who tamed China's great floods about 4,000 years ago. According to the story, Yu worked so tirelessly to control the floods — digging channels, building levees, redirecting rivers — that he passed by his own home three times without stopping to go inside and see his family. He ate only simple food and slept on bare ground.
+
+The legend says that when Yu finished his work and the floods were controlled, some of his rations were left behind — leftover grain turned to stone over the ages. THAT, according to folk tradition, is what this yellowish-brown mineral is: the fossilized remnants of the Great Yu's lunch.
+
+In reality, it's limonite — a hydrated iron oxide mineral. Not ancient food. But the name stuck, because it's a great story, and because the mineral does look remarkably like a lumpy, compressed ball of ancient grain.
+
+Medicinally, 禹余粮 is used to stop chronic diarrhea — specifically the kind that's been going on for weeks or months and won't respond to anything else. It's astringent and binding. It tightens the intestines and stops the leaking.
+
+I saved this one for last because it captures something essential about Chinese medicine: even a rock has a story. Even a lump of iron oxide gets a legend, a name with meaning, a connection to mythology and history. In Chinese medicine, nothing is "just a chemical." Everything is embedded in a web of stories, metaphors, and cultural memory. The medicine works on the body. The story works on the mind. And the best doctors have always known that you need both.[cite: 1]`
+  },
+  {
+    title: "Museum Conclusion",
+    content: `So — let's count what you've seen today. Tree wounds that cost more than gold. Zombie caterpillars. Squirrel poop pills. Fool's Gold that fixes bones. A toad that shares its chemistry with European heart drugs. An ugly brown rock that turned out to contain the oldest known Chinese writing. Baby powder. Blue jeans. Velcro. Gunpowder. And the compass.
+
+Chinese medicine isn't an isolated, exotic curiosity sealed off from the rest of the world. It's woven into everything — into global trade routes, into Nobel Prizes, into your bathroom cabinet, into the dye of your pants, into the invention of navigation itself.
+
+Whether you end up believing in Chinese medicine, studying Chinese medicine, or never thinking about it again after today — I hope you'll remember one thing: for thousands of years, people on this side of the world were paying very, very close attention to nature. They watched what plants did, what animals did, what rocks did. They tasted, they smelled, they experimented, they made mistakes, they recorded what worked. They built a system — imperfect, sometimes wrong, sometimes brilliant — that treated billions of people across millennia.
+
+And occasionally, when modern science catches up and looks at what they found, it says: "Huh. They were onto something."
+
+Thank you. The gift shop is that way. And yes, they sell cicada shells.[cite: 1]`
+  }
+];
+
+const listContainer = document.getElementById('exhibitList');
+const searchBox = document.getElementById('searchBox');
+
+function renderList(dataToRender) {
+  listContainer.innerHTML = '';
+  if (dataToRender.length === 0) {
+    listContainer.innerHTML = '<div class="empty">No results found</div>';
+    return;
+  }
+  
+  dataToRender.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="item-header" onclick="this.parentElement.classList.toggle('active')">
+        <span>${item.title}</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="item-content">
+        <div class="text-box">${item.content}</div>
+      </div>
+    `;
+    listContainer.appendChild(el);
+  });
+}
+
+function filterList() {
+  const query = searchBox.value.toLowerCase().trim();
+  if (!query) {
+    renderList(database);
+    return;
+  }
+  
+  const filtered = database.filter(item => 
+    item.title.toLowerCase().includes(query) || 
+    item.content.toLowerCase().includes(query)
+  );
+  
+  renderList(filtered);
+  
+  // Expand filtered results automatically for easier reading
+  setTimeout(() => {
+    document.querySelectorAll('.item').forEach(card => card.classList.add('active'));
+  }, 10);
+}
+
+// Initial render
+renderList(database);
+</script>
+</body>
+</html>

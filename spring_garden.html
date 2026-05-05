@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TCM Spring Garden Tour</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f6fa; margin: 0; padding: 0; color: #2c3e50; line-height: 1.6; }
+  header { background: #27ae60; color: #fff; padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  h1 { font-size: 1.2rem; margin: 0 0 12px 0; text-align: center; font-weight: 600; }
+  input { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; outline: none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+  
+  main { padding: 15px; max-width: 800px; margin: 0 auto; }
+  .list-container { display: flex; flex-direction: column; gap: 10px; }
+  
+  .item { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; border-left: 4px solid #27ae60; }
+  .item-header { padding: 16px 15px; font-weight: bold; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+  .item-header:active { background: #f0f0f0; }
+  .toggle-icon { color: #27ae60; transition: transform 0.3s; font-size: 0.9em; }
+  
+  .item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #faf9f5; }
+  .item.active .item-content { max-height: 5000px; border-top: 1px solid #eee; }
+  .text-box { padding: 15px; white-space: pre-wrap; font-size: 0.95rem; color: #333; }
+  
+  .empty { text-align: center; padding: 30px; color: #7f8c8d; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TCM Spring Garden Tour</h1>
+  <input type="text" id="searchBox" placeholder="Search plants, zones, or keywords..." onkeyup="filterList()">
+</header>
+
+<main>
+  <div id="exhibitList" class="list-container"></div>
+</main>
+
+<script>
+// Complete English Content from "植物园春季详细文稿.docx"
+const database = [
+  {
+    title: "Introduction",
+    content: `Welcome to the Medicinal Plant Garden! Yesterday in the classroom, we talked about how Chinese medicine classifies herbs — remember the thermostat? Hot, cold, warm, cool? The five flavors — pungent, sweet, sour, bitter, salty? The elevator that goes up or down in your body?
+
+Well, today you're going to meet those herbs in person. They're alive, they're growing, some of them are blooming right now, and a few of them... smell absolutely terrible. You'll see.
+
+A couple of ground rules: First, I'll invite you to touch and smell certain plants — but only when I say so. Some plants here are toxic, and we don't want anyone recreating the toxicity lecture from yesterday in real life. Second, feel free to take photos — I'll pause at each stop. Third, there are no dumb questions. If you see something and want to know "can I eat that?" — ask. The answer is usually more interesting than you'd expect.
+
+Let's go.[cite: 3]`
+  },
+  {
+    title: "Zone 1: Mint",
+    content: `Our first stop is probably the one plant here that nobody needs an introduction to. Take a look — what do you think this is?
+
+Exactly. Mint. You know it from mojitos, toothpaste, and chewing gum. But here's the thing — in Chinese medicine, mint has been a serious medicinal herb for over a thousand years, and it does way more than freshen your breath.
+
+Look at the stem — see how it's square-shaped? Not round, but actually square, with four flat sides. That's a signature of the mint family. Run your finger along it, you can feel the edges. And the leaves grow in pairs, directly opposite each other on the stem — one leaf on the left, one on the right, same height. Square stem, opposite leaves, strong smell — that's how you spot a mint family plant anywhere in the world.
+
+Now — everyone pick a leaf. Go ahead, rub it between your fingers. Smell.
+
+That cool, sharp, refreshing sensation — Chinese medicine calls that 辛凉, "pungent and cool." Remember our thermostat from yesterday? Mint sits on the cool side. And "pungent" — that's the flavor that opens things up, that moves things outward. So mint is a "cool opener."
+
+In traditional Chinese medicine, mint is what you reach for at the very beginning of a cold — not a deep, achy, been-sick-for-a-week cold, but that first moment when your throat starts to feel scratchy and your head gets a little stuffy. Mint's job is to push that invading pathogen back out through the surface of your body, before it gets deeper. Think of it as your body's front-door bouncer — "Nope, you're not coming in."
+
+And here's a fun detail: when Chinese pharmacists prepare mint, they add it to the herbal formula last, and only boil it for about five minutes. Why? Because mint's power is in its volatile oils — that smell you're smelling right now. Boil it too long, and all the good stuff evaporates. So mint is the herb that's always fashionably late to the party.[cite: 3]`
+  },
+  {
+    title: "Zone 1: Perilla",
+    content: `Now walk over here with me. This next plant is also in the mint family — remember, check the stem. Square? Yes. But it looks completely different.
+
+See the color? Those leaves are purple. Sometimes deep purple on both sides, sometimes green on top and purple underneath. That's your instant ID: if you see a mint-family plant with purple leaves, nine times out of ten it's 紫苏, Perilla.
+
+Pick a leaf and smell it.
+
+Very different from mint, right? It's aromatic, almost... warm and herby. Some people say it smells like a cross between basil and anise. In fact, if any of you have eaten sashimi in a Japanese restaurant, you've probably seen this leaf. It's served right alongside the raw fish — that reddish-purple leaf on the plate? That's this plant. In Japan they call it shiso.
+
+But here's the question: is that leaf on your sushi plate just decoration? According to Chinese medicine — absolutely not. Perilla is warm and pungent, the opposite temperature of mint. Where mint is the cool bouncer for summer colds, perilla is the warm bouncer for winter colds — when you're shivering, your nose is running clear fluid, and you just want to crawl under a blanket.
+
+And the Japanese tradition of pairing it with raw fish? Chinese medicine would say that makes perfect sense. Raw fish is extremely cold in nature — remember our thermostat — and perilla is warm. So the perilla leaf is quietly doing a medical job right there on your plate: it's balancing the cold nature of the raw fish so your stomach doesn't suffer. A thousand years of food wisdom, hiding in plain sight as a garnish.
+
+Oh, and one more thing — literally every part of this plant is used in Chinese medicine. The leaf, the stem, and the seed each have different medicinal functions. The leaf releases the exterior, the stem calms the stomach, and the seed — called 紫苏子 — helps with coughs by directing qi downward in the lungs. Remember the elevator concept? Perilla seed pushes the elevator down.[cite: 3]`
+  },
+  {
+    title: "Zone 1: Houttuynia / 'Fishy Smell Herb'",
+    content: `OK. You've smelled something pleasant, and something pleasant. Now I'm going to challenge you. This next plant... is an acquired taste. Literally.
+
+Look at this ground-cover plant. Heart-shaped leaves, slightly fleshy, sometimes with a reddish edge. See those little white structures that look like four white petals around a yellow spike? Those aren't actually petals — they're modified leaves called bracts. The real flowers are those tiny things packed onto that yellow spike. But you don't need to remember that. What you will remember is what happens when you do this—
+
+Everyone take a leaf. Crush it. Smell it.
+
+Yes. That is exactly why this plant is called 鱼腥草 — literally "fishy smell herb." Its Latin name is Houttuynia cordata, but nobody remembers that. Everyone remembers the smell.
+
+Now, here's what's wild: in southwestern China — Sichuan, Guizhou, Yunnan — people eat this raw. In salads. As a cold dish with chili oil. It's a beloved local food. About 200 million Chinese people love the taste of this plant, and the other billion Chinese people think they're absolutely insane. It might be the most divisive food in all of China — way more controversial than pineapple on pizza.
+
+Medicinally, though, everybody agrees: this herb is a powerhouse. It's cold in nature, and its superpower is fighting infections, especially in the lungs. In fact, during the SARS outbreak in 2003 and again during COVID, this herb showed up in multiple official treatment formulas. Modern research has found that it genuinely does have antimicrobial and anti-inflammatory properties. So the fish smell is the price of admission — and a lot of people think it's worth paying.
+
+The part used in medicine is actually both the leaf and the underground root. The root is crunchier, milder in smell, and that's the part people in Guizhou eat as a snack. So if you're ever brave enough to try it — start with the root, not the leaf.[cite: 3]`
+  },
+  {
+    title: "Zone 1: Acorus / Stone Calamus",
+    content: `Let's cleanse your nose with something better. Come over to the water's edge — see this grass-like plant growing near the rocks?
+
+石菖蒲 looks like a clump of narrow, sword-shaped leaves growing in a fan — kind of like a miniature iris, but without the big showy flower. It loves wet places — stream edges, rocks near water, that sort of habitat. The leaves are dark green, leathery, and about as wide as your pinky finger.
+
+The trick to identifying it: grab a leaf and crush it.
+
+There it is. A sharp, clean, spicy-aromatic smell. Very distinctive — nothing else in this garden smells quite like it. Some people describe it as camphor mixed with ginger with a hint of lemon.
+
+In Chinese medicine, this herb belongs to a special category called "aromatic openers" — 芳香开窍. The idea is that when someone is unconscious, delirious, or mentally foggy — maybe from a high fever, maybe from a stroke — you need something powerful enough to "open" the senses and wake the mind up. Stone calamus is one of the key herbs for that job.
+
+Think of it like smelling salts in old Western movies — you know, when someone faints and they wave a little bottle under their nose? Same concept, different tradition. The intense aromatic compounds literally stimulate the nervous system.
+
+In modern research, extracts from this plant have shown neuroprotective effects, and it's being studied for conditions like Alzheimer's and epilepsy. From "wake up the unconscious" in ancient texts to "protect the neurons" in modern labs — the thread is remarkably consistent.[cite: 3]`
+  },
+  {
+    title: "Zone 1: Asarum / Wild Ginger",
+    content: `Before we leave the sensory garden, look down at your feet. See this low ground-cover with the round, heart-shaped leaves?
+
+杜衡 hugs the ground — it never grows tall. The leaves are kidney-shaped or heart-shaped, dark green, a little leathery. It's easy to walk right past it without noticing. But — you know the drill by now.
+
+Another strong aromatic, right? Spicy, peppery, warming. This is in the same family as wild ginger. In Chinese medicine, this type of herb — warm, pungent, aromatic — is used for pain relief, especially headaches and sinus congestion. The pungent warmth moves things, opens up blockages.
+
+Remember from yesterday's lecture: pungent is the flavor that disperses, that acts like a key opening a lock. You're literally smelling that principle right now.
+
+So — five plants, four of them you identified mostly by smell, not by sight. That's actually a huge lesson about medicinal plants: the chemistry that makes them medicinally powerful is often the same chemistry that makes them smell intense. If a plant smells like nothing? It's probably doing nothing. If it hits your nose hard? There's something happening. Keep your noses ready — but I promise, nothing else today will be as bad as the fish herb.
+
+Let's move to the flowering section.[cite: 3]`
+  },
+  {
+    title: "Zone 2: Hydrangea",
+    content: `Now we're entering the part of the garden that's going to make your Instagram very happy. These next plants are in full bloom right now, and some of them are genuinely stunning. But remember — in this garden, beauty always comes with a medical resume.
+
+Hydrangeas. You know them — they're everywhere in Europe and America too, in gardens, in wedding bouquets, on greeting cards. But look closely at the color. See how some flower clusters are blue, some are pink, and some are somewhere in between? Here's a fun fact that has nothing to do with medicine but is too good not to share: the color depends on the soil. Acidic soil gives you blue flowers. Alkaline soil gives you pink. Same plant, different soil, different color. The plant is literally responding to its environment.
+
+Sound familiar? Yesterday we talked about 道地药材 — how the same herb species grown in different regions produces different chemical profiles because of soil, climate, and altitude. Hydrangea is giving you a live visual demo of that exact principle. The soil changes the chemistry, and the chemistry changes the output.
+
+Now, medicinally: the root and leaves of certain hydrangea species have been used in Chinese folk medicine as an antimalarial — yes, against malaria, just like the artemisinin story we talked about yesterday. It also has traditional uses for fever and as a mild anti-inflammatory. But I should be honest: hydrangea is more celebrated as an ornamental plant than a front-line medicine. Its main job today is being gorgeous — and it's very good at that job.
+
+One warning, though: the leaves contain compounds that can release small amounts of cyanide when chewed. So "look, don't eat" is the rule here. Remember our toxicity lecture? The dose makes the poison — and with hydrangea, the smart dose is zero.[cite: 3]`
+  },
+  {
+    title: "Zone 2: Honeysuckle",
+    content: `Come over here — and use your nose again. What do you smell?
+
+Sweet, right? Almost like honey. That's how this plant got its English name: honeysuckle. Kids in the American South actually pull the flowers apart and suck the nectar out. If you did that as a kid, congratulations — you were self-medicating with Chinese herbs and you didn't even know it.
+
+Now look at the flowers carefully. See how they grow in pairs — two flowers at each node? And here's the key: look at the colors. Some flowers are pure white, and right next to them, others have turned golden yellow. White and gold, side by side, on the same vine.
+
+That's exactly where the Chinese name comes from: 金银花 — "Gold-Silver Flower." When the flower first opens, it's white — that's the silver. As it ages over a day or two, it turns yellow — that's the gold. So on any given vine, you'll always see both colors at the same time. That's your instant ID: paired tubular flowers, white and gold together, sweet fragrance, climbing vine.
+
+Medicinally, this is one of the most important "heat-clearing" herbs in all of Chinese medicine. Remember the thermostat? When your body is running too hot — fever, sore throat, skin infections, red swollen eyes — honeysuckle is the herb that brings the temperature down. It's in the cold category, and its flavor is sweet, which makes it one of the most pleasant-tasting medicines in the entire pharmacopoeia. Most "heat-clearing" herbs are bitter — remember, bitter drains? — but honeysuckle clears heat while being genuinely enjoyable to drink.
+
+You can buy honeysuckle tea in any convenience store in China. In summer, when it's 40°C in Shanghai, people drink it like Americans drink iced tea. It's one of the most common examples of 药食同源 — medicine and food sharing the same origin.
+
+Oh — and if you were in the medicinal diet lecture, you probably remember we talked about 酸梅汤, the sour plum drink? Honeysuckle tea is its cool-weather cousin. Both are "cooling summer drinks," both have centuries of history, and both taste way better than they have any right to, given that they're technically medicine.[cite: 3]`
+  },
+  {
+    title: "Zone 2: Mountain Honeysuckle",
+    content: `Now, while we're here — look at this plant right next to it. Looks almost identical, right? Paired flowers, similar shape, same kind of fragrance?
+
+This is 山银花 — "Mountain Silver Flower." It's a close relative of the honeysuckle we just saw, but here's where it gets interesting — and a little controversial.
+
+In 2005, the Chinese Pharmacopoeia officially split these two apart. Before that, they were both sold as "金银花." After 2005, only the northern species — the one with the gold-and-silver flowers we just saw — gets to keep the name 金银花. This southern species got renamed to 山银花.
+
+Why does this matter? Because 金银花 is worth three to five times more per kilogram. So when the government said "you're no longer 金银花, you're 山银花," entire farming regions in southern China lost a huge amount of income overnight. It became a massive economic and political controversy.
+
+Can you actually tell them apart? Honestly, it's hard. The main differences: 山银花 tends to be a shrub rather than a twining vine, the leaf undersides may have more hair, and the chemical profiles are slightly different. Pharmacologists argue about whether the medicinal effects are truly different or essentially the same.
+
+I tell you this story not because you need to pass a plant identification exam, but because it shows you something important: naming things in medicine has real-world consequences. What counts as "the real thing" versus "a substitute" can be worth millions of dollars. It's the same fight that happens with Champagne versus sparkling wine, or Parmigiano-Reggiano versus generic parmesan. 道地药材 — authenticity matters, and sometimes authenticity is also politics.[cite: 3]`
+  },
+  {
+    title: "Zone 2: Bletilla / 'The Beautiful Bleeder-Stopper'",
+    content: `Ready for the prettiest herb in this entire garden? Follow me.
+
+Look at that. Purple orchid-like flowers, growing right out of the ground — no tall stem, no big bush, just these elegant flowers rising from a cluster of pleated, lance-shaped leaves. The leaves have these distinctive parallel ridges running lengthwise, almost like someone pleated them with an iron.
+
+This is 白及, Bletilla. It's a ground orchid — yes, a real orchid, but one that grows in soil instead of perching on trees. In terms of pure visual beauty, this might be the most gorgeous plant in the entire Chinese pharmacopoeia. If herbs had a fashion show, 白及 would be on the cover of Vogue.
+
+But its job isn't to look pretty — it's to stop bleeding. The underground tuber of this plant produces an incredibly sticky, glue-like substance that, when applied to wounds, essentially acts as a biological bandage. Traditional Chinese surgeons used powdered 白及 to stop bleeding in the lungs and stomach — conditions where you can't exactly apply a Band-Aid.
+
+Modern research has confirmed this in a big way: the polysaccharides in 白及 have hemostatic properties — they genuinely help blood clot faster. Some Chinese hospitals have developed surgical hemostatic agents derived from 白及 extracts. So you're looking at an orchid that moonlights as emergency medicine. Beauty and brains — or in this case, beauty and bandages.[cite: 3]`
+  },
+  {
+    title: "Zone 2: Rangoon Creeper / 'The Color-Changing Vine'",
+    content: `Now look up — see that climbing vine on the trellis over there? Notice anything unusual about the flowers?
+
+Count the colors. One vine, and you can see white flowers, pink flowers, and deep red flowers all at the same time. That's not three different plants — it's one.
+
+使君子, the Rangoon Creeper, has a party trick: each flower opens white on the first day, turns pink on the second day, and deepens to red by the third day. So at any moment, the vine is wearing all three colors at once. It's basically a living mood ring.
+
+The name 使君子 has a great story behind it. "使君" was an honorific title for a local governor in ancient China. Legend has it that a governor — a 使君 — discovered that the seeds of this plant could cure children's intestinal parasites. A child with worms would eat a few seeds, and the parasites would be expelled. The word 子 means "seed" — so 使君子 literally means "the Governor's Seeds."
+
+Now, here's the practical detail that ancient Chinese doctors figured out: the dose for children was strictly calculated by age. A one-year-old gets one seed. A two-year-old gets two seeds. And so on, up to about ten. If you gave too many, the child would get hiccups and vomiting. And — this is my favorite part — the ancient texts specifically warn: "Do NOT take these seeds with hot tea." Why? Because the combination dramatically increases the side effects. Nobody in the year 800 AD knew about drug-drug interactions or bioavailability changes with temperature... but they documented the pattern anyway. Empirical observation, recorded and transmitted, for over a thousand years. That's the Chinese medical tradition in a nutshell.
+
+So this section gave us an orchid that stops bleeding, a vine that changes color to deworm children, and a controversy about what counts as "real" honeysuckle. You've also now seen the principle we discussed yesterday — the concept of dosage and toxicity — playing out in a garden instead of a textbook. Let's keep going.[cite: 3]`
+  },
+  {
+    title: "Zone 3: Loquat",
+    content: `We've been looking at small herbs and flowering vines. Now let's think bigger — literally. Some of the most important medicines in Chinese history grow on trees. And here's what's cool about medicinal trees: sometimes the leaf does one thing, the bark does another, the fruit does a third, and the root does a fourth. One tree, four medicines. Let's go see.
+
+This is 枇杷, the loquat. If you've never had one, you're in for a treat — the fruit is sweet, juicy, slightly tangy, with a texture somewhere between a peach and a mango. May is the month for loquats in Shanghai. Street vendors are selling them everywhere right now.
+
+The tree is easy to spot even without fruit. See the leaves? They're big — almost as long as your forearm — leathery, dark green on top, and look underneath... see that fuzzy, felt-like coating? That whitish-brown fuzz on the underside is your giveaway. Big leathery leaf, fuzzy underneath, fruit in clusters — that's loquat.
+
+Now here's the twist that confuses everyone at first: in Chinese medicine, loquat is famous — but NOT for its fruit. What's used medicinally is the leaf. 枇杷叶, loquat leaf, is one of the most important cough-relief herbs in the pharmacopoeia. There's a famous cough syrup brand called 川贝枇杷膏 — "Fritillaria and Loquat Syrup" — that's sold in every pharmacy in China, and actually became a viral sensation in New York City a few years ago during a bad flu season. People were buying it off Amazon and the price skyrocketed.
+
+So remember this: you eat the fruit, but the doctor prescribes the leaf. The fruit is food. The leaf is medicine. That's 药食同源 happening right in front of you — one tree, straddling the line between kitchen and pharmacy.
+
+And here's a lovely detail for your memory: loquat is one of the only fruit trees that blooms in winter — November and December — and fruits in spring. It does everything backwards compared to most trees. The Chinese have a saying: it "absorbs the essence of all four seasons" because its cycle crosses fall, winter, spring, and summer. If you come back here in November, you'll see this same tree covered in tiny white fragrant flowers instead of fruit. Completely different experience, same tree.[cite: 3]`
+  },
+  {
+    title: "Zone 3: Mulberry / 'The One-Tree Pharmacy'",
+    content: `Walk with me to this next tree. And look down — see those little fruits on the ground? Some are red, some are dark purple, almost black. Anyone brave enough to pick one up?
+
+That's a mulberry. Sweet, right? Stains your fingers purple. In China, these are eaten fresh, made into jam, fermented into wine, and — no surprise — used as medicine.
+
+The mulberry tree is easy to recognize: the leaves are heart-shaped to oval with a serrated edge, sometimes with deep irregular lobes — meaning some leaves on the same tree might look completely different from each other. One leaf might be a simple oval, the one next to it might have two or three deep notches. That variability itself is a clue — not many trees have leaves that vary so much on a single branch.
+
+But here's why I called this "The One-Tree Pharmacy." Ready? In Chinese medicine, FOUR different parts of this single tree are used as four completely different medicines:
+
+One — 桑叶, the leaf. Used to clear heat from the lungs and soothe red, dry eyes. It's a cool, gentle herb for early-stage colds — actually, it's often paired with the mint we smelled earlier.
+Two — 桑枝, the twig. Used for joint pain, especially in the arms and shoulders. The idea is that the twig "opens the channels" in the upper limbs — remember the elevator concept? The twig directs medicine outward to the extremities.
+Three — 桑白皮, the root bark. Specifically the white inner bark of the root — you peel off the outer layer and use what's underneath. This one goes to the lungs and helps with asthma and coughing, especially when there's thick phlegm.
+Four — 桑葚, the fruit — what you're eating right now. In Chinese medicine, the ripe fruit nourishes the blood and benefits the kidneys. It's the mildest, most food-like of the four.
+
+So leaf for eyes, twig for joints, root bark for lungs, fruit for blood. One tree, four medicines, four different targets in the body. That's the level of precision we talked about yesterday — Chinese medicine doesn't just say "use mulberry." It says "use which part of the mulberry, processed how, aimed at what."
+
+Oh, and one more thing — mulberry leaves are what silkworms eat. The entire Chinese silk industry, for five thousand years, depended on this tree. So it gave China both its most famous fabric AND four different medicines. Not a bad resume for one plant.[cite: 3]`
+  },
+  {
+    title: "Zone 3: Ginkgo",
+    content: `Now — see that tall tree with the fan-shaped leaves? I'm going to guess at least some of you have seen this leaf shape before, even if you don't know the tree.
+
+This is 银杏, the ginkgo. And this leaf — this fan shape with the split down the middle — is one of the most recognizable leaf shapes on Earth. There is literally no other tree alive today that has a leaf like this. You might have seen it as a logo, a tattoo, a piece of jewelry. It's iconic.
+
+And for good reason. Ginkgo is what botanists call a "living fossil." This species has existed, essentially unchanged, for about 200 million years. It was alive during the Jurassic period. Dinosaurs walked under ginkgo trees. Every other member of its plant family went extinct — ginkgo is the only survivor. In a sense, you're looking at a botanical time traveler.
+
+Now, medicinally — and this is where it gets really interesting for a Western audience — ginkgo leaf extract is actually an approved prescription medicine in Germany and France. It's called EGb 761, and it's prescribed for cognitive decline, memory problems, and circulation disorders. Annual sales are in the hundreds of millions of euros. So when people say "herbal medicine isn't real medicine" — well, tell that to the German healthcare system, which reimburses ginkgo extract through insurance.
+
+In traditional Chinese medicine, though, it's not the leaf that was historically used — it's the seed, called 白果 (literally "white fruit"). Roasted ginkgo seeds are used for asthma and coughs, and they're also a common ingredient in Cantonese soups.
+
+But — and this is important — raw ginkgo seeds are mildly toxic. You have to cook them. And even cooked, you shouldn't eat more than about ten at a time. Children should eat even fewer. Remember yesterday's toxicity lecture? The driver's license metaphor? Ginkgo seed is exactly that situation: effective medicine, but you need to know the dose. Ancient texts recorded cases of children being poisoned by eating too many roasted ginkgo seeds as snacks. Delicious, but respect the limit.
+
+The other thing about ginkgo that nobody warns you about: in autumn, the female trees produce fruit that, when it falls and rots on the ground, smells absolutely horrendous. Like rancid butter mixed with vomit. Cities that planted female ginkgo trees as street trees have regretted it deeply. So if you ever see a ginkgo-lined avenue in late October and wonder what that terrible smell is — now you know.[cite: 3]`
+  },
+  {
+    title: "Zone 3: Yew (Taxus)",
+    content: `Come over here to this quiet corner. This dark, evergreen tree with the soft needles — it looks pretty unassuming, right? Like a modest Christmas tree that didn't make the cut. But this might be the most consequentially important plant in this entire garden.
+
+This is 红豆杉, the Chinese yew. The needles are flat, soft to the touch — not prickly like a spruce or pine. They're arranged in two flat rows along the stem, like teeth on a comb. Dark green on top, lighter underneath. If you see small red berry-like structures — a red fleshy cup with a dark seed inside — that's the fruit. Beautiful, but very toxic. Do NOT eat it.
+
+So why did I say this might be the most important plant here? Because in the 1960s, scientists discovered that the bark of a related yew species — Taxus brevifolia, the Pacific Yew — contained a compound called taxol, now known as paclitaxel. Paclitaxel turned out to be one of the most powerful anti-cancer drugs ever found. It's on the World Health Organization's List of Essential Medicines and has been used to treat breast cancer, ovarian cancer, lung cancer, and many others. It has saved millions of lives.
+
+Remember yesterday, when we talked about 青蒿素 — artemisinin — and how Tu Youyou won the Nobel Prize for developing an antimalarial drug from a traditional Chinese herb? This is the same story, different plant. Ancient people noticed that yew had potent biological effects. Modern science isolated the specific molecule. The result changed oncology forever.
+
+The tragedy of the story is that it originally took the bark of three entire mature yew trees to produce enough taxol for one patient's treatment. Yew trees grow incredibly slowly — we're talking decades. So the initial supply chain was literally destroying old-growth forests to produce the drug. It took years of chemical engineering to figure out semi-synthetic production methods. Today, paclitaxel can be produced without cutting down trees — but the original discovery came from that bark.
+
+So when you look at this modest, dark, quiet tree — remember: sometimes the most world-changing medicines come in the most unassuming packages.[cite: 3]`
+  },
+  {
+    title: "Zone 3: Chinese Holly",
+    content: `And right over here — tell me if this reminds you of anything from home.
+
+Look at those leaves. Thick, waxy, dark green, with sharp spines at the corners. If this were December, and this plant had a red bow on it — what would you think you were looking at?
+
+Exactly. This looks almost identical to the English holly you see on Christmas wreaths and holiday cards. But it's not the same species — this is 枸骨, Chinese holly, Ilex cornuta. The Western Christmas holly is Ilex aquifolium. They're cousins in the same genus, separated by about 8,000 miles of geography but looking remarkably similar.
+
+The leaves of 枸骨 — those spiny, tough leaves — are used in traditional Chinese medicine to nourish the liver and kidneys, strengthen bones and tendons, and as a general tonic, especially for older people. The red berries, which show up in autumn and winter, are also used — they're called 枸骨子.
+
+But I want you to notice something about the leaf shape. Those spines are serious. Try touching the tip of one — carefully. Sharp, right? In Chinese folk belief, this plant was placed near doorways to ward off evil spirits, because the spiny leaves would prick ghosts and scare them away. The Western tradition of hanging holly on your door at Christmas? Also originally about warding off evil spirits and bad luck. Two cultures, eight thousand miles apart, looked at the same type of spiny-leaved plant and had the same idea: "This will protect my house."
+
+That's either a remarkable coincidence, or there's something about sharp-leaved plants that universally says "don't mess with me" to the human brain. Either way — it's a great dinner party story.
+
+So in this section, we had a fruit tree that blooms in winter and fruits in spring, a mulberry that's four medicines in one, a living dinosaur that became a German prescription drug, a quiet yew that saved millions from cancer, and a holly that scares ghosts on two different continents.
+
+Let's take a quick water break, and then we'll go meet some of the famous names you heard in yesterday's lecture — the celebrity herbs.[cite: 3]`
+  },
+  {
+    title: "Zone 4: Ginseng",
+    content: `OK, everyone hydrated? Good. Because we're about to enter the VIP section. These next plants — you've already heard their names. They came up in yesterday's lecture, some of them multiple times. You know their reputations. But you've never seen them alive. That changes now. Think of this as the backstage meet-and-greet.
+
+Here it is. The single most famous medicinal plant in all of East Asian medicine. Maybe the most famous medicinal plant in the world. Ginseng.
+
+And I know what you're thinking, because everyone thinks it: "...that's it?"
+
+Yeah. It's... not very impressive-looking, is it? A short stem, maybe a foot tall at most. A whorl of compound leaves at the top, each leaf divided into five leaflets — like a hand with five fingers spread out. If you're lucky, you might see a small cluster of tiny greenish-white flowers, or later in the season, bright red berries. But mostly? It looks like any random weed on the forest floor.
+
+And that's actually the first important lesson about ginseng: everything that matters is happening underground. The root is where the magic is. And a ginseng root — especially a wild one that's been growing for decades — is one of the most expensive biological substances on earth. We're talking thousands of dollars per root. The oldest wild roots, found deep in the mountains of northeastern China or Korea, have sold at auction for hundreds of thousands of dollars. For one root.
+
+Why? Because ginseng takes an agonizingly long time to grow. A commercially farmed root takes 4-6 years. A wild root worth serious money might be 20, 30, even 50 years old. You can tell the age by counting the growth rings on the neck of the root, just like counting rings on a tree trunk.
+
+Remember yesterday when we talked about 君药 — the "Monarch" herb, the lead ingredient in a formula? Ginseng is the ultimate 君药. In the formula 四君子汤 — "Four Gentlemen Decoction" — ginseng is the monarch, the quiet but powerful leader. Its job is to powerfully tonify 气, the fundamental energy of the body. When someone is completely exhausted — not just "I had a bad day" exhausted, but genuinely depleted, weak pulse, shallow breathing, can barely speak — ginseng is what you reach for.
+
+One thing you'll hear a lot: "I take ginseng for energy." And then people use it like coffee — popping ginseng supplements before the gym. Traditional Chinese medicine would say: that's not how this works. Ginseng is for deficiency, not for boosting an already healthy person. If you're a healthy 25-year-old and you take ginseng every day, you're not "getting more energy" — you might actually be creating excess heat in your body. Remember the thermostat? If you're already balanced and you keep pushing the dial toward warm... you're going to overshoot. That's why traditional doctors always say: "Don't take ginseng if you don't need it." Medicine is for imbalance. If you're balanced, leave the thermostat alone.[cite: 3]`
+  },
+  {
+    title: "Zone 4: Astragalus",
+    content: `Right next to the king of tonics — meet the people's champion. If ginseng is the expensive celebrity, this next plant is the hardworking everyday hero.
+
+黄芪, Astragalus. Look at the leaves — they're compound, meaning each leaf is actually made up of many small, oval leaflets arranged along a central stem, like a feather. Typically 12 to 18 pairs of tiny leaflets. If you see flowers — and in May you might see the early buds — they'll be small, yellow, butterfly-shaped. That butterfly shape tells you it's in the legume family — same family as beans, peas, and peanuts.
+
+Yes — one of the most important herbs in Chinese medicine is a relative of the peanut. Let that sink in.
+
+Now, yesterday we talked about 黄芪 when we discussed the medicinal diet lecture. Remember 黄芪炖鸡 — Astragalus Chicken Soup? This is that herb. In Chinese households, 黄芪 is probably the most commonly used tonic herb — way more common than ginseng, because it's much cheaper, much milder, and much harder to overdose on. If ginseng is a strong espresso, 黄芪 is a gentle green tea. Both give you energy, but one is intense and the other is something you can have every day.
+
+The part used is the root — and when you see it in a Chinese pharmacy, it's been sliced into thin, flat, yellowish-white discs. The name 黄芪 literally means "yellow leader" — 黄 is yellow, referring to the root's color, and 芪 relates to its status as a chief tonic herb.
+
+Here's a useful comparison for remembering the difference: Ginseng rescues. Astragalus maintains. If someone has collapsed from exhaustion, you give ginseng — emergency rescue. If someone is generally tired, catches colds easily, and needs a long-term boost, you give astragalus — daily maintenance. In the car metaphor: ginseng is the jump-start when your battery is dead; astragalus is the slow charger you plug in every night.
+
+Modern research on astragalus has been surprisingly robust. It's one of the most-studied herbs in immunology. Multiple studies have shown that astragalus extracts can modulate immune function — specifically, they seem to help an underperforming immune system work better, without overstimulating it. That nuance — boosting without overstimulating — is actually very hard to achieve with pharmaceutical drugs. It's one of the reasons astragalus has attracted serious interest from Western researchers.[cite: 3]`
+  },
+  {
+    title: "Zone 4: Licorice",
+    content: `And now — the one herb that shows up in more Chinese formulas than any other. The peacekeeper. The diplomat. The one that plays well with everyone.
+
+甘草, licorice. Look at the plant — compound leaves again, similar to astragalus actually, because they're in the same legume family. Feather-like rows of oval leaflets. If you see flower buds, they'll be small, purple-blue spikes. Honestly, in May it may not look like much above ground.
+
+But taste a piece of the root — if we had one here — and you'd never forget it. It's sweet. Intensely, almost shockingly sweet. The compound responsible — glycyrrhizin — is about 30 to 50 times sweeter than table sugar. The Chinese name 甘草 literally means "sweet herb." And the English name "licorice" — that flavor in licorice candy, black Twizzlers, Jägermeister, sambuca — that all comes from this root.
+
+Now, remember yesterday when we talked about 配伍 — how herbs are combined in formulas? And the hierarchy of 君臣佐使 — Monarch, Minister, Assistant, Envoy? Licorice is the ultimate 使药 — the Envoy. Its job is to harmonize all the other ingredients, to smooth out conflicts, to make the formula work as a team instead of a collection of individuals.
+
+There's a saying in Chinese medicine: 甘草调和诸药 — "Licorice harmonizes all medicines." It shows up in something like two-thirds of all classical formulas. Two thirds! It's the most-used herb in the entire pharmacopoeia. And yet it's never the star — it's always in the supporting role. It's the bass player of Chinese medicine: nobody comes to the concert to see the bass player, but without the bass, the whole band sounds wrong.
+
+Here's a practical detail: licorice is also used as a natural antidote and detoxifier. If someone ingests something mildly toxic, one of the first things traditional doctors would do is boil a strong licorice tea. The idea is that licorice can "moderate" the toxic effects of many substances. Is that scientifically validated? Partially — glycyrrhizin does have demonstrated anti-inflammatory, hepatoprotective, and detoxifying properties.
+
+But — and there's always a but — licorice itself is not without side effects. In large doses over long periods, glycyrrhizin can cause water retention, high blood pressure, and low potassium levels. This is well-documented in Western medicine too — it's called "licorice-induced pseudoaldosteronism." So yes, even the peacekeeper has limits. The driver's license principle again: know what you're doing, respect the dose.[cite: 3]`
+  },
+  {
+    title: "Zone 4: He Shou Wu",
+    content: `Now this one — if you were paying attention yesterday, this name should ring a bell. We spent a whole slide on it. The cautionary tale. The one that changes personality completely depending on how you process it.
+
+Look for a twining vine — it climbs by wrapping itself around other plants or supports, spiraling upward. The leaves are heart-shaped, or sometimes arrowhead-shaped, with a pointed tip and a slightly wavy edge. In May, it's growing vigorously — lots of fresh green leaves climbing up whatever it can find. The flowers won't come until late summer — tiny white clusters.
+
+But again — what matters is underground. The root — or technically the tuberous root — is the medicine. And it's one of the most fascinating cases in all of Chinese pharmacy, because the same root becomes two completely different medicines depending on how it's processed.
+
+Remember this from the lecture? 生首乌 — raw He Shou Wu — is a laxative and detoxifier. It makes things move through you. It can also be harsh on the liver.
+
+制首乌 — processed He Shou Wu, steamed repeatedly with black bean juice — becomes a tonic that nourishes the blood, darkens the hair, and strengthens the kidneys and liver. Completely opposite function. Same root, different processing, different medicine.
+
+This is the herb whose name literally means "Mr. He's Hair Turned Black." The legend says an old man named He, gray-haired and childless, took this herb and his hair turned black again, his vitality returned, and he fathered children. The story became so famous that the plant was permanently named after him. Imagine being so impressed by a plant that you name it after the patient, not the doctor.
+
+Now, the cautionary side: in recent years, there have been documented cases of liver injury from He Shou Wu products, especially from raw or improperly processed forms sold as supplements in Western markets. This is exactly what we talked about yesterday — 炮制, processing, is not optional. It's not decoration. It's the difference between medicine and poison. When you take He Shou Wu that's been properly processed by a trained pharmacist following centuries of protocol, it has a strong safety record. When you buy a random "Fo-Ti" capsule off Amazon that may or may not have been properly prepared... you're gambling with your liver.
+
+That's the lesson this plant teaches better than any other: processing matters. The raw material is only half the story.[cite: 3]`
+  },
+  {
+    title: "Zone 4: Rehmannia",
+    content: `One more celebrity before we leave the VIP section. Look for the low-growing rosette of leaves near the ground — wrinkly, hairy, with a slightly purplish flower stalk if we're lucky.
+
+This is 地黄, Rehmannia. The name literally means "earth yellow" — 地 is earth/ground, 黄 is yellow — because the fresh root, when you dig it up, is yellowish on the inside. The plant itself is modest: a rosette of wrinkled, fuzzy basal leaves close to the ground, and if it's flowering, you'll see tubular flowers that are purplish-red, almost like little trumpets, on a hairy stalk. Not glamorous, but distinctive — those wrinkled, hairy leaves and trumpet flowers together are pretty unique.
+
+Now, 地黄 is another triple-identity herb — like He Shou Wu, but even more dramatic. It exists in THREE forms:
+
+鲜地黄 — Fresh Rehmannia. Freshly dug, juicy, cold in nature. Used to cool the blood and stop bleeding in acute heat conditions. This is the emergency-room version.
+
+生地黄 — Dried Rehmannia. Sliced and dried. Still cold, but less intensely so. Used to clear heat and nourish 阴 — the cooling, moistening aspect of the body. This is the general practitioner version.
+
+熟地黄 — Prepared Rehmannia. Steamed with wine repeatedly until it turns black, sticky, and sweet. Now it's warm instead of cold, and its function completely shifts: it becomes a powerful blood and 阴 tonic, especially for the kidneys. This is the long-term care version. And this prepared form is the "monarch" herb in 六味地黄丸 — the "Six-Ingredient Rehmannia Pill" — which we analyzed yesterday as a masterpiece of balanced formulation. Three tonics, three drains, perfect equilibrium.
+
+So: same root, three processing levels, three different temperature profiles, three different clinical applications. Fresh is cold and urgent. Dried is cool and moderate. Prepared is warm and nourishing. If that doesn't convince you that 炮制 — processing — is a science and not just "cooking herbs," nothing will.[cite: 3]`
+  },
+  {
+    title: "Zone 5: Japanese Knotweed",
+    content: `OK, so far everything has felt pretty exotic, right? Ancient Chinese legends, mysterious underground roots, herbs you've never heard of. This next section is going to flip that. These plants? You know them. Or at least, you think you do. Turns out they've been living double lives.
+
+OK, raise your hand if you've ever heard of Japanese Knotweed.
+
+For those of you who raised your hands — you probably know it as a nightmare. An invasive species that destroys foundations, cracks through asphalt, lowers property values, and is basically illegal to have on your property in the UK. British mortgage lenders will literally refuse to approve a home loan if there's knotweed within seven meters of the house. There are entire TV shows about people's knotweed horror stories.
+
+Well — meet the villain.
+
+Look at the stem. See the reddish-purple speckles? Those spots on a green stem — that's your instant ID. The pattern looks a bit like a leopard or a tiger's markings, which is exactly where the Chinese name comes from: 虎杖 means "Tiger Cane" — 虎 is tiger, 杖 is walking stick. Tiger-spotted walking stick.
+
+The stems are hollow — snap one gently and you'll see — with distinct nodes that make it look like bamboo. The leaves are broad, shield-shaped, with a flat base. And the plant is TALL — it can grow several meters high in a single season. That aggressive growth is exactly why it terrorizes European and American gardens.
+
+But here's the plot twist: in China, this plant has been used as medicine for over two thousand years. It's in the classic herbal texts. Nobody here panics about knotweed. Why? Because in its native ecosystem, it has natural competitors — insects, fungi, other plants — that keep it in check. It only becomes a monster when you transplant it to a new continent with no natural enemies.
+
+Medicinally, 虎杖 is used to clear heat, resolve toxins, invigorate blood circulation, and — here's the modern kicker — it's one of the richest natural sources of resveratrol. Yes, that resveratrol. The compound that made red wine famous in the 1990s. "A glass of red wine a day is good for your heart" — remember that? The molecule behind that claim is found in high concentrations in this plant that British homeowners spend thousands of pounds trying to eradicate.
+
+So the next time someone tells you knotweed is worthless — you can tell them it's a traditional Chinese medicine rich in one of the most-hyped antioxidants of the 21st century. It just has... boundary issues when it travels abroad.[cite: 3]`
+  },
+  {
+    title: "Zone 5: Mock Strawberry",
+    content: `Look down at the ground here. See those little red fruits? Careful — I know what you're thinking. But think again.
+
+They look like wild strawberries, right? Small, round, red, dotted with tiny seeds. Growing low to the ground on runners. Your first instinct is: "Oh, strawberries!"
+
+But look closer. Real strawberries have white flowers. This plant has yellow flowers — you might still see a few blooming right now. And the fruit? Pick one up. See how the surface is bumpy, with the seeds sitting on top of the bumps, pointing outward? On a real strawberry, the seeds are embedded in little pits. Here, they're raised on little bumps. And if you flip the fruit over — there's no fragrance. Real strawberries smell amazing even before you bite into them. This one smells like... nothing.
+
+This is 蛇莓 — literally "Snake Berry." The name suggests that snakes like to hang out near it, though honestly that might just be a folk tale designed to keep children from eating it.
+
+Can you eat it? Technically yes — it's not seriously toxic. But it tastes like... disappointment. Imagine biting into what looks like a strawberry and getting the flavor of slightly wet cardboard. It's the botanical equivalent of clickbait.
+
+Medicinally, though, it has legitimate uses: it's a cold herb used to clear heat, cool the blood, and reduce swelling. It's applied topically for skin conditions — sores, boils, insect bites. In folk medicine, it's been mashed into a paste and applied directly to snakebites — which might be the actual origin of the name "Snake Berry."
+
+So the lesson here: in the plant world, looks can be deceiving. Not everything that looks like a strawberry IS a strawberry. And not everything that tastes boring is medically useless.[cite: 3]`
+  },
+  {
+    title: "Zone 5: Plantain",
+    content: `Now I want to show you something that's going to surprise you — not because it's rare and exotic, but because it's the exact opposite. Follow me to the edge of the path here.
+
+See this low plant with the spoon-shaped leaves growing in a rosette flat against the ground? And those tall, thin spikes sticking up with tiny brownish flowers packed along them — like miniature cattails?
+
+This is 车前草 — and in English, it's called Plantain. Not the banana-like fruit — that's a different word. This is Plantago, common plantain, broadleaf plantain. And here's the thing: this plant grows in every single U.S. state. It grows in every European country. It grows in sidewalk cracks in Brooklyn. It grows between the slabs of your backyard patio. You have almost certainly stepped on this plant hundreds of times in your life and never given it a second thought.
+
+It's one of the most common "weeds" on Earth. And it's a well-documented medicine in Chinese, European, AND Native American traditions. Three completely independent medical cultures, on three different continents, all looked at the same plant and said: "This is useful."
+
+In Chinese medicine, the seeds — called 车前子 — are used to promote urination and drain dampness. Remember the concept of 利水渗湿 from yesterday? The "filter" function, the bland flavor that drains water? That's what plantain seed does. It's also used to clear the eyes and relieve coughs.
+
+In European herbal medicine, plantain leaf has been used for centuries as a wound-healing agent. Crushed leaves applied to insect bites, bee stings, minor cuts. Shakespeare mentions it. Nicholas Culpeper, the famous 17th-century English herbalist, wrote extensively about it.
+
+Native American tribes used it for snakebites, burns, and as a general drawing poultice.
+
+Three medical traditions. Same plant. Same basic applications — wound healing, anti-inflammatory, fluid management. When three cultures that never communicated with each other independently arrive at similar conclusions about the same plant... that's worth paying attention to.
+
+The Chinese name 车前草 means "the herb in front of the cart" — because it loves growing on compacted soil along roadsides and cart paths. Even the NAME tells you this is a plant that thrives where humans walk. It's been following us around for thousands of years, and most of us never noticed.[cite: 3]`
+  },
+  {
+    title: "Zone 5: Self-Heal",
+    content: `Here's a plant with a name that tells you exactly what it does — at least, what it does visually. Look at these purple flower spikes.
+
+See the dense clusters of small purple-blue flowers, packed tightly into a stubby spike at the top of each stem? The individual flowers are hooded, like tiny mouths — that's another member of the mint family, by the way. Square stem? Check.
+
+Now, in English this plant is called Self-Heal, because European herbalists used it for wound healing — they believed that if you pressed the leaves onto a cut, it would "self-heal" the wound. Its Latin name is Prunella vulgaris — and the vulgaris part means "common." So even Western science is telling you: this plant is everywhere.
+
+But the Chinese name is far more poetic: 夏枯草 — "Summer Wither Herb." Here's why: right now, in May, you're seeing it at its peak — green, lush, blooming purple. But watch what happens as summer arrives. By the time of the Summer Solstice — late June — the flower spikes will have dried out and turned brown. The rest of the garden is still green and thriving. The summer heat is at full blast. And this one plant just... gives up. Withers. Dries out. Dies back.
+
+Why? Chinese medicine theory says it's because 夏枯草 is packed with "cold" and "yin" energy. When the yang energy of summer peaks at the Solstice, this intensely yin plant can't survive in all that yang. It's like an ice cube in July — it just can't hold its form.
+
+And here's the beautiful part: it's precisely when the spike dries out that you harvest it as medicine. The dried flower spike — brown, withered, looking dead — IS the medicinal product. You might see it in a Chinese pharmacy and think "that looks like garbage." Nope. That's the medicine. Its job is to clear liver fire — a pattern that shows up as red, painful, swollen eyes, headaches, irritability, high blood pressure.
+
+So remember this the next time you think something is "past its prime" or "dried up" — sometimes that's exactly when it becomes most useful.
+
+And if you come back here in November, you'll see the proof: the spike will be completely brown and dry. And that's exactly what the pharmacist wants.[cite: 3]`
+  },
+  {
+    title: "Zone 5: Burdock",
+    content: `One more in our "plants that crossed borders" section. See that plant over there with the enormous leaves? Those things are almost the size of elephant ears.
+
+This is 牛蒡, burdock. The leaves are your first clue: huge, heart-shaped, with a woolly-fuzzy underside — some of the biggest leaves in this garden. The plant can grow taller than you. In May, it's mostly leaves and thick stems, but later in summer you'll see purple thistle-like flower heads.
+
+Now — burdock root is a major ingredient in Japanese cuisine. If you've ever eaten 金平ごぼう (kinpira gobō) — those thin, crunchy, stir-fried root strips in a Japanese restaurant — that's burdock root. In Japan, people eat it the way Americans eat carrots. It's completely normal, everyday food.
+
+In Chinese medicine, different parts are used: the seed — called 牛蒡子 — is more commonly used than the root. The seed is cold and pungent, used to soothe sore throats, reduce swelling, and push out skin rashes. When you have measles or a rash that should be coming out but seems stuck, 牛蒡子 helps "push it to the surface." Remember the elevator concept? The pungent flavor floats things upward and outward. That's what burdock seed does — it takes what's trapped inside and pushes it out through the skin.
+
+But here's my favorite burdock fact, and it has nothing to do with medicine: In 1941, a Swiss engineer named George de Mestral went for a walk with his dog. When they got home, the dog was covered in burrs — seed pods from burdock — that were stuck to its fur. De Mestral looked at the burrs under a microscope, saw tiny hooks that grabbed onto tiny loops of fur, and thought: "I can make something out of this."
+
+He invented Velcro.
+
+So every time you use a Velcro strap — your shoes, your backpack, your laptop cable organizer — you're using technology that a burdock plant invented a few hundred million years before us. Nature's engineering, borrowed by humans. If that's not a reason to respect plants, I don't know what is.
+
+So what did this section teach us? That Chinese medicine isn't locked away in some exotic, distant world. Knotweed is in your neighbor's yard. Plantain is in sidewalk cracks in Manhattan. Burdock invented Velcro. Self-heal grows on every continent. These plants are already in your world — you just didn't know they had medical resumes.
+
+Last section. Follow me.[cite: 3]`
+  },
+  {
+    title: "Zone 6: Lotus",
+    content: `We're heading toward the water now. In Chinese culture, water gardens aren't just pretty — they carry a whole philosophical tradition. Confucius said, "The wise find joy in water." And some of the most important medicinal plants in the pharmacopoeia grow in, on, or near water. Let's go see.
+
+And here it is — the plant that might represent Chinese culture more than any other single living thing.
+
+You can't miss it. Those huge, perfectly round leaves rising above the water on long stems — some as wide as a dinner table. They look like green satellite dishes pointing at the sky. In May, the flowers haven't opened yet — those come in July and August, the famous pink and white lotus blossoms you've seen in every piece of Asian art ever. But even without the flowers, the leaves alone are spectacular.
+
+Now, do something for me. If you can reach a leaf, pour a little water on it — from your water bottle, anything.
+
+See that? The water doesn't spread out. It beads up into perfect silver spheres and rolls right off the surface. The leaf is completely waterproof. This is called the "lotus effect" — and it's a real scientific phenomenon. The leaf surface is covered in microscopic bumps coated with waxy crystals that make it ultra-hydrophobic. Water can't stick. And as the water rolls off, it picks up dirt particles and carries them away. The leaf is self-cleaning.
+
+This property has inspired real nanotechnology. Self-cleaning paints, water-repellent coatings, anti-fingerprint screens — all inspired by this leaf. Engineers call them "lotus-effect surfaces." So this leaf is basically a nano-engineering blueprint that's been growing in ponds for millions of years.
+
+But we're here for the medicine. And lotus is the ultimate "one plant, many medicines" story. Mulberry gave us four. Lotus gives us at least SIX:
+
+荷叶 — the leaf. Clears summer heat and lifts the yang energy upward. It's also used to wrap food — lotus-leaf-wrapped sticky rice is a classic dim sum dish. Medicine AND packaging.
+
+莲子 — the seed. Calms the spirit, strengthens the spleen, stops diarrhea. It's a key ingredient in 四神汤 — the "Four Spirits Soup" we discussed in the medicinal diet lecture.
+
+莲子心 — the tiny green embryo inside the seed. Extremely bitter. Used specifically to clear heat from the heart and calm anxiety. You can brew it as a tea — about a dozen of these tiny green threads in hot water. It tastes awful. It works.
+
+莲藕 — the root, the rhizome under the mud. Sliced lotus root is a common vegetable in Chinese cooking — crunchy, sweet, full of holes. Raw lotus root cools the blood and stops bleeding. Cooked lotus root warms the spleen and nourishes blood. Raw = cool. Cooked = warm. Same root, different preparation, different function. Sound familiar? It's the processing principle again.
+
+莲房 — the seed pod, that shower-head-shaped structure you see when the petals fall off. Used to stop uterine bleeding.
+
+藕节 — the nodes of the rhizome, the knobby joints between sections of lotus root. Specifically used as a hemostatic — to stop bleeding.
+
+Six parts, six medicines. And we haven't even mentioned that the flower itself is the supreme symbol of Buddhism — "rising from the mud, unstained" — representing spiritual purity emerging from the messiness of the material world.
+
+So when you look at this pond, you're not just looking at a pretty water garden. You're looking at a pharmacy, a nano-engineering lab, a dim sum kitchen, and a Buddhist scripture, all growing from the same mud.[cite: 3]`
+  },
+  {
+    title: "Zone 6: Fox Nut / Gorgon Fruit",
+    content: `See those other large leaves on the water surface — the ones that look different from lotus? More crinkled, with visible veins, almost like wrinkled green fabric?
+
+This is 芡实, also called 鸡头米 — "Chicken Head Rice." Why that name? Because later in summer, the fruit that emerges from the water has a pointed, beaked top that looks almost exactly like a chicken's head poking above the surface. It's one of the best plant names in China — completely ridiculous and completely accurate.
+
+Right now in May, you'll mainly see the leaves. They're big and round like lotus leaves, but the surface is puckered, wrinkled, and — look carefully — covered in small spines. The underside is often deep purple. So if you see a big floating leaf that looks like it's been left in the bathtub too long AND has tiny thorns — that's 芡实.
+
+The edible part is the seed inside the fruit. When you crack open that "chicken head," inside there are round, pearl-white seeds about the size of peas. In Suzhou — about an hour from here — fresh 鸡头米 is a seasonal delicacy in September and October. People line up for it. A small bowl of fresh 鸡头米 in sweet osmanthus syrup is one of the great Suzhou autumn experiences.
+
+Medicinally, 芡实 is a gentle tonic that strengthens the spleen, stops diarrhea, and firms up the kidneys. It's often used alongside lotus seed — the two work beautifully together. In fact, 芡实 is one of the ingredients that some versions of 四神汤 include. Remember the medicinal diet lecture? Lotus seed, Chinese yam, poria, and fox nut — all gentle, all nourishing, all food-grade medicines. This is 药食同源 at its most elegant: a dessert that's also a prescription.[cite: 3]`
+  },
+  {
+    title: "Zone 6: Kalimeris",
+    content: `As we walk away from the water, look at this small plant near the path — it's easy to overlook.
+
+Small, daisy-like, with slender leaves and pale purple flower heads — some might still be in bloom, others might have finished. Nothing dramatic. You'd walk past it a hundred times without noticing.
+
+But if I told the Shanghainese people in this group — wait, there aren't any, but if there were — they'd get very excited. Because this is 马兰, and the young leaves of this plant are one of Shanghai's most beloved spring vegetables. 马兰头拌香干 — blanched kalimeris shoots mixed with pressed tofu, sesame oil, and a splash of soy sauce — is a dish that every Shanghainese person associates with springtime. It appears on restaurant menus for about six weeks in March and April, and then it's gone until next year.
+
+So this is a plant that's simultaneously a "weed," a seasonal delicacy, and a traditional medicine — it's used to clear heat and cool the blood, particularly for sore throats and red, swollen eyes.
+
+I mention it here not because it's dramatic, but because it captures something important: most medicinal plants aren't exotic. They aren't rare. They aren't locked away in mountain temples. They're growing on the side of the road, and the local grandma knows exactly which ones to pick, which ones to eat, and which ones to brew into tea when someone in the family has a fever. That grandma knowledge is, in many ways, the real foundation of the entire Chinese medical tradition. The textbooks came later. The grandmas came first.[cite: 3]`
+  },
+  {
+    title: "Zone 6: Stonecrop",
+    content: `One quick bonus before we wrap up — look at the ground right here. This low, creeping mat of little fleshy leaves with tiny yellow star-shaped flowers.
+
+This is 垂盆草 — literally "hanging-pot herb," because it drapes over the edges of pots and walls. The leaves are small, thick, succulent-like, usually in groups of three along the stem. And right now in May, it's covered in these cheerful little yellow flowers — five-pointed stars, each one no bigger than your fingernail.
+
+It looks like a houseplant. It looks harmless. It looks like something you'd put in a hanging basket on your porch.
+
+But in Chinese medicine, this humble ground-creeper has a very specific and important job: it protects the liver. 垂盆草 has been extensively studied for its hepatoprotective effects — meaning it helps liver cells survive damage. In China, preparations of this plant have been used clinically for hepatitis — actual hospital-grade treatment for liver inflammation.
+
+The key compound — sarmentosin and related chemicals — has shown legitimate liver-protective activity in pharmacological studies. This isn't folk-medicine speculation; this is the kind of herb that has peer-reviewed papers behind it.
+
+I show you this one last because it makes a point: you cannot judge a medicine by its appearance. This looks like a decorative ground cover you'd buy at a garden center for $3.99. It's actually a liver-saving drug. If ginseng taught you that the important stuff is underground, 垂盆草 teaches you that the important stuff can also be right there in plain sight — you just have to know what you're looking at.[cite: 3]`
+  },
+  {
+    title: "Garden Conclusion",
+    content: `Let's take stock of what just happened. In the last ninety minutes, you smelled mint and fish, touched spiny holly leaves, watched water roll off a nano-engineered lotus leaf, learned that Velcro was invented by a burdock plant, discovered that the most invasive weed in Britain is a Chinese medicine full of resveratrol, and met a modest ground orchid that moonlights as emergency surgery equipment.
+
+Yesterday, in the classroom, I told you about thermostats, and elevators, and subway maps, and orchestras. Those were metaphors to help you understand how Chinese medicine thinks. Today, you saw how Chinese medicine looks — what it looks like when it's alive, when it's growing, when it's flowering and fruiting and climbing and creeping.
+
+I want to leave you with one thought. There are roughly 12,000 documented medicinal plant species in the Chinese pharmacopoeia. We saw... about thirty today. That's a quarter of one percent. And yet even in that tiny sample, you saw patterns repeating over and over:
+
+The same plant can be different medicines depending on which part you use — remember mulberry: leaf, twig, bark, fruit. Four parts, four functions.
+
+The same plant can be different medicines depending on how you process it — remember He Shou Wu: raw is a laxative, processed is a tonic. Remember Rehmannia: fresh, dried, and steamed are three different drugs.
+
+Plants that smell strong tend to DO something strong — mint, perilla, fish herb, stone calamus. The nose knows.
+
+And the line between food and medicine is blurry on purpose — lotus root in your stir-fry, burdock root in your kinpira, goji berries in your smoothie, honeysuckle in your iced tea. 药食同源 — medicine and food, same origin. You've been interacting with Chinese medicine your whole life. You just didn't have the vocabulary for it until now.
+
+So the next time you're walking through a park back home — in Boston, in London, in Sydney, wherever — and you see plantain growing in a sidewalk crack, or mint in someone's garden, or honeysuckle climbing a fence... maybe give it a second look. Maybe even say hello. After all, you've been formally introduced now.
+
+Thank you. And please don't eat the ginkgo seeds without cooking them first.[cite: 3]`
+  }
+];
+
+const listContainer = document.getElementById('exhibitList');
+const searchBox = document.getElementById('searchBox');
+
+function renderList(dataToRender) {
+  listContainer.innerHTML = '';
+  if (dataToRender.length === 0) {
+    listContainer.innerHTML = '<div class="empty">No results found</div>';
+    return;
+  }
+  
+  dataToRender.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="item-header" onclick="this.parentElement.classList.toggle('active')">
+        <span>${item.title}</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="item-content">
+        <div class="text-box">${item.content}</div>
+      </div>
+    `;
+    listContainer.appendChild(el);
+  });
+}
+
+function filterList() {
+  const query = searchBox.value.toLowerCase().trim();
+  if (!query) {
+    renderList(database);
+    return;
+  }
+  
+  const filtered = database.filter(item => 
+    item.title.toLowerCase().includes(query) || 
+    item.content.toLowerCase().includes(query)
+  );
+  
+  renderList(filtered);
+  
+  // Expand filtered results automatically for easier reading
+  setTimeout(() => {
+    document.querySelectorAll('.item').forEach(card => card.classList.add('active'));
+  }, 10);
+}
+
+// Initial render
+renderList(database);
+</script>
+</body>
+</html>

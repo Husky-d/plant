@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TCM Food Therapy Exhibit</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f6fa; margin: 0; padding: 0; color: #2c3e50; line-height: 1.6; }
+  header { background: #d35400; color: #fff; padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  h1 { font-size: 1.2rem; margin: 0 0 12px 0; text-align: center; font-weight: 600; }
+  input { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; outline: none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+  
+  main { padding: 15px; max-width: 800px; margin: 0 auto; }
+  .list-container { display: flex; flex-direction: column; gap: 10px; }
+  
+  .item { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; border-left: 4px solid #d35400; }
+  .item-header { padding: 16px 15px; font-weight: bold; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+  .item-header:active { background: #f0f0f0; }
+  .toggle-icon { color: #d35400; transition: transform 0.3s; font-size: 0.9em; }
+  
+  .item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #faf9f5; }
+  .item.active .item-content { max-height: 5000px; border-top: 1px solid #eee; }
+  .text-box { padding: 15px; white-space: pre-wrap; font-size: 0.95rem; color: #333; }
+  
+  .empty { text-align: center; padding: 30px; color: #7f8c8d; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TCM Food Therapy Exhibit</h1>
+  <input type="text" id="searchBox" placeholder="Search foods, ingredients, or keywords..." onkeyup="filterList()">
+</header>
+
+<main>
+  <div id="exhibitList" class="list-container"></div>
+</main>
+
+<script>
+// Complete English Content from "食疗展馆详细文稿.docx"
+const database = [
+  {
+    title: "Introduction",
+    content: `You've seen the herbs, the pharmacy, the museum. Now let's talk about the part of Chinese medicine that you'll interact with the most during your time in China — and you won't even realize it's happening.
+
+It's the food.
+
+Every single meal you eat in Shanghai — breakfast, lunch, dinner, late-night snack — contains ingredients that Chinese medicine classifies as medicinal. Not "sort of" medicinal. Not "symbolically" medicinal. Actually, functionally, historically, medicinally classified — with a temperature (hot, warm, cool, cold), a flavor (pungent, sweet, sour, bitter, salty), and a target organ.
+
+You've been taking Chinese medicine since you arrived in China. You just didn't know the prescription.
+
+This exhibit is going to change that. By the time you walk out of here, you'll never look at a Chinese restaurant menu the same way again.[cite: 2]`
+  },
+  {
+    title: "Part 1: The 'Invisible Medicines' in Every Meal",
+    content: `Let's start with five ingredients so basic, so everywhere, so unavoidable that you will eat ALL of them today. Possibly at every meal. They're the background radiation of Chinese cooking — always there, usually invisible, doing medical work while you think you're just eating lunch.[cite: 2]`
+  },
+  {
+    title: "生姜 — Ginger",
+    content: `Let's start with the single most frequently used medicinal food ingredient in Chinese cuisine. If there's ONE thing I want you to remember from this exhibit, it's ginger.
+
+This knobby, brown root shows up everywhere. EVERYWHERE. In stir-fries — sliced thin. In soups — in chunks. In dipping sauces — grated. In tea — boiled. In congee (rice porridge) — shredded on top. In seafood dishes — always, without exception, because Chinese cooking considers ginger essential for "cutting" the cold and fishy nature of seafood.
+
+That last point is pure food therapy in action. Remember the thermostat from the lecture? Seafood — fish, shrimp, crab — is classified as cold or cool in nature. Ginger is warm and pungent. When you cook seafood with ginger, you're not just adding flavor — you're thermally balancing the dish. The warm ginger counteracts the cold seafood, making it easier for your stomach to digest without getting "cold stomach" — that uncomfortable, bloated, slightly nauseous feeling you get when your digestive system can't handle too much cold food.
+
+Here's a practical tip for your time in China: if you ever feel a cold coming on — scratchy throat, sniffles, chills — go to any restaurant or convenience store and ask for 姜茶 (jiāng chá) — ginger tea. Or just ask for hot water with ginger slices. It's the Chinese equivalent of chicken soup: the first thing your host, your teacher, your friend, or your taxi driver will recommend. "多喝热水加点姜" — "Drink more hot water with some ginger" — is basically China's universal answer to the common cold.
+
+In medical terms: ginger is warm, pungent, enters the lung, spleen, and stomach channels. It disperses cold, warms the middle, stops nausea. It's the mildest, gentlest, most food-grade version of the "pungent warm exterior-releasing" herb category we discussed in the lecture. It's the training-wheels version of 麻黄 — same direction, much softer.[cite: 2]`
+  },
+  {
+    title: "葱 — Scallion / Green Onion",
+    content: `Next to ginger in every Chinese kitchen — and I mean literally next to it, they're almost always used together — is 葱, scallion.
+
+In America, you might think of scallions as a garnish — something you sprinkle on top for color. In Chinese cooking, scallions are a foundational ingredient. They go into the oil first, along with ginger, to create the aromatic base — 葱姜爆锅 — that starts almost every stir-fry dish. That sizzle you hear when you walk past a Chinese restaurant kitchen? That's ginger and scallions hitting hot oil. It's the opening chord of Chinese cooking.
+
+Now, in food therapy, scallion is classified as warm and pungent — same category as ginger. But there's a fun detail: Chinese medicine distinguishes between the white part and the green part.
+
+The white part — 葱白 — is actually listed in the pharmacopoeia as a mild medicine in its own right. It disperses cold and "opens" the yang energy. There's a famous folk recipe for early-stage colds: 葱白加淡豆豉 — the white part of scallions boiled with fermented soybeans. It induces a light sweat, which in Chinese medical theory pushes the cold pathogen out through the skin. Your host mom in Shanghai might make this for you if you start sneezing. Say thank you and drink it. It actually helps.
+
+The green part is more of a pure food ingredient — garnish, flavor, color. But the white part? That's medicine with a day job in the kitchen.[cite: 2]`
+  },
+  {
+    title: "大蒜 — Garlic",
+    content: `Third member of the holy trinity: garlic.
+
+In America, garlic is beloved. Garlic bread, garlic shrimp, garlic mashed potatoes. Chinese cuisine uses at least as much garlic as Italian cuisine, possibly more. Raw garlic is chopped into dipping sauces. Whole cloves are roasted with meat. Garlic is smashed and tossed into vegetable stir-fries in the last ten seconds of cooking for a sharp, fresh punch.
+
+In food therapy, garlic is classified as warm and pungent — sensing a pattern? ginger, scallion, garlic — the three amigos are ALL warm and pungent. That's why they're the base of Chinese cooking: they warm the stomach, promote digestion, and move qi. A cuisine built on warm pungent aromatics is a cuisine designed, at its foundation, to keep your digestive fire burning.
+
+Garlic's special talent in Chinese food therapy is 解毒 — "resolving toxins." It's considered a natural antimicrobial. And modern science agrees: allicin, the compound released when garlic is crushed, has demonstrated antibacterial, antiviral, and antifungal properties. Raw garlic is more potent than cooked — the heat destroys some of the allicin.
+
+You'll encounter one very specific garlic custom in China that might surprise you: in many northern Chinese restaurants, especially dumpling restaurants, a bowl of raw garlic cloves sits on the table alongside the vinegar and chili oil. Diners peel a clove, bite off a chunk of raw garlic, and chew it WHILE eating their dumplings. One bite dumpling, one bite raw garlic, alternating. It's pungent, it's intense, and it's considered essential for proper dumpling enjoyment AND for preventing stomach bugs. If someone offers you raw garlic with your dumplings, try it. Your breath will be apocalyptic. But your stomach will thank you.[cite: 2]`
+  },
+  {
+    title: "大枣 — Red Date / Jujube",
+    content: `Now we move from "savory background" to "sweet background." Because this next ingredient is in half the sweet dishes and drinks you'll encounter in China.
+
+These wrinkled, dark red fruits are 大枣 — red dates, or jujubes. They look like oversized raisins. They taste sweet, chewy, with a flavor somewhere between an apple, a date, and a fig. And they are EVERYWHERE in Chinese food culture.
+
+In your breakfast congee — red dates. In your afternoon tea — red dates. In sweet soups for dessert — red dates. In the braised pork belly at dinner — red dates. In the herbal tea your friend makes you — red dates. In the trail mix you buy at the convenience store — red dates. In the cake at someone's birthday — red dates. I'm not exaggerating. This is the single most common medicinal food ingredient in China after ginger.
+
+In food therapy terms: red dates are warm and sweet. Sweet is the flavor that "builds" — it nourishes, it strengthens, it's the construction worker of the five flavors. Red dates specifically target the spleen and stomach — the digestive system — and the blood. They're considered a blood tonic, which in Chinese medicine is especially relevant for women, for anyone recovering from illness, and for people who are generally tired and pale.
+
+Here's a cultural note: when Chinese women are on their period, they drink 红枣水 — red date water — or 红枣桂圆茶 — red date and longan tea. This is so universal that it's basically a cultural reflex. Menstruation depletes blood. Red dates nourish blood. Therefore: red date tea during periods. You will see this in every Chinese office, every dorm room, every household. If your Chinese roommate sees you looking tired during your period, a cup of red date tea will appear on your desk within minutes. Accept it. It's an act of care.
+
+Nutritionally, red dates are genuinely high in iron, vitamin C, and various polyphenols. The "blood nourishing" classification aligns loosely with the high iron content. Whether the amounts in a few dates are clinically significant is debatable — but the cultural practice is comforting, harmless, and symbolically powerful. Sometimes that's enough.[cite: 2]`
+  },
+  {
+    title: "枸杞 — Goji Berry",
+    content: `And finally — the one you already know by name but might not recognize in context.
+
+Goji berries. You've seen them in your açaí bowl back home, sprinkled on top for a Superfood™ Instagram moment. In America, they're a health food trend. In China, they've been a daily kitchen staple for centuries, and they're used with much less fanfare and much more practicality.
+
+You'll encounter goji berries in China in contexts that might surprise you: floating in your soup. Mixed into your rice porridge. Steaming on top of a braised fish. Bobbing in your chrysanthemum tea. Stuffed inside a steamed chicken. Scattered across a plate of stir-fried greens. They're not a garnish — they're an ingredient with a job.
+
+That job: nourish the liver, benefit the kidneys, brighten the eyes. Remember from the museum — goji berry is sweet and neutral. It doesn't push you hot or cold. It just quietly nourishes. It's the most un-dramatic, most "daily maintenance" medicine in the entire food therapy system.
+
+Here's the most important cultural context for your time in China: goji berries have become a symbol of a very specific modern Chinese concept — 养生 (yǎng shēng), which roughly translates as "nourishing life" or "health cultivation." 养生 is a lifestyle philosophy — eating right, sleeping enough, balancing work and rest, taking care of your body proactively rather than waiting until you're sick.
+
+And the unofficial mascot of 养生 culture? The thermos cup with goji berries floating in hot water. There's a famous Chinese meme: "到了不得不往保温杯里泡枸杞的年纪" — "I've reached the age where I have to put goji berries in my thermos." It means: "I'm getting old. I've started caring about my health." It's self-mocking, affectionate, and universally understood. If you see a Chinese person in their 30s or 40s carrying a thermos with red specks floating in it — that's goji berry water. And that's 养生. Welcome to the club.
+
+So — ginger, scallion, garlic, red dates, goji berries. Five ingredients. You'll eat all five of them multiple times this week without trying. And now you know: every time you do, you're participating in a food therapy system that's been running continuously for over two thousand years.[cite: 2]`
+  },
+  {
+    title: "Part 2: Dessert Is Medicine",
+    content: `In America, dessert is about pleasure — sugar, butter, chocolate, cream. Nobody pretends a brownie is healthy. In China, dessert has a second job. A huge proportion of Chinese sweet dishes — 甜品, 糖水, 甜汤 — are explicitly designed as food therapy. The line between "dessert" and "herbal tonic" is so blurry that sometimes it doesn't exist at all. You'll order what you think is a sweet soup, and what you're actually drinking is a prescription.
+
+Here are six ingredients you'll find in Chinese sweet soups and desserts that are simultaneously medicine.[cite: 2]`
+  },
+  {
+    title: "莲子 — Lotus Seed",
+    content: `Remember the lotus pond from the garden tour? The leaf, the root, the seed pod? Well, this is the seed — and you're going to eat it tonight.
+
+These pale, round, smooth seeds — about the size of a small marble — show up in Chinese sweet soups, in savory stews, in congee, in mooncakes, and in the classic Cantonese dessert 莲子糖水 (lotus seed sweet soup). They have a very mild, slightly starchy, subtly sweet flavor — almost like a cross between a chickpea and a chestnut, but softer. They're not exciting on their own. They're the reliable supporting actor, not the lead.
+
+In food therapy: lotus seed is sweet, neutral in temperature — remember, neutral means it won't push you hot or cold — and it targets the spleen, kidney, and heart channels. Its job is to calm the spirit, strengthen the spleen (improve digestion), and stop diarrhea. It's the gentlest possible tonic — safe for children, elderly people, pregnant women, and anyone with a sensitive stomach. It's medicine you could give to a baby. And in fact, Chinese parents do — lotus seed porridge is a classic weaning food.
+
+You'll encounter lotus seeds in 四神汤 — the "Four Spirits Soup" from the medicinal diet lecture. Lotus seed is one of the four. You'll also see them in 八宝粥 — "Eight Treasure Porridge" — a sweet rice porridge containing eight different medicinal ingredients, usually sold in cans at any Chinese convenience store. Look for the can with a picture of colorful congee on it. That's 八宝粥. And lotus seeds are always in there.[cite: 2]`
+  },
+  {
+    title: "薏苡仁 — Job's Tears / Coix Seed",
+    content: `This next one looks like a grain — pale, tear-shaped, slightly larger than a barley grain. And in China, it's treated as both a grain and a medicine.
+
+薏苡仁 — called Job's Tears in English, or coix seed. You'll find it in sweet soups, in porridge, in grain mixes sold at breakfast shops, and most importantly in a drink you will absolutely encounter in Shanghai: 薏苡仁赤小豆汤 — coix seed and red bean soup.
+
+This drink deserves a special mention because it is the unofficial anti-dampness beverage of all of China. In Chinese medicine, "dampness" — 湿 — is one of the most common problems, especially in humid climates like Shanghai's. Dampness shows up as: heavy limbs, foggy head, bloating, loose stool, sticky tongue coating, swollen legs, and that general feeling of "I feel heavy and sluggish and everything is swollen." If you've been in Shanghai in May or June and felt like your body was wrapped in a wet blanket — that's dampness.
+
+薏苡仁 is the star anti-dampness food. It's bland in flavor — remember from the lecture, bland is the "filter" flavor that drains water. Its entire job is to promote urination and drain excess moisture from the body. Pair it with red adzuki beans — 赤小豆 — which also drain dampness, add a little rock sugar for palatability, and you've got the most popular "drainage" drink in Chinese food therapy.
+
+Every bubble tea shop, every health drink store, every canteen in Shanghai serves some version of this. Some are hot, some are cold, some are thick like porridge, some are thin like tea. But the principle is always the same: drain the swamp.
+
+For the American students: if Shanghai's humidity is making you feel bloated and heavy — and in May, it absolutely will — try this drink. It won't cure anything dramatic, but it might make you feel less waterlogged. And at worst, it's a pleasant, mildly sweet grain drink that tastes like a nuttier, lighter version of oatmeal water.[cite: 2]`
+  },
+  {
+    title: "银耳 — Tremella / White Fungus / Snow Fungus",
+    content: `This next one looks like an alien life form. But it's actually one of the most popular dessert ingredients in China.
+
+This ruffled, translucent, flower-shaped thing is 银耳 — white fungus, tremella, or snow fungus. Dried, it looks like a crumpled piece of white tissue paper. But when you soak it in water for an hour, it expands dramatically into a soft, gelatinous, almost jelly-like mass. Then you simmer it slowly — sometimes for hours — with rock sugar, red dates, goji berries, and maybe some lotus seeds, and it turns into a thick, glossy, sweet soup with a texture that's somewhere between pudding and silk.
+
+This soup — 银耳羹 or 银耳莲子汤 — is the quintessential Chinese beauty food. It's marketed, consumed, and genuinely believed to be good for your skin. The logic: 银耳 is rich in mucilage — that gooey, slimy texture — which Chinese medicine classifies as nourishing to the yin and moistening to the lungs and skin. Dry skin, dry lips, dry cough, dry throat — 银耳 moistens everything. It's the internal moisturizer.
+
+The traditional comparison is to 燕窝 — bird's nest soup — which is made from the solidified saliva of cave swiftlets and costs a fortune. 银耳 is called "the poor person's bird's nest" because it provides a similar gelatinous texture and similar moistening function at 1/100th of the price. In modern China, 银耳 is everywhere — convenience stores sell pre-made 银耳 drinks in bottles, restaurants offer it as dessert, and home cooks simmer it in slow cookers overnight.
+
+For the students: you will encounter this. It will look weird. The texture might freak you out if you're not used to gelatinous foods. My advice: try it. Ignore the texture. Focus on the sweetness. And know that half the women at the next table are eating it because they believe it's going to make their skin glow. They might be right — tremella polysaccharides have shown moisture-retention properties in cosmetics research. The Chinese grandmothers figured it out first.[cite: 2]`
+  },
+  {
+    title: "红豆 — Red Bean (Adzuki)",
+    content: `These tiny, dark red beans are 红豆 — adzuki beans, red beans — and they are to Chinese desserts what chocolate chips are to American cookies: they show up in EVERYTHING.
+
+Red bean paste filling in mooncakes. Red bean paste in steamed buns. Red bean paste in rice dumplings. Red bean soup as dessert. Red bean popsicles in summer. Red bean shaved ice. Red bean milk tea. If you spend a week in China, you will eat red beans in at least three different forms without trying.
+
+In food therapy: red beans are sweet and slightly sour, neutral to slightly cool. Their main function is the one we already discussed — draining dampness and promoting urination. They're the partner of 薏苡仁 in the famous anti-dampness soup. But they also "nourish the heart" in Chinese medicine terms — and there's a charming cultural tradition behind this: red beans are a symbol of romantic love in Chinese poetry.
+
+The Tang Dynasty poet Wang Wei wrote: "红豆生南国，春来发几枝。愿君多采撷，此物最相思。" — "The red bean grows in the southern lands / In spring, how many branches bloom? / I wish you'd gather more of them / For this is the thing that speaks most of longing."
+
+So red beans are simultaneously: a dessert ingredient, an anti-dampness medicine, and a 1,300-year-old symbol of romantic love. When you eat red bean ice cream in Shanghai, you're eating a love poem. Don't tell me Chinese food isn't romantic.[cite: 2]`
+  },
+  {
+    title: "百合 — Lily Bulb",
+    content: `These thin, white, translucent, petal-shaped pieces are 百合 — lily bulb. Not the flower — the underground bulb, peeled apart into individual scales, then dried. When cooked, they become soft, slightly crunchy, with a very mild, faintly sweet, clean taste. They're used in both sweet and savory dishes.
+
+In a famous Shanghainese stir-fry — 西芹百合 — lily bulb is stir-fried with celery. Crunchy, white, refreshing, beautiful on the plate. In sweet soups, lily bulb is simmered with lotus seeds, red dates, and tremella to make a calming bedtime dessert.
+
+The food therapy angle: lily bulb moistens the lungs (good for dry coughs) and calms the mind (good for insomnia and anxiety). The Chinese name 百合 literally means "hundred-together" — a hundred petals coming together — which is why lily bulbs are traditionally given at weddings as a symbol of "百年好合" — a hundred years of harmonious union.
+
+So if you eat lily bulb stir-fry at dinner tonight, you're moistening your lungs, calming your nerves, AND invoking blessings on someone's marriage. That's efficient.[cite: 2]`
+  },
+  {
+    title: "桂圆 — Longan / Dried Longan",
+    content: `These small, round, brown-shelled dried fruits — crack one open — reveal a translucent, chewy, sweet flesh surrounding a dark seed. This is 桂圆 — dried longan.
+
+Fresh longan fruit is like a smaller, subtler cousin of lychee — you'll see them in markets in summer. But the dried version — 桂圆 — is available year-round and is the medicinal form. It's intensely sweet, chewy, and concentrated.
+
+In food therapy, 桂圆 is warm and sweet, targeting the heart and spleen. Its specialty is nourishing blood and calming the spirit. It's the go-to ingredient for people who are overthinking, overworking, losing sleep, and getting pale and tired — basically, every graduate student in the world.
+
+The classic pairing: 桂圆 + 红枣 (longan + red dates) in hot water. This two-ingredient tea is the Chinese college student's secret weapon during exam season. It's warm, sweet, comforting, and gently nourishing. You'll see it in thermos cups across every university campus in China.
+
+For the Americans: longan is almost always in 八宝粥 (Eight Treasure Porridge), in 桂圆红枣茶 (longan red date tea), and floating in various braised dishes. It's very sweet, almost candy-like when dried. If you have a sweet tooth, you'll love it. If not, just know that every time you spot these small brown spheres in your soup, someone has decided you need more blood nourishment.[cite: 2]`
+  },
+  {
+    title: "Part 3: The Spice Rack Is a Medicine Cabinet",
+    content: `In your kitchen back home, you probably have a spice rack. Cinnamon, pepper, maybe some bay leaves. They make food taste better. Period. Nobody thinks about it further.
+
+In Chinese cooking, the spice rack is explicitly, intentionally, self-consciously medicinal. The spices aren't just flavor — they're treatment. And five of the most common ones are also entries in the official Chinese pharmacopoeia.[cite: 2]`
+  },
+  {
+    title: "花椒 — Sichuan Peppercorn",
+    content: `If you haven't had this yet, prepare yourself. Because nothing in Western cuisine has prepared you for this sensation.
+
+This is 花椒 — Sichuan peppercorn. It is NOT related to black pepper. It's not even spicy in the way you'd expect. What it does is something entirely unique: it makes your mouth go NUMB. A tingling, buzzing, electric sensation — like your lips and tongue have been mildly electrocuted. The Chinese word for this sensation is 麻 (má), and it's considered a distinct flavor category in Chinese cuisine, separate from spicy (辣 là).
+
+Sichuan cuisine — 川菜 — is built on the combination of 麻辣: numb-spicy. The numbness from 花椒 and the heat from chili peppers together create a sensation that's addictive, overwhelming, and completely unlike anything in Western food.
+
+In food therapy, 花椒 is warm (almost hot), pungent, and enters the spleen, stomach, and kidney channels. It warms the stomach, kills parasites, relieves pain, and dries dampness. In the Sichuan basin — one of the most humid regions in China — the heavy use of 花椒 and chili is traditionally explained as a dietary strategy to combat the oppressive dampness: the pungent warmth drives moisture out of the body through sweating and urination.
+
+So when you're sweating profusely over a bowl of Sichuan 麻辣火锅 (numb-spicy hotpot) and your mouth is tingling and your nose is running — that's not just flavor. That's food therapy at maximum intensity. The cuisine of an entire region, shaped by its climate.[cite: 2]`
+  },
+  {
+    title: "八角 — Star Anise",
+    content: `This one you'll recognize by shape before you recognize by taste.
+
+Count the points. Eight. A perfect eight-pointed star. That's why it's called 八角 — "Eight Corners." In English: star anise. And it's one of the most visually distinctive spices on Earth.
+
+You will find whole star anise floating in your braised pork belly (红烧肉), in your beef noodle soup (牛肉面), in your soy sauce eggs (茶叶蛋), and in virtually any Chinese braised dish. It's not meant to be eaten whole — it's a flavoring agent. You see it, you appreciate its beauty, and you leave it on the side of your plate.
+
+The flavor is intensely aromatic — sweet, warm, licorice-like. That's because star anise contains anethole, the same compound that gives European anise, fennel, and absinthe their characteristic taste. One molecule, showing up in plants across three continents.
+
+In food therapy, star anise is warm and pungent-sweet, targeting the spleen, kidney, and liver channels. It warms the middle, disperses cold, and relieves pain — especially cold-type stomach pain and hernial pain. If you've eaten too much cold food and your stomach is cramping, a cup of hot water steeped with a couple of star anise will help relax it.
+
+Modern pharmaceutical trivia: star anise is the industrial source of shikimic acid, the starting material for manufacturing Tamiflu (oseltamivir) — the antiviral drug used to treat influenza. During the H5N1 bird flu scare in 2005, global demand for Tamiflu caused a worldwide shortage of star anise. A Chinese soup spice became the rate-limiting factor in global pandemic preparedness. The world is weirder than fiction.[cite: 2]`
+  },
+  {
+    title: "桂皮 — Chinese Cinnamon (Cassia)",
+    content: `This rolled-up piece of bark is 桂皮 — Chinese cinnamon, or cassia. It's a close relative of Ceylon cinnamon — the kind you put in American apple pie — but thicker, darker, and stronger in flavor.
+
+In Chinese braised dishes, a piece of 桂皮 goes into the pot alongside star anise, and together they form the aromatic backbone of 卤水 — the master braising liquid used for 卤味 (braised meats, eggs, tofu). If you've had 卤鸡蛋 (braised tea eggs) or 卤牛肉 (braised beef) from a Chinese street vendor, you've tasted 桂皮.
+
+Food therapy classification: hot. Not warm — HOT. This is one of the most yang-warming spices in the kitchen. It fires up the digestive system, warms the kidneys, and gets cold, stagnant energy moving. In small amounts as a cooking spice, it's gentle warming. In larger medicinal doses, it's a serious yang tonic — the bark of a related species, 肉桂 (Rou Gui), is an important herb in kidney-yang-deficiency formulas.
+
+Fun fact for your holiday nostalgia: the "cinnamon" flavor in American cinnamon rolls, Big Red gum, and Fireball whiskey is actually cassia, not Ceylon cinnamon. So the warm, spicy "cinnamon" taste you grew up with is, technically, a Chinese medicinal spice. You've been eating Chinese food therapy since childhood. You just called it "a cinnamon roll."[cite: 2]`
+  },
+  {
+    title: "陈皮 — Dried Tangerine Peel",
+    content: `We met this one in the museum — the orange peel that gets better with age, like wine. But now I want to talk about how you'll encounter it as FOOD.
+
+陈皮 shows up in Chinese cooking more than most foreigners realize. It's in braised duck, in slow-cooked soups, in stir-fried beef (陈皮牛肉 is a famous Sichuan dish), in sweet red bean soup, and in Cantonese herbal teas. You might not see it — it dissolves or softens into the dish — but you'll taste it: a faint, warm, citrusy undertone that lifts the whole flavor profile.
+
+In food therapy, it does one main thing: it moves qi in the digestive system. When you feel stuffed, bloated, full of gas, food sitting in your stomach like a rock — 陈皮 gets things moving again. That's why it shows up in rich, heavy dishes — braised pork, fatty duck, oily beef. It's the digestive insurance policy built into the recipe. The chef who adds 陈皮 to braised pork belly isn't just adding flavor. They're pre-treating the digestive consequences of eating a half-pound of pork fat.
+
+Practical tip: after a huge Chinese banquet — and they WILL feed you until you can't move — ask for 陈皮茶 or just grab some 陈皮 from the table (some restaurants leave dried peel as a snack/garnish). A few pieces steeped in hot water will genuinely help that concrete-in-the-stomach feeling. This is one food therapy trick that works quickly and obviously. You'll feel the difference in twenty minutes.[cite: 2]`
+  },
+  {
+    title: "小茴香 — Fennel Seed",
+    content: `And one last spice — the one we ended the garden tour with. Except now you're going to eat it.
+
+小茴香 — fennel seed. You know this flavor: Italian sausage, Indian curry, Scandinavian rye bread. It's a global spice. But in Chinese cooking, it's a key member of the most important spice blend in the country: 五香粉 — "Five Spice Powder."
+
+五香粉 typically contains: star anise, fennel seed, cinnamon (cassia), Sichuan peppercorn, and cloves. Look at that list — we've now covered four of the five. This is the spice blend that flavors 五香牛肉 (five-spice beef), 五香花生 (five-spice peanuts), 五香豆干 (five-spice pressed tofu), and dozens of other dishes.
+
+And notice something: ALL five spices in 五香粉 are WARM. Every single one. Warm, pungent, aromatic. 五香粉 is a warming bomb — it's designed to fire up digestion, dispel cold, and move stagnant qi. This isn't accidental. A spice blend that's been stable for centuries tends to be stable for a reason — the combination works, both as flavor and as therapy.
+
+Fennel seed's specific food therapy job: warm the stomach, relieve cramping pain, and — this is very practical — reduce gas. If you're bloated and gassy after eating too many beans or lentils, fennel seed tea is the traditional Chinese (AND Italian AND Indian) solution. Three cultures, same plant, same use. When the entire world independently agrees that fennel helps with gas, it's probably not a coincidence.[cite: 2]`
+  },
+  {
+    title: "Part 4: What Shanghai Eats in Spring",
+    content: `If you're visiting in early May, you've arrived at one of the best eating moments of the Shanghai year. Winter is gone. The humidity hasn't hit its brutal summer peak yet. And the markets are exploding with fresh, seasonal ingredients that Shanghainese people wait for all year. Some of these things are available for only a few weeks. Miss the window, and you wait twelve months.
+
+Chinese food therapy has a rule for spring and early summer: 清补 — "light nourishment." Don't eat heavy, greasy, warming foods. The weather is warming up. Your body is warming up. If you add more heat on top of that, you'll "overshoot the thermostat" — remember? — and get 上火 (overheating): pimples, sore throat, irritability, constipation. Instead, eat light. Eat green. Eat cool. Eat fresh.
+
+Here's what's on the table right now.[cite: 2]`
+  },
+  {
+    title: "马兰头 — Indian Kalimeris",
+    content: `This is the #1 spring vegetable of Shanghai, and if you don't try it, you haven't really been here in May.
+
+马兰头拌香干 — blanched kalimeris shoots, chopped fine, mixed with tiny cubes of pressed tofu, dressed with sesame oil and a splash of soy sauce. That's it. Five ingredients. Takes ten minutes. And it's one of the most beloved cold dishes in Shanghai cuisine.
+
+The taste: green, slightly bitter, slightly grassy, with a refreshing quality that's hard to describe — like eating the smell of a freshly mowed lawn, but in a good way. The pressed tofu adds a mild, creamy, protein-rich contrast. The sesame oil ties it together.
+
+In food therapy terms, 马兰头 is cool and slightly bitter. Remember — bitter is the flavor that "drains downward," that clears heat. In spring, when the body's yang energy is rising, a cool, bitter vegetable keeps things from rising too fast. It's a gentle brake pedal for springtime overheating.
+
+Shanghainese people are fiercely seasonal about this dish. It appears on menus in March and disappears by May. If you order it in August, people will look at you strangely. "That's not the season." This level of seasonal specificity — eating certain vegetables only in their natural window — is food therapy built into culture at the deepest level. You eat what the earth is offering RIGHT NOW, not what a greenhouse can force into existence twelve months a year.[cite: 2]`
+  },
+  {
+    title: "蚕豆 — Broad Bean / Fava Bean",
+    content: `See these big, flat, bright green beans? You'll see them EVERYWHERE in May.
+
+蚕豆 — broad beans, fava beans. May is PRIME fava season in Shanghai. They're sold fresh in their big, puffy pods at every wet market. Street vendors sell them stir-fried with spring onions as a snack. Restaurants serve them with preserved mustard greens (雪菜炒蚕豆) — a classic Shanghainese home-cooking dish. Kids eat them boiled with salt as an after-school snack.
+
+In food therapy: fava beans are sweet and neutral, strengthening the spleen and draining dampness. May in Shanghai is when the humidity starts to climb — the air gets thick, heavy, sticky. Your body starts accumulating dampness. Fava beans are a gentle, food-grade drainage system — less intense than 薏苡仁 (coix seed), but pleasant enough to eat as a vegetable rather than as a "health food."
+
+The texture when fresh is buttery, creamy, almost paste-like when cooked properly. Very different from dried fava beans. If you've only had dried favas — the crunchy snack kind — fresh ones will be a revelation.
+
+Warning: a small percentage of people (particularly those of Mediterranean and African descent) have a genetic condition called G6PD deficiency, commonly known as "favism," that makes fava beans dangerous. If you know you have G6PD deficiency, avoid these entirely. If you don't know — you're almost certainly fine, but now you know to check.[cite: 2]`
+  },
+  {
+    title: "竹笋 — Bamboo Shoot",
+    content: `This crisp, pale, cone-shaped vegetable is one of the defining flavors of spring in the Yangtze Delta region.
+
+春笋 — spring bamboo shoots. They emerge from the ground in April and May as the bamboo rhizomes send up new growth. Shanghainese cooks go crazy for them. 油焖春笋 — bamboo shoots braised in soy sauce and sugar — is a quintessential spring dish: the natural sweetness of the shoot caramelizes with the soy sauce into something incredibly savory. 腌笃鲜 — a slow-simmered soup of spring bamboo shoot, fresh pork, and salt-cured pork — is one of the most famous Shanghai spring soups. It's humble, peasant-origin cooking, and it's extraordinary.
+
+Food therapy classification: bamboo shoot is sweet and cold. Cold nature — it cools the body. This makes it a classic spring-into-summer food: as the weather heats up, you eat more cold-nature vegetables to counterbalance. Bamboo shoot also "promotes downward flow" — it's mildly laxative, helping clear out the heavier, stodgier foods of winter.
+
+There's a Chinese saying: "尝鲜无不道春笋" — "When speaking of fresh flavors, nothing surpasses spring bamboo." Shanghai people take this literally. If you go to a local Shanghainese restaurant in May and ask "什么时令菜好？" — "What seasonal vegetable is good?" — the answer will include 春笋 approximately 100% of the time.[cite: 2]`
+  },
+  {
+    title: "枇杷 — Loquat (as fruit)",
+    content: `We met the loquat tree in the garden — remember? The leaves are cough medicine, but the fruit is food. And right now, in May, the fruit is at its peak.
+
+May is loquat month in Shanghai. Fruit vendors on every corner have pyramids of golden loquats stacked in baskets. They're sweet, juicy, slightly tangy, with a texture like a ripe apricot. You peel the skin, avoid the big brown seeds inside, and eat. Simple, messy, delicious.
+
+In food therapy, loquat fruit is cool and sweet — it moistens the lungs and relieves thirst. May in Shanghai can bring sudden warm spells, and loquat fruit is nature's answer: a cooling, hydrating, lung-moistening snack that appears exactly when you need it.
+
+The relationship between the fruit and the leaf is a perfect food therapy illustration: the leaf is the medicine (枇杷叶 — cough syrup), the fruit is the food. Same tree, different roles. You eat the fruit when you're healthy and it's in season. You take the leaf when you're sick and coughing. The tree provides both prevention and treatment.[cite: 2]`
+  },
+  {
+    title: "绿豆汤 — Mung Bean Soup",
+    content: `And finally — the drink that carries every Chinese person through the hot months. You'll start seeing it NOW, in May, because Shanghai is already warming up.
+
+绿豆汤 — mung bean soup. It's the simplest recipe imaginable: green mung beans, water, rock sugar. Boil until the beans split open and the water turns pale green-gold. Serve hot or cold. That's it.
+
+In food therapy, mung beans are COLD. Genuinely, powerfully cold. This is not a "cool" or "slightly cool" food — it's the cold-natured bean. Its job is to clear heat and resolve toxins. In summer, when the heat is crushing and you feel flushed, irritable, thirsty, and your urine is dark — mung bean soup is the answer. Every Chinese school cafeteria, every workplace canteen, every hospital kitchen serves mung bean soup from May through September. It's the public health infrastructure of summer.
+
+For you Americans: think of it as Chinese lemonade. The purpose is similar — a cold, sweet, refreshing drink that fights the heat. The mechanism is different — lemonade works through vitamin C and citric acid; mung bean soup works through clearing "internal heat" in the Chinese medical framework. But the cultural role is identical: the thing you drink when it's hot, the thing your mom makes you, the thing that means summer.
+
+Important food therapy note: because mung beans are so cold, people with weak, cold-type constitutions — the ones who always feel chilly, have cold hands, prefer hot drinks — should go easy on mung bean soup. It can make them worse. The thermostat analogy: if your body is already running cold, dumping more cold on top is a bad idea. This is personalized food therapy in action — the same food that's perfect for one person is wrong for another, depending on their constitution. There is no universal "superfood." There's only the right food for the right person at the right time.[cite: 2]`
+  },
+  {
+    title: "Part 5: What Shanghai Eats in Autumn",
+    content: `Now — flip the calendar forward six months. It's late November. The temperature is dropping. The air is dry. The trees are bare. Shanghai's summer humidity is gone, replaced by a crisp, cold wind from the north.
+
+The food therapy rule for late autumn and early winter is the opposite of spring: 温补 — "warm nourishment." The body needs warmth, density, richness. This is the season for slow-cooked soups, braised meats, root vegetables, and warming spices. You're fueling the furnace for winter.
+
+Here's what Shanghai puts on the table in November.[cite: 2]`
+  },
+  {
+    title: "羊肉 — Lamb / Mutton",
+    content: `If there's one food that defines Chinese winter eating, it's this.
+
+羊肉 — lamb and mutton. In Chinese food therapy, lamb is HOT. Not warm — hot. It is the single most warming common meat, the yang tonic of the dinner table. When the temperature drops, Chinese people eat lamb like Americans eat turkey at Thanksgiving: it's seasonal, it's communal, it's expected.
+
+Shanghai in November has several iconic lamb dishes:
+
+涮羊肉 — Mongolian-style lamb hotpot. Paper-thin slices of lamb, swished through boiling broth for a few seconds, dipped in sesame paste. This is social eating at its best — a group around a bubbling pot, talking, laughing, cooking together.
+
+红烧羊肉 — red-braised lamb. Chunks of lamb slowly braised in soy sauce, rock sugar, star anise, cinnamon, ginger, and rice wine until the meat is falling off the bone and the sauce is thick and glossy. This is Shanghai comfort food. Rich, sweet, deeply warming.
+
+羊肉汤 — lamb soup. A cloudy, milky-white broth made by boiling lamb bones for hours. Served with chopped scallions, white pepper, and sometimes a handful of vermicelli noodles. Drink a bowl of this on a cold November night and you'll feel the warmth spread from your stomach to your fingertips. That's not poetry — that's the pungent, warming compounds in the ginger and pepper promoting blood circulation. You literally feel warmer.
+
+Remember from the medicinal diet lecture: 当归生姜羊肉汤 — Angelica Ginger Lamb Soup — is one of the oldest documented food therapy recipes, from the Han Dynasty physician Zhang Zhongjing, about 200 AD. Lamb for warmth, ginger for dispersing cold, angelica for nourishing blood. That recipe is still made in Chinese homes TODAY, essentially unchanged after 1,800 years. If that doesn't impress you, nothing will.[cite: 2]`
+  },
+  {
+    title: "山药 — Chinese Yam",
+    content: `This long, pale, cylindrical root vegetable is going to show up in your November soup at least three times this week.
+
+山药 — Chinese yam, or Dioscorea. It looks like a long, beige stick — like an oversized, ugly parsnip. But cut it open, and the flesh is bright white and exudes a slightly slimy, mucilaginous juice. That sliminess is a clue: like tremella, it's a "moistening" food.
+
+In food therapy, 山药 is sweet, neutral (not hot, not cold), and targets the spleen, lung, and kidney channels. It's the Swiss Army knife of food therapy — it does a little bit of everything. Strengthens digestion, moistens the lungs, firms the kidneys, and it's one of the gentlest tonics in existence. It's safe for babies, the elderly, pregnant women, and people recovering from surgery. It's the food equivalent of a warm hug.
+
+In Shanghai in November, you'll find 山药 in:
+
+排骨山药汤 — pork rib and yam soup. The most common home-cooking soup in autumn/winter Shanghai.
+
+清炒山药 — stir-fried yam slices. Crisp, white, lightly seasoned. Simple and clean.
+
+蓝莓山药 — mashed yam with blueberry sauce. A modern Chinese fusion dish that's become wildly popular. The yam is steamed, mashed smooth, piped into a decorative shape, and drizzled with blueberry sauce. It looks like a French dessert. It tastes like sweet potato mousse with berry topping. And it's 100% food therapy — neutral, nourishing, gentle.
+
+山药 is also one of the "Four Spirits" in 四神汤 — the soup from the medicinal diet lecture. If you eat 四神汤 in November, the 山药 in it is doing the tonic heavy lifting.[cite: 2]`
+  },
+  {
+    title: "栗子 — Chestnut",
+    content: `Walk through any Shanghai street in November and follow your nose. You'll find these.
+
+糖炒栗子 — sugar-roasted chestnuts. Sold from enormous wok-like drums on street corners, roasted in black sand and sugar until the shells crack open and the golden flesh inside is sweet, mealy, steaming hot. The smell carries for half a block — caramelized sugar, toasted nut, wood smoke. It's one of the great street food experiences of Chinese autumn.
+
+In food therapy, chestnuts are warm and sweet, entering the spleen, stomach, and kidney channels. Their specialty: strengthening the kidneys and bones. There's an old Chinese saying: "腰酸腿软，栗子来办" — "Sore back and weak legs? Chestnuts will handle it." The traditional belief is that chestnuts are especially good for lower back pain and weak knees — symptoms associated with kidney deficiency.
+
+Chestnuts also show up in:
+
+板栗烧鸡 — chestnuts braised with chicken. A classic autumn dish — the chestnuts absorb the savory chicken sauce and become little nuggets of sweet-savory comfort.
+
+栗子糕 — chestnut cake. Steamed, mashed, shaped, and served as a dense, elegant Chinese pastry.
+
+For American students: you know chestnuts from the Christmas song — "chestnuts roasting on an open fire." Same nut. Same season. Same preparation. Same warmth. Different continent, same human instinct: when it's cold, roast chestnuts.[cite: 2]`
+  },
+  {
+    title: "莲藕 — Lotus Root",
+    content: `The lotus is back — but this time, it's the root we're eating.
+
+Slice a lotus root crosswise and you get one of the most recognizable cross-sections in the food world: a circle filled with a ring of oval holes, like a natural Swiss cheese. This pattern is so iconic that it appears in Chinese art, textiles, and architectural designs.
+
+In Shanghai in November, lotus root is at its best — harvested from cold pond mud by farmers in rubber boots, sold with mud still clinging to the skin. Fresh November lotus root is starchier, sweeter, and denser than summer lotus root.
+
+You'll encounter it in several forms:
+
+糖醋藕片 — sweet-and-sour lotus root slices. Thin, crispy, tangy. A cold appetizer.
+
+排骨藕汤 — pork rib and lotus root soup. THE winter soup of Hubei province, but beloved in Shanghai too. Hours of slow simmering turn the lotus root from crispy to soft, almost powdery, and the broth becomes thick and slightly pink.
+
+桂花糯米藕 — the showpiece. Whole lotus root segments stuffed with glutinous rice, steamed for hours, sliced into wheels, and drizzled with osmanthus syrup. The cross-section reveals the lotus holes packed with translucent sticky rice. It's one of the most beautiful desserts in Chinese cuisine.
+
+Food therapy twist: raw lotus root is COOL — it clears heat and cools the blood. Cooked lotus root is WARM — it nourishes the spleen and blood. Same root. Raw versus cooked. Cool versus warm. This is one of the clearest demonstrations of how cooking itself is a form of 炮制 — processing. Heat doesn't just change texture. It changes the medicine.[cite: 2]`
+  },
+  {
+    title: "秋梨膏 — Autumn Pear Syrup",
+    content: `This thick, dark, honey-like syrup is Shanghai's autumn medicine cabinet in a bottle.
+
+秋梨膏 — literally "Autumn Pear Paste." It's made by slowly cooking down Chinese pear juice with honey, red dates, ginger, 川贝母 (fritillaria), and sometimes a few other herbs until it reduces into a thick, dark, intensely sweet syrup. You stir a spoonful into hot water and drink it as a sweet, warm, soothing tea.
+
+Its purpose is singular and specific: moisten the lungs and stop dry coughs. November in Shanghai brings dry, cold air that assaults your respiratory tract. Dry throat, dry nose, scratchy cough, hoarse voice — these are the hallmarks of autumn dryness, and 秋梨膏 is the answer.
+
+The key ingredient — pear — is classified as cool and sweet, with a special affinity for the lungs. It generates fluids and clears dryness. Combined with honey (moistening), fritillaria (cough-stopping), and red dates (nourishing), it becomes a concentrated moistening formula disguised as a sweet drink.
+
+You can buy 秋梨膏 in any Shanghai supermarket, convenience store, or pharmacy. Some versions are pure food-grade — just pear and honey. Others contain actual herbal medicine ingredients and are closer to a soft drug than a beverage. Check the label — or just ask the shopkeeper. They'll know the difference.
+
+For the Americans: this is basically Chinese cough syrup that tastes like warm honey-pear tea instead of cherry-flavored NyQuil. It's vastly more pleasant. Whether it's more effective is debatable, but your throat won't care about the clinical evidence — it will just feel better.[cite: 2]`
+  },
+  {
+    title: "Part 6: Reading a Chinese Menu Through TCM Eyes",
+    content: `OK. When you leave this building, you're going to walk into a Shanghai restaurant. You're going to sit down. Someone's going to hand you a menu — probably with pictures, hopefully with some English, definitely with a hundred options you don't recognize. And here's what I want you to be able to do: spot the food therapy hiding in plain sight.
+
+I'm going to give you five "cheat codes" — five patterns to look for on any Chinese menu that will tell you the kitchen is doing medical work.[cite: 2]`
+  },
+  {
+    title: "Cheat Code 1: Read the soup names",
+    content: `If a soup has an ingredient you recognize from today — 红枣, 枸杞, 山药, 莲子, 桂圆, 百合, 银耳 — it's a food therapy soup. Period. Chinese people don't put goji berries in chicken soup because goji berries taste amazing in chicken soup. They taste fine. They're there because they nourish the liver and brighten the eyes. The flavor is the vehicle. The therapy is the passenger.
+
+Example: 乌鸡枸杞红枣汤 — Black chicken, goji berry, and red date soup. That's not just a soup. That's a blood-nourishing, kidney-tonifying, eye-brightening formula in a bowl. The black chicken (乌鸡) is itself a medicinal food — classified as warm, sweet, and nourishing to the liver and kidneys.[cite: 2]`
+  },
+  {
+    title: "Cheat Code 2: Check the seasonal specials",
+    content: `Good Chinese restaurants rotate their menu with the seasons. If there's a section labeled 时令菜 (seasonal dishes) or 当季推荐 (current season recommendations), look there first. These dishes are selected because the ingredients are at their peak AND because they're appropriate for the current season's climate. The chef is being a food therapist without calling themselves one.
+
+In May, seasonal specials will lean cool and light: spring greens, fresh bamboo shoots, river shrimp, light stir-fries. In November, they'll lean warm and rich: braised meats, root vegetable soups, slow-cooked stews. The kitchen is following the same 春生夏长秋收冬藏 principle we've been discussing all day.[cite: 2]`
+  },
+  {
+    title: "Cheat Code 3: Notice the cold/hot dish structure",
+    content: `Chinese restaurant menus are usually divided into 凉菜 (cold dishes) and 热菜 (hot dishes). A proper Chinese meal starts with a few cold dishes as appetizers, then moves to hot dishes. This isn't random — it's a mini food therapy protocol:
+
+Cold dishes first: they "open" the stomach, stimulate appetite, and provide a light, cooling start. Many cold dishes feature vinegar, which is sour — and sour "astringes" and generates digestive fluids, preparing the stomach for the heavier food to come.
+
+Hot dishes after: they deliver the main nourishment — warm, substantial, satisfying.
+
+It's a progression: open, prepare, deliver. Appetizer as medicine, main course as nourishment. The structure of the meal IS the therapy.[cite: 2]`
+  },
+  {
+    title: "Cheat Code 4: Spot the keywords",
+    content: `Two phrases to watch for on menus or on signs outside restaurants:
+
+去火 or 降火 — "Reduce fire." Any dish or drink described as "去火" is designed to cool internal heat. You'll see this on herbal tea shops (凉茶铺), on mung bean soup labels, on chrysanthemum tea bottles. If you've been eating too much fried food, too much Sichuan hotpot, and your throat is sore and your skin is breaking out — look for 去火 options.
+
+滋补 — "Nourishing tonic." Any restaurant or dish described as 滋补 is designed to build you up — warm, rich, strengthening. You'll see this on lamb hotpot restaurants, on black chicken soup restaurants, on herbal soup kitchens. November is 滋补 season. May is NOT.
+
+If you eat 滋补 food in May when it's already getting warm, you might overheat. If you eat 去火 food in November when it's cold, you might make yourself colder. Matching the keyword to the season is food therapy 101.[cite: 2]`
+  },
+  {
+    title: "Cheat Code 5: Watch what people drink",
+    content: `Last code. Don't just look at the food — look at what people are DRINKING.
+
+In May: you'll see people drinking 菊花茶 (chrysanthemum tea), 金银花茶 (honeysuckle tea), 绿豆汤 (mung bean soup), 酸梅汤 (sour plum drink). All cool or cold in nature. All clearing heat.
+
+In November: you'll see 姜茶 (ginger tea), 红枣桂圆茶 (red date longan tea), 枸杞茶 (goji tea), and hot 豆浆 (soy milk). All warm or neutral. All nourishing.
+
+Nobody announces this. Nobody reads a food therapy textbook before choosing their afternoon drink. It's instinct — cultural muscle memory trained over generations. A Shanghainese office worker reaching for chrysanthemum tea on a hot May afternoon isn't "practicing Chinese medicine." They're just thirsty. But the choice they make, without thinking, is medically consistent with the system we've been studying all day. The food therapy isn't in the conscious decision. It's in the culture.[cite: 2]`
+  },
+  {
+    title: "Conclusion",
+    content: `Here's what I hope you take home from this exhibit — not from this room, but from China:
+
+Next time you sit down in a Chinese restaurant and the waiter brings you a pot of chrysanthemum tea before you've even ordered — that's food therapy.
+
+Next time your Chinese friend sees you coughing and disappears for ten minutes and comes back with a pear boiled with rock sugar — that's food therapy.
+
+Next time the auntie at the breakfast shop tells you "天冷了多吃点姜" — "it's cold, eat more ginger" — that's food therapy.
+
+It's not in a hospital. It's not in a prescription. It's in the kitchen. It's in the thermos. It's in the street vendor's cart. It's in the instinct of a grandmother who has never read a medical textbook but knows exactly what soup to make when her grandson has a cough in November.
+
+That instinct is two thousand years old. And it's in every bowl.
+
+Enjoy your dinner tonight. And pay attention to what's in it.[cite: 2]`
+  }
+];
+
+const listContainer = document.getElementById('exhibitList');
+const searchBox = document.getElementById('searchBox');
+
+function renderList(dataToRender) {
+  listContainer.innerHTML = '';
+  if (dataToRender.length === 0) {
+    listContainer.innerHTML = '<div class="empty">No results found</div>';
+    return;
+  }
+  
+  dataToRender.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="item-header" onclick="this.parentElement.classList.toggle('active')">
+        <span>${item.title}</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="item-content">
+        <div class="text-box">${item.content}</div>
+      </div>
+    `;
+    listContainer.appendChild(el);
+  });
+}
+
+function filterList() {
+  const query = searchBox.value.toLowerCase().trim();
+  if (!query) {
+    renderList(database);
+    return;
+  }
+  
+  const filtered = database.filter(item => 
+    item.title.toLowerCase().includes(query) || 
+    item.content.toLowerCase().includes(query)
+  );
+  
+  renderList(filtered);
+  
+  // Expand filtered results automatically for easier reading
+  setTimeout(() => {
+    document.querySelectorAll('.item').forEach(card => card.classList.add('active'));
+  }, 10);
+}
+
+// Initial render
+renderList(database);
+</script>
+</body>
+</html>

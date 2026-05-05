@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TCM Pharmacy Tour Guide</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f6fa; margin: 0; padding: 0; color: #2c3e50; line-height: 1.6; }
+  header { background: #2c3e50; color: #fff; padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  h1 { font-size: 1.2rem; margin: 0 0 12px 0; text-align: center; font-weight: 600; }
+  input { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; outline: none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+  
+  main { padding: 15px; max-width: 800px; margin: 0 auto; }
+  .list-container { display: flex; flex-direction: column; gap: 10px; }
+  
+  .item { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; border-left: 4px solid #2c3e50; }
+  .item-header { padding: 16px 15px; font-weight: bold; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+  .item-header:active { background: #f0f0f0; }
+  .toggle-icon { color: #2c3e50; transition: transform 0.3s; font-size: 0.9em; }
+  
+  .item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #faf9f5; }
+  .item.active .item-content { max-height: 5000px; border-top: 1px solid #eee; }
+  .text-box { padding: 15px; white-space: pre-wrap; font-size: 0.95rem; color: #333; }
+  
+  .empty { text-align: center; padding: 30px; color: #7f8c8d; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TCM Pharmacy Tour Guide</h1>
+  <input type="text" id="searchBox" placeholder="Search pharmacy processes, herbs, or keywords..." onkeyup="filterList()">
+</header>
+
+<main>
+  <div id="exhibitList" class="list-container"></div>
+</main>
+
+<script>
+// Complete English Content from "中药店参观讲稿.docx"
+const database = [
+  {
+    title: "Introduction: Stepping Back in Time",
+    content: `Step through this doorway, and you're stepping back about 200 years. What you're looking at is a recreation of a traditional Chinese pharmacy — 药铺 or 药堂. Not a modern hospital pharmacy with fluorescent lights and plastic pill bottles. This is where Chinese medicine lived for most of its history: in shops on busy streets, sandwiched between a tea house and a noodle restaurant, run by families who passed the business down generation after generation.
+
+Notice the signboard. Traditional Chinese pharmacies always had a name — and the name mattered enormously. You might see names like 同仁堂 (Tong Ren Tang — "Hall of Shared Benevolence"), or 胡庆余堂 (Hu Qing Yu Tang — "Hall of Hu's Celebrating Surplus"), or 九芝堂 ("Hall of Nine Lingzhi"). These aren't just business names. They're moral declarations.
+
+同仁堂's founding motto — carved into the shop and memorized by every apprentice — was: "炮制虽繁必不敢省人工，品味虽贵必不敢减物力" — "Though processing is complex, we dare not cut corners on labor; though ingredients are costly, we dare not reduce quality." That motto is from 1706. Three hundred and twenty years later, 同仁堂 is still in business. Still using the same motto. Still operating pharmacies across China and in dozens of countries worldwide.
+
+The point is: a traditional pharmacy wasn't just a shop. It was a brand built on trust. When your product is something people put inside their bodies to treat illness, reputation is everything. One batch of bad medicine, one substitution of a cheap ingredient, and your family's name — your 堂号 — is ruined for generations. In a world with no FDA, no government inspections, no laboratory testing — the pharmacy's name on the door was the quality control system.[cite: 5]`
+  },
+  {
+    title: "The Consultation Area: Pulse Diagnosis",
+    content: `Now — the first thing you see when you walk into a traditional pharmacy isn't shelves of medicine. It's a desk. A very specific kind of desk. Come look.
+
+This is the consultation area. In a traditional Chinese pharmacy, the doctor didn't practice in a separate clinic — the doctor sat right here, inside the pharmacy. The patient walked in, sat down across from the doctor, and the examination happened on the spot. No appointment. No waiting room. No receptionist. You walked in, you sat down, you held out your wrist.
+
+See this small cushion on the desk? That's a 脉枕 — a pulse pillow. The patient places their wrist on it, and the doctor places three fingers — index, middle, and ring finger — on the wrist to feel the pulse. This is 切脉, pulse diagnosis, and it's one of the four traditional diagnostic methods: 望 (looking), 闻 (listening and smelling), 问 (asking), 切 (touching/pulse). Look, listen, ask, touch. Four information sources, combined into a diagnosis.
+
+Now, here's what's going to surprise many of you: the doctor doesn't just feel "fast" or "slow." Traditional pulse diagnosis recognizes up to 28 different pulse qualities. 28! There's a "slippery" pulse — 滑脉 — that feels like beads rolling under your fingers. There's a "wiry" pulse — 弦脉 — that feels like pressing on a guitar string, taut and vibrating. There's a "choppy" pulse — 涩脉 — that feels rough and uneven, like scraping bamboo with a knife. Each quality tells the doctor something different about what's happening inside the body.
+
+Is this diagnostically reliable by modern standards? That's debated. Critics say it's too subjective — different doctors may describe the same pulse differently. Defenders say it takes years of training to develop the sensitivity, and that a skilled practitioner can detect things that basic lab work misses. The honest answer is: it's a skill, not a test. Like wine tasting — a trained sommelier can detect things in a glass of wine that you and I would completely miss. That doesn't mean the flavors aren't there. It means the instrument — in this case, a human fingertip — requires calibration through years of practice.
+
+After the diagnosis, the doctor writes a prescription — not for a single drug, but for a formula. Remember from our lecture: Chinese medicine almost never uses single herbs. The prescription is a recipe — five, ten, maybe fifteen different herbs, each with a specific dose, combined according to the principles we learned: 君臣佐使, the monarch-minister-assistant-envoy hierarchy. The doctor writes this on a piece of paper, and hands it to... the person behind the counter.[cite: 5]`
+  },
+  {
+    title: "The Hundred-Drawer Cabinet & Dispensing",
+    content: `Turn around. Now you're looking at the most iconic piece of furniture in all of Chinese medicine.
+
+This is a 百子柜 — literally "Hundred-Drawer Cabinet." Count the drawers if you want — there are usually between 100 and 200, sometimes more. Each small drawer is labeled with the name of a specific herb, and inside that drawer is the processed, ready-to-use medicinal material. THIS is the Chinese pharmacy's inventory system. No barcodes. No computer database. Just a wooden wall of tiny drawers that the pharmacist has memorized.
+
+And when I say "memorized," I mean truly memorized. A trained pharmacist — called a 药剂师 or traditionally just 药工 — knows the location of every single drawer without looking at the labels. The arrangement follows a traditional logic: herbs with similar functions are stored near each other. Heat-clearing herbs in one section, tonic herbs in another, aromatic herbs in another. Within each section, they're arranged so that commonly paired herbs are in adjacent drawers — because if the prescription says "金银花15g, 连翘10g" (two herbs that are almost always used together), the pharmacist can open two neighboring drawers without taking a step.
+
+Watch how the pharmacist works.
+
+The doctor's prescription arrives at the counter. The pharmacist reads it — and here's the first safety check: a good pharmacist doesn't just fill the prescription blindly. They READ it critically. If the dose of a toxic herb seems too high, they'll question it. If two herbs in the prescription are part of the "Eighteen Incompatibilities" — 十八反 — remember that from the lecture? — the pharmacist is expected to catch it and refuse to fill the prescription until clarifying with the doctor. The pharmacist is the LAST line of defense before the medicine reaches the patient.
+
+Now — the filling process. The pharmacist takes a sheet of paper — traditionally a square of brown packaging paper — lays it on the counter, and begins pulling herbs from the drawers. One drawer, scoop out the herb, place it on the scale.
+
+Look at the scale. This is a traditional Chinese medicine balance — a 戥子 (děng zi) — a small hand-held beam balance with a brass pan on one side and sliding weights on the other. These have been used for centuries and are accurate to about 0.5 grams. The unit of measurement is the 钱 (about 3 grams) or 克 (gram). Each herb is weighed individually and placed on the paper. The pharmacist works through the entire prescription — ten, twelve herbs — weighing each one, building a pile on the paper.
+
+One prescription makes ONE DAY's medicine. A typical course of treatment is 7 to 14 days. So the pharmacist repeats this entire process seven to fourteen times, making seven to fourteen identical packets. Each packet gets wrapped in the paper, folded into a neat bundle, and stacked. The patient takes the whole stack home.
+
+See how the pharmacist folds the paper? That fold isn't random — it's a specific technique that keeps the herbs contained without tape or staples, and allows the patient to unfold it directly into the cooking pot. The folding pattern has been standardized for centuries. Every apprentice pharmacist learns it in their first week of training.[cite: 5]`
+  },
+  {
+    title: "Special Handling Instructions",
+    content: `Now, watch — the pharmacist is setting certain herbs aside, not putting them in the main pile. Why?
+
+Because some herbs require special handling. In the prescription, the doctor marks specific herbs with special instructions. Let me show you the most common ones:
+
+先煎 — "Decoct first." Minerals and shells — like 石膏 (gypsum) or 龙骨 (dragon bone) — are hard and dense. They need to boil for 20-30 minutes BEFORE the other herbs are added, otherwise their active compounds won't have time to dissolve. So the pharmacist wraps these separately with a note: "put in first."
+
+后下 — "Add later." Aromatic herbs — like 薄荷 (mint) — contain volatile oils that evaporate if boiled too long. Remember from the plant garden tour? We said mint is "always fashionably late to the party"? Here's where that becomes operational: the pharmacist wraps mint separately with a note: "add in the last 5 minutes only."
+
+包煎 — "Wrap and decoct." Some herbs are powdery or hairy and would make the liquid murky or irritate the throat if loose — like 旋覆花 (inula flower), which has tiny hairs. The pharmacist wraps these in a small cloth bag before the patient boils them — like a tea bag inside the soup.
+
+另煎 — "Decoct separately." Precious or expensive herbs — like 人参 (ginseng) — get their own pot. You don't want to mix a $50 piece of ginseng with $3 worth of common herbs and lose its potency in the chaos. The patient boils the ginseng alone, in a separate small pot, and then combines the two liquids at the end.
+
+烊化 — "Melt in." Sticky, gelatinous substances — like 阿胶 (donkey-hide gelatin) — don't go in the pot at all during boiling. They'd stick to everything and burn on the bottom. Instead, after the rest of the formula is cooked and strained, you dissolve the gelatin directly into the hot liquid and stir until it melts.
+
+So the pharmacist isn't just counting and weighing. They're choreographing a cooking process that the patient will perform at home. Each herb has its entrance cue. The prescription isn't just a list of ingredients — it's a set of stage directions.[cite: 5]`
+  },
+  {
+    title: "Patient Instructions (Cooking & Timing)",
+    content: `Before the patient leaves, two more things happen.
+
+First — the pharmacist gives verbal instructions on how to cook the medicine. This is called 煎药法, and it's surprisingly specific:
+
+"Use a ceramic pot or glass pot — never metal, especially not iron or copper, because the metal can react with certain herb compounds and change the medicine's properties."
+
+"Add cold water until it covers the herbs by about two finger-widths. Soak for 30 minutes before you start heating — this lets the dry herbs rehydrate and allows the water to begin penetrating the plant tissues."
+
+"Bring to a boil on high heat, then reduce to low heat and simmer. For a formula that 'attacks' — clears heat, resolves toxins — simmer for about 20 minutes. For a formula that 'tonifies' — nourishes, strengthens — simmer for 40 to 60 minutes. Attack formulas are quick and intense. Tonic formulas are slow and gentle."
+
+"Strain the liquid. Then add water again and boil a second time — the second extraction captures compounds that didn't fully dissolve the first time. Combine the two batches of liquid and divide into two doses: one for morning, one for evening."
+
+Second — the pharmacist gives instructions on when to take the medicine relative to meals:
+
+饭前服 — Before meals: for herbs targeting the lower body (intestines, kidneys, lower back). The empty stomach lets the medicine descend faster.
+
+饭后服 — After meals: for herbs targeting the upper body (lungs, heart, head) or for herbs that might irritate the stomach. The food buffer protects the stomach lining.
+
+睡前服 — Before bed: for sedative or calming formulas. You take the sleep medicine before sleeping.
+
+See how every detail is intentional? The timing, the pot material, the water level, the soak time, the boiling duration, the number of extractions — none of this is arbitrary. It's all been refined over centuries of trial and error. The prescription is a protocol, not just a recipe.[cite: 5]`
+  },
+  {
+    title: "Into the Back Workshop",
+    content: `What you just saw in the front shop — the neat drawers, the clean herbs, the precise weighing — that's the finished product. But every one of those herbs in those drawers went through a process before it was ready to be dispensed. Some arrived at this pharmacy as dirty roots covered in mud. Some arrived as toxic raw materials that would harm you if used untreated. Some arrived as huge, unwieldy chunks that needed to be sliced, diced, and transformed.
+
+This back workshop is where that transformation happens. And the Chinese have a word for this entire art: 炮制 — which you already know from the lecture. Today, you get to see what it actually looks like.[cite: 5]`
+  },
+  {
+    title: "Authentication (鉴别)",
+    content: `The first station in the back is the receiving area. This is where raw materials arrive — in sacks, in bundles, sometimes in wooden crates — from suppliers, traders, and farms all over China. And the FIRST job, before anything else happens, is to verify: is this really what the label says it is?
+
+This step is called 鉴别 — identification and authentication. And it is FAR more important than it might sound. Because the Chinese herbal market is enormous — hundreds of billions of yuan per year — and where there's money, there's fraud. Fake herbs. Adulterated herbs. Cheap substitutes labeled as expensive materials. This has been a problem for literally thousands of years. Ancient texts already warn about it. The problem didn't arrive with modern capitalism — it's been here since the first merchant realized he could make more money selling a cheap root labeled as an expensive one.
+
+Traditional authentication relies on four sensory methods — essentially the same "look, smell, ask, touch" framework the doctor uses, but applied to herbs instead of patients:
+
+眼看 — Look. Shape, color, surface texture, cross-section pattern. For example: real 黄芪 (astragalus root), when you snap it, has a fibrous interior with a yellowish-white color and a distinct "chrysanthemum-heart" pattern in the cross-section — radiating lines that look like a tiny flower. Fake astragalus doesn't have that pattern. A trained inspector can spot the difference in two seconds.
+
+鼻闻 — Smell. Many herbs have characteristic odors. Real 当归 (angelica root) has an intensely sweet, musky, almost wine-like fragrance that's unmistakable once you've learned it. If someone hands you "angelica" that smells flat or wrong — reject it.
+
+口尝 — Taste. This is where it gets brave. Experienced inspectors will put a tiny piece of the herb on their tongue. Real 黄连 (coptis root) is INTENSELY bitter — among the most bitter substances in nature. If your "黄连" is only mildly bitter, it's probably a substitute. Real 甘草 (licorice) is powerfully sweet — 30 to 50 times sweeter than sugar. If your "licorice" is only slightly sweet, something's wrong.
+
+手摸 — Touch. Weight, texture, flexibility, moisture content. Real 茯苓 (poria) feels firm, slightly chalky, and relatively light for its size. If it's suspiciously heavy, someone may have soaked it in salt water to add weight — and charge you more per kilogram.
+
+Now — in modern pharmacies, these traditional methods are supplemented by laboratory testing: thin-layer chromatography, HPLC, DNA barcoding. But here in the traditional workshop, the emphasis is on human expertise. A master inspector — 老药工 — who has spent 30 years handling herbs can often detect fakes faster than a lab machine. They've built a library of sensory memories: the exact shade of yellow that real rhubarb should be, the precise snap-sound of properly dried astragalus, the particular stickiness of authentic rehmannia.
+
+That expertise is, itself, an endangered species. As China modernizes and automates its pharmaceutical supply chain, fewer young people are learning these traditional skills. There are national efforts to document and preserve this knowledge before the last generation of master inspectors retires.[cite: 5]`
+  },
+  {
+    title: "Cleaning & Sorting (净选)",
+    content: `What you're seeing is 原药材 — raw medicinal material, straight from the field. This root still has dirt on it. These leaves have dead insects mixed in. These seeds are tangled with stems and pebbles. Before any further processing, everything needs to be cleaned and sorted. This step is called 净选 — "clean selection."
+
+The operations are straightforward but labor-intensive:
+
+挑选 — Sorting. Remove anything that isn't the target material: dirt, stones, other plant parts, insect debris, moldy pieces. This is done by hand, on large flat trays. Workers sit and pick through material piece by piece. There is no machine that can do this as well as an experienced human pair of hands — machines can't tell the difference between a good root and a wormy root by sight the way a person can.
+
+清洗 — Washing. Roots and rhizomes are washed in running water to remove soil. But here's a critical detail: the washing has to be quick. Many herbs contain water-soluble active compounds. If you soak them too long, you're literally washing the medicine down the drain. So the traditional instruction is: "抢水洗" — "wash against time." Wash fast, don't soak. Get the dirt off, then get the herb out of the water immediately.
+
+去非药用部位 — Remove non-medicinal parts. Many plants have specific parts that are used and specific parts that must be removed. For example: 金银花 (honeysuckle) — only the flower bud is medicine; any open flowers or leaves mixed in must be picked out. 黄芩 (scutellaria root) — the interior sometimes becomes hollow and rotten in old roots; those hollow portions, called "枯芩," have different properties from the solid portions and must be separated. 麻黄 (ephedra) — the stem is the medicine; the root is a completely different medicine with the OPPOSITE function (the stem promotes sweating, the root STOPS sweating), so mixing them up would be a serious clinical error.
+
+That last example should make you pause: the stem and root of the same plant have opposite medical functions, and they must be physically separated by hand at this stage. If the sorting worker makes a mistake, the doctor's prescription does the wrong thing. This "boring" cleaning step is actually a critical safety point.[cite: 5]`
+  },
+  {
+    title: "Processing: Fire and Water (炮制)",
+    content: `Now we're at the heart of the back workshop. This is where the real art happens. This is 炮制.
+
+You heard this word in the classroom. 炮制 — the art and science of processing raw medicinal materials to make them safe, effective, and properly targeted. Today you're going to see what it actually involves. There are two main categories: 火制 — fire-based processing — and 水制 — water-based processing. Let's start with fire.
+
+炒 — Dry-frying. The most common method. The herb goes into a hot iron wok — no liquid, no oil — and is stirred continuously over controlled heat. But "frying" doesn't mean "cook until done." There are precise stages, each producing a different result:
+
+炒黄 — "Fry until yellow." Gentle heat, just enough to slightly change the color and make the herb more fragrant. This moderates harsh properties without fundamentally changing the herb. Think: lightly toasted bread versus raw bread. Same ingredients, but the texture, flavor, and digestibility are different.
+
+炒焦 — "Fry until scorched." Medium heat, longer time, until the surface is brown-black but the interior is still intact. This is done to herbs like 山楂 (hawthorn) — remember from the garden tour? Raw hawthorn is very sour and can irritate the stomach. Scorched hawthorn — 焦山楂 — is less sour, less irritating, and actually better at its primary job of aiding digestion. The heat transforms the chemistry.
+
+炒炭 — "Fry until charred." High heat until the exterior is completely black carbon, but the interior still retains some original character. This sounds destructive, but it has a very specific purpose: charred herbs gain the ability to stop bleeding. A dozen different herbs, when charred, develop hemostatic properties they didn't have before. Why? The carbon acts as a physical adsorbent and the thermal transformation creates new compounds. This is one of the most remarkable discoveries in traditional processing — that burning a plant just right gives it a completely new clinical function.
+
+辅料炒 — Frying with adjuvants. Now it gets even more sophisticated. Instead of dry-frying, you add a specific liquid to the wok along with the herb:
+
+酒炙 — Stir-fried with rice wine. The wine is warm in nature and rises upward. So wine-processing makes the herb "aim higher" in the body — toward the head, the chest, the upper channels. Remember the elevator from the lecture? Wine pushes the elevator UP.
+
+醋炙 — Stir-fried with vinegar. Vinegar enters the liver channel. So vinegar-processing enhances herbs that target the liver — pain relief, blood circulation, liver-soothing effects all become stronger.
+
+盐炙 — Stir-fried with salt water. Salt enters the kidney channel and directs energy DOWNWARD. Salt-processing makes the herb "aim lower" — toward the kidneys, the lower back, the reproductive system. Salt pushes the elevator DOWN.
+
+蜜炙 — Stir-fried with honey. Honey is sweet, moistening, and nourishing. Honey-processing makes herbs gentler and more tonifying, and specifically enhances lung-moistening effects. 蜜炙麻黄 — honey-fried ephedra — is less harsh on the body than raw ephedra, with reduced sweating effect but enhanced cough-relief effect.
+
+Are you seeing the pattern? The pharmacist isn't just cooking. They're using adjuvants as GPS coordinates — telling the herb where to go and what to do when it gets there. Wine says "go up." Salt says "go down." Vinegar says "go to the liver." Honey says "be gentle." The raw herb is a package. The adjuvant is the address label.
+
+浸泡 — Soaking. Some herbs are soaked in water to soften them for cutting, or to wash away undesirable components. But again — timing is everything. Soak too short, the herb is still too hard to cut. Soak too long, the active ingredients leach out. The traditional rule: "泡而不漂" — "soak but don't let it float away."
+
+水飞 — Water grinding/levigation. This is a special technique for mineral drugs. The mineral is ground in water — literally pulverized while submerged — and the finest particles suspend in the water while the coarse grit sinks. You pour off the milky water, let it settle, and collect the ultrafine powder from the surface. This achieves an incredibly fine particle size without any modern equipment — just water, a grinding stone, and patience. 朱砂 (cinnabar) is traditionally prepared this way: the water-grinding process not only makes the powder finer but also washes away soluble mercury compounds, making the final product less toxic than crude cinnabar. Ancient processing, modern safety logic.
+
+蒸制 — Steaming. Extended steaming, sometimes repeated multiple times over days. This is how 熟地黄 (prepared Rehmannia) is made — remember from the garden tour? The root is steamed with rice wine, dried, steamed again, dried again, over and over, sometimes nine cycles. Each cycle deepens the color (from yellow to black), changes the flavor (from bitter to sweet), and shifts the temperature (from cool to warm). Nine steamings. Nine dryings. And the result is a medicine that does the exact opposite of what the raw material did.[cite: 5]`
+  },
+  {
+    title: "Cutting (切制)",
+    content: `After processing, the material needs to be cut into usable pieces. And this is where it starts to look like a kitchen — because the tools and techniques are surprisingly similar to what a chef uses.
+
+This station is 切制 — cutting and slicing. And just like a chef who knows that a julienne, a brunoise, and a chiffonade all serve different purposes, a Chinese pharmacist knows that HOW you cut a herb affects how it works.
+
+The main cut styles:
+
+薄片 — Thin slices. For dense, hard roots like 黄芪 (astragalus). Sliced thin so they have maximum surface area exposed to water during boiling, which means the active compounds dissolve faster and more completely. If you leave astragalus in a thick chunk, the center never fully extracts — you're wasting medicine.
+
+厚片 — Thick slices. For softer, lighter materials that would disintegrate if sliced too thin. You need enough structural integrity to survive 40 minutes of boiling without turning to mush.
+
+段 — Sections/segments. For stems and long thin materials like 麻黄 (ephedra) or 荆芥 (schizonepeta). Cut into 1-2 centimeter segments. This standardizes the size for even extraction.
+
+丝 — Shreds/slivers. For leaves and thin materials. Cutting into fine shreds increases surface area dramatically.
+
+块 — Chunks. For large, dense items like 葛根 (pueraria root) that are too big to use whole but too sturdy to need thin slicing.
+
+Now look at the cutting tool. This large blade mounted on a fulcrum — this is a 铡刀, a lever-action cutter traditionally used in Chinese pharmacy. The pharmacist places the herb under the blade and presses down with the handle. It gives tremendous leverage and very consistent cuts. For thin slicing of hard materials, there's a different tool — a 片刀 or 推刀 — where the herb is held against a platform and pushed across a fixed blade, almost like a mandoline slicer in a Western kitchen.
+
+The quality of the cut matters clinically. A master cutter — 切药工 — is judged by the uniformity and thinness of their slices. The traditional standard for 黄芪 thin slices is that they should be translucent — you should be able to hold a slice up to the light and see light through it. That's thin. That's skill. And that takes years to develop.
+
+Here's a detail that connects back to our lecture: certain herbs are cut differently depending on their intended use. 当归 (angelica root) is a perfect example. The whole root has three parts: the head (归头), the body (归身), and the tails (归尾). The head is best at tonifying blood upward. The body is best at nourishing blood overall. The tails are best at moving blood and breaking stasis. A sophisticated prescription might specify "归尾10g" — only the tail — because the doctor specifically wants blood-moving, not blood-tonifying. The cutter must know this and separate accordingly.
+
+Same root. Different sections. Different functions. And the person who separates them isn't the doctor — it's the workshop cutter. The quality of the final medicine depends on this person's knowledge and skill just as much as it depends on the doctor's diagnosis.[cite: 5]`
+  },
+  {
+    title: "The Decoction Room (煎药室)",
+    content: `This is the 煎药室 — the decoction room. And this is where all of the processing, cutting, and prescribing comes together in one final act: boiling the herbs in water to create the liquid medicine that the patient actually drinks. This liquid is called 汤剂 — literally "soup medicine" — and it's been the primary delivery format for Chinese medicine for about 2,000 years.
+
+The pharmacist in the front shop already told the patient how to do this at home, but many pharmacies — especially modern ones — now offer to decoct the medicine for you. What you see here is the in-house decoction service.
+
+Let's start with the traditional method. See these 砂锅 — clay pots, ceramic vessels, brown and unglazed? Clay and ceramic are the traditional material of choice because they're chemically inert — they don't react with the herb compounds. Iron pots can react with tannins and turn the medicine black. Copper can catalyze oxidation of certain compounds. Aluminum is reactive with acids. So clay it is.
+
+The process follows a strict sequence:
+
+Step 1 — Soak. Cold water is added until it covers the herbs by about 3-5 centimeters. The herbs sit for 30 minutes. This is not optional — dry plant material needs time to rehydrate. If you skip this step and go straight to heating, the surface cells cook and seal before water penetrates the interior, and you get poor extraction. Think of it like cooking dried beans — you always soak first.
+
+Step 2 — First boil (头煎). Bring to a rolling boil on high heat — 武火, "martial fire," strong and aggressive. Once boiling, immediately reduce to low heat — 文火, "civil fire," gentle and sustained. Then simmer.
+
+Here's where the doctor's instructions matter: for a 解表剂 — a formula that "releases the exterior" to treat early-stage colds — simmer only 15-20 minutes. Short and intense. You want the volatile, aromatic compounds that disperse quickly. Boil too long, and those compounds evaporate and you're left with nothing useful.
+
+For a 补益剂 — a tonic formula for chronic weakness — simmer 40-60 minutes. Slow and patient. You want the deep, structural compounds — polysaccharides, saponins, alkaloids — that take longer to dissolve. Quick boiling won't extract them fully.
+
+See how the cooking time is itself part of the prescription? The doctor doesn't just choose the herbs. The doctor chooses the extraction protocol. Fast extraction for fast-acting surface medicines. Slow extraction for deep-acting tonic medicines.
+
+Step 3 — Strain. Pour the liquid through a strainer into a bowl. Press the herb residue to squeeze out remaining liquid. This first extraction is called 头煎.
+
+Step 4 — Second boil (二煎). Add fresh water to the same herbs and boil again, usually for a slightly shorter time. The first extraction captures the most readily soluble compounds. The second extraction gets the stubbornly embedded ones. Some modern pharmacological studies have confirmed this makes sense — certain compounds genuinely do extract better in the second boil because the first boil has broken down cell walls and opened up the plant tissue structure.
+
+Step 5 — Combine. Mix the liquid from the first and second boils together, then divide into two equal portions: morning dose and evening dose. Total liquid per dose is usually about 150-200 milliliters — roughly one small cup. It's concentrated. It's intense. And — I won't lie — most of the time, it tastes terrible.
+
+That smell? That's a few thousand years of medical tradition, reduced to a brown liquid in a clay pot. Some patients describe the taste as "like drinking the forest floor." Others are more graphic. There's a reason the traditional follow-up to a dose of herbal medicine is a piece of preserved plum or a sip of honey water — the 药引子, the "chaser."
+
+Now — let me show you the modern version.
+
+This stainless steel machine is a 煎药机 — an automatic decoction machine. Herbs go in, water goes in, you set the temperature and time on a digital control panel, and the machine does the rest. After extraction, it even automatically packages the liquid into sealed plastic pouches — each pouch is one dose, with a date stamp. The patient takes them home, stores them in the fridge, and heats one up when it's time to drink.
+
+Is this better? In terms of consistency and convenience — absolutely. The machine maintains exact temperature and pressure. It extracts in a sealed environment so volatile compounds don't escape. It produces identical doses every time. No human variability. And it's dramatically more time-efficient — a machine can process dozens of prescriptions simultaneously while a traditional clay pot does one at a time.
+
+But purists argue something is lost. Traditional decoction in an open clay pot allows the pharmacist to watch the process — to adjust the fire based on what they see and smell. If the liquid is reducing too fast, turn down the heat. If the color isn't right, extend the time. The human operator is responding to real-time feedback in a way the machine doesn't. It's the same debate you see in every traditional craft that meets automation: handmade bread versus factory bread, hand-pulled espresso versus pod machines. The output is similar. The philosophy is different.
+
+Most modern pharmacies use both. Routine prescriptions go in the machine. Complex or unusual prescriptions — especially those with multiple special-handling herbs (先煎, 后下, 包煎) — are still done by hand in the traditional pot, because the machine can't easily accommodate five different herbs entering the pot at five different times.[cite: 5]`
+  },
+  {
+    title: "Special Processing Examples (Video Presentation)",
+    content: `What you're about to see are some of the most remarkable processing techniques in all of Chinese pharmacy. These are the ones that take days, not hours, and require experience that takes decades to develop.
+
+Watch this. This is fresh 地黄 root — yellowish, juicy, cool in nature. The worker places it in a steaming vessel with rice wine. Steam for hours. Remove. Dry in the sun. Then steam again. Dry again. Steam again. Dry again. Nine full cycles.
+
+Watch how the color changes with each cycle. After the first steaming — slightly darker. After the third — brown. After the sixth — nearly black. After nine — jet black, sticky, glistening like tar. The texture has transformed from crisp and juicy to dense and gooey. The taste has transformed from bitter to sweet. And the medical function has completely reversed: from cooling and blood-clearing to warming and blood-nourishing.
+
+Nine cycles. That's about two to three weeks of continuous work for a single batch. This is why 熟地黄 costs significantly more than 生地黄. You're not just paying for the root. You're paying for three weeks of a skilled artisan's time.
+
+Now watch this one very carefully. This is 附子 — aconite, one of the most toxic herbs in the pharmacopoeia and simultaneously one of the most important. Raw aconite contains aconitine — a potent neurotoxin that can kill in milligram quantities. You cannot use it raw. Period.
+
+The traditional processing involves soaking the root in a solution of 胆巴 — a mineral salt derived from brine — for days, sometimes weeks. Then it's boiled, sliced, and dried. Some methods involve steaming. The precise protocol varies by regional tradition, but the goal is always the same: destroy the aconitine while preserving the therapeutic compounds that make aconite a powerful heart-warming, pain-relieving, yang-rescuing herb.
+
+Modern chemistry has confirmed what traditional processors knew empirically: aconitine is thermally unstable. Prolonged heating breaks it down into much less toxic compounds — benzoylaconine and aconine — that retain some of the original pharmacological activity but at a fraction of the toxicity. The processing doesn't just "remove" the poison — it transforms the molecular structure. Brilliant chemistry, discovered without chemistry.
+
+This is why 炮制 is not optional. This is why the motto of 同仁堂 says "炮制虽繁必不敢省人工" — "though processing is complex, we DARE NOT cut corners." Cutting corners on aconite processing isn't a quality issue. It's a life-and-death issue.
+
+This last clip shows the production of 阿胶 — donkey-hide gelatin. The process begins with cleaned donkey hides, which are soaked, scraped, and washed repeatedly over several days. Then they're boiled in a special local spring water — traditionally, the water from the 阿井 (Ah Well) in Dong'e County, Shandong Province — for days, extracting the collagen. The liquid is filtered, concentrated, and poured into molds to cool and solidify into glossy, amber-colored blocks.
+
+The traditional standard of quality: when you hold a block up to the light, it should be translucent. When you snap it, it should break cleanly with a glassy fracture. When you dissolve it in hot water, it should melt completely with no residue. And the key ingredient is the water — the mineral content of the Dong'e well water is believed to affect the final product's quality, similar to how the water in Kentucky affects bourbon, or how the water in Pilsen affects Czech beer.
+
+道地 again — authenticity. Not just the raw material, but the water, the location, the tradition — all part of the medicine.[cite: 5]`
+  },
+  {
+    title: "Conclusion: From Field to Pharmacy",
+    content: `Let's step back and see the full picture. You've just walked through a process that begins in a mountain or a farm — someone plants, tends, and harvests a medicinal plant at exactly the right time of year. It arrives here at the pharmacy. A master inspector authenticates it with their eyes, nose, tongue, and fingers. Workers clean it, sort it, remove non-medicinal parts.
+
+Then the real art begins: the processing master determines the method — fry, steam, soak, char, wine-treat, vinegar-treat, honey-treat, salt-treat — based on what the material is and what the doctor needs it to do. Every method changes the herb's temperature, flavor, toxicity, and target in the body.
+
+A cutter then slices it to the precise thickness that ensures optimal extraction. It goes into a drawer in the front shop. A doctor writes a prescription. A pharmacist fills it, weighing each herb on a hand-held balance, checking for safety, wrapping special herbs separately with handling instructions.
+
+And finally, in a clay pot over a controlled flame — or in a modern machine — water unlocks everything that nature grew and human hands refined. The patient drinks the result. And their body responds.
+
+From seed to sip. From field to pharmacy. From raw, dirty, sometimes-toxic plant material to a precisely engineered liquid medicine taken at the right time, in the right dose, for the right patient. That entire chain — every link — depends on human knowledge, human skill, and human integrity.
+
+There is no step in this process that can be faked without consequences. The inspector who passes a fake herb, the processor who shortcuts the steaming, the cutter who slices too thick, the pharmacist who misreads the prescription, the patient who boils too long or too short — any single failure breaks the chain.
+
+That's why the old motto has survived 320 years: "Though processing is complex, we dare not cut corners." In Chinese medicine, the process IS the product. And now you've seen the process, beginning to end.[cite: 5]`
+  }
+];
+
+const listContainer = document.getElementById('exhibitList');
+const searchBox = document.getElementById('searchBox');
+
+function renderList(dataToRender) {
+  listContainer.innerHTML = '';
+  if (dataToRender.length === 0) {
+    listContainer.innerHTML = '<div class="empty">No results found</div>';
+    return;
+  }
+  
+  dataToRender.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="item-header" onclick="this.parentElement.classList.toggle('active')">
+        <span>${item.title}</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="item-content">
+        <div class="text-box">${item.content}</div>
+      </div>
+    `;
+    listContainer.appendChild(el);
+  });
+}
+
+function filterList() {
+  const query = searchBox.value.toLowerCase().trim();
+  if (!query) {
+    renderList(database);
+    return;
+  }
+  
+  const filtered = database.filter(item => 
+    item.title.toLowerCase().includes(query) || 
+    item.content.toLowerCase().includes(query)
+  );
+  
+  renderList(filtered);
+  
+  setTimeout(() => {
+    document.querySelectorAll('.item').forEach(card => card.classList.add('active'));
+  }, 10);
+}
+
+renderList(database);
+</script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TCM Autumn Garden Tour</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f6fa; margin: 0; padding: 0; color: #2c3e50; line-height: 1.6; }
+  header { background: #d35400; color: #fff; padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  h1 { font-size: 1.2rem; margin: 0 0 12px 0; text-align: center; font-weight: 600; }
+  input { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; outline: none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+  
+  main { padding: 15px; max-width: 800px; margin: 0 auto; }
+  .list-container { display: flex; flex-direction: column; gap: 10px; }
+  
+  .item { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; border-left: 4px solid #d35400; }
+  .item-header { padding: 16px 15px; font-weight: bold; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
+  .item-header:active { background: #f0f0f0; }
+  .toggle-icon { color: #d35400; transition: transform 0.3s; font-size: 0.9em; }
+  
+  .item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #faf9f5; }
+  .item.active .item-content { max-height: 5000px; border-top: 1px solid #eee; }
+  .text-box { padding: 15px; white-space: pre-wrap; font-size: 0.95rem; color: #333; }
+  
+  .empty { text-align: center; padding: 30px; color: #7f8c8d; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TCM Autumn Garden Tour</h1>
+  <input type="text" id="searchBox" placeholder="Search plants, zones, or keywords..." onkeyup="filterList()">
+</header>
+
+<main>
+  <div id="exhibitList" class="list-container"></div>
+</main>
+
+<script>
+// Complete English Content from "植物园秋季详细文稿.docx"
+const database = [
+  {
+    title: "Introduction: The Harvest Is Now",
+    content: `Welcome back to the Medicinal Plant Garden. Now, I know what some of you are thinking: "It's almost December. Everything is dead. What exactly are we going to look at?"
+
+Fair question. If you came here six months ago in May, this garden was exploding with flowers — hydrangeas, honeysuckle, orchids, color everywhere. Today? Most of those plants are brown sticks. The leaves are falling. The garden looks like it's shutting down for the year.
+
+But here's the secret — and this is actually one of the most important lessons in Chinese medicine: this is when the pharmacy opens.
+
+In Chinese medical tradition, there's a principle: 春生, 夏长, 秋收, 冬藏 — "Spring gives birth, summer grows, autumn harvests, winter stores." Right now, we're in the harvest-and-store season. All the energy that plants spent all spring and summer sending up into their leaves and flowers? It's retreated. Gone back underground. Back into the roots, the seeds, the fruits. The above-ground part of the plant is dying. But the underground part — the part that Chinese medicine actually USES for most of its most important herbs — is at peak potency right now.
+
+So today, we're not going to see a pretty garden. We're going to see a garden that's ready to be harvested. We're going to see fruits that ARE the medicine you'd find in a pharmacy. We're going to see dried flower spikes that ARE the pills in the bottle. And we're going to see bare, withered stalks and understand that beneath them, invisible, the most valuable part of the plant is sitting in the cold soil, waiting for someone who knows when to dig.
+
+Yesterday in the classroom, we talked about how Chinese medicine classifies herbs by temperature, flavor, and direction. Today you're going to see why timing is the invisible fifth dimension that the textbook didn't emphasize enough. Let's go.[cite: 4]`
+  },
+  {
+    title: "Plant 1：陈皮（橘 / 柑橘）— Tangerine / Dried Citrus Peel",
+    content: `Let's start with something everyone recognizes. Look at this tree. What do you see?
+
+Oranges? Tangerines? Close enough. This is a citrus tree — specifically, the kind whose dried peel becomes one of the most commonly used herbs in all of Chinese medicine: 陈皮.
+
+You definitely don't need my help identifying a citrus tree — glossy dark green leaves, those orange-yellow fruits hanging in clusters, and if you scratch a leaf or rub the peel of a fruit, that unmistakable citrus fragrance. Go ahead, scratch a leaf.
+
+Beautiful, right? That sharp, clean, citrus smell. Now — here's the key word in the name: 陈. It means "aged" or "old." And 皮 means "peel" or "skin." So 陈皮 literally means "aged peel." Not fresh peel. Not dried peel. Aged peel. The longer you store it, the better it gets. Really good 陈皮 has been aged for 10, 15, even 30 years. Thirty-year-old 陈皮 from the Xinhui region of Guangdong province can sell for more per gram than gold.
+
+Yes. Old orange peel. Worth more than gold. I am not making this up.
+
+Why does aging matter? Because the chemical profile changes over time. The harsh, sharp volatile oils that make fresh peel pungent — they mellow. Meanwhile, other compounds — flavonoids, hesperidin — concentrate and transform. Fresh peel is intense, almost aggressive. Aged peel is smooth, complex, rounded. The exact same principle as aging wine, aging cheese, or aging whiskey. Time is an ingredient.
+
+Medicinally, 陈皮 does one main thing: it moves 气 — vital energy — in the digestive system. When you feel bloated, stuffed, like your food is just sitting there in your stomach going nowhere — 陈皮 gets things moving again. It's also used in cough formulas to help dry up phlegm.
+
+And here's the 药食同源 connection: 陈皮 is a common cooking ingredient. It shows up in Cantonese soups, braised meats, and — most famously — in the spice mix for 陈皮牛肉, dried tangerine peel beef. So right now, this tree is simultaneously growing a cooking spice, a digestive medicine, and a long-term investment asset. All you have to do is peel it and wait.[cite: 4]`
+  },
+  {
+    title: "Plant 2：栀子 — Gardenia / Cape Jasmine Fruit",
+    content: `Now come look at this shrub. In summer, it has the most intensely fragrant white flowers — gardenias. Some of you might know gardenia as a perfume ingredient or a corsage flower. But look at it now — no flowers. What do you see instead?
+
+See those orange-reddish fruits? Oval shaped, about the size of an olive, with distinct raised ridges running lengthwise — count them, usually five or six ridges. They look like tiny, ribbed lanterns. Some might have started to split open at the top. The color is somewhere between orange and saffron red.
+
+Pick one up — carefully. Look at it closely. What you're holding in your hand right now is exactly what a pharmacist in a Chinese medicine shop would hand you if you walked in and asked for 栀子. This IS the medicine. Not processed, not extracted, not transformed. Just this fruit, dried. What you see on the tree is what goes in the prescription.
+
+That's the unique power of visiting this garden in November instead of May: in May, I would have shown you a bush with pretty white flowers and said, "this will eventually become a medicine." Today, I can hand you the actual medicine and say, "here it is, right now."
+
+栀子 is one of the strongest "heat-clearing" herbs in the pharmacopoeia. Remember the thermostat concept? 栀子 is a fire extinguisher. High fever, restlessness, insomnia where your mind is racing and you can't calm down, dark scanty urine, nosebleeds — all signs of intense internal heat. 栀子 drains that fire, specifically from the heart and liver.
+
+But it has a second career that's equally important: it's a natural dye. That deep orange-red color? The pigment compound is called crocin — the same compound that gives saffron its color. For centuries, 栀子 was used to dye imperial yellow robes, Buddhist monks' robes, and silk fabrics across Asia. So this unassuming little fruit colored the clothes of emperors AND cooled the fevers of commoners. Dual-use in every sense.[cite: 4]`
+  },
+  {
+    title: "Plant 3：女贞 — Privet / Ligustrum",
+    content: `Walk over here to this tree — one of the few things in the garden that still has all its leaves. See those clusters of small, dark berries?
+
+This is 女贞, Chinese privet, and right now it's loaded with fruit. Look at the berries — they're small, oval, about the size of peppercorns, and they've turned dark blue-black, almost like tiny blueberries but with a powdery, frosted coating. They hang in loose clusters at the tips of branches. The tree itself is evergreen — dark, leathery, oval leaves still looking green and healthy while everything else around it is going bare.
+
+That evergreen quality is actually why this plant got its poetic Chinese name. 女贞 means "Female Fidelity" or "The Faithful Woman." The legend says: just as a faithful wife stays constant through hard times, this tree stays green through winter when everything else gives up. The name is a tribute to resilience, constancy, loyalty. It never drops its leaves. It never gives in to the cold.
+
+The medicine is the ripe fruit — 女贞子 — harvested right now, in late autumn and early winter, when the berries are fully dark. You dry them, and they become a gentle tonic for the liver and kidneys, specifically for the 阴 — the cooling, nourishing, moistening aspect. It's used for premature graying of hair, blurry vision, ringing in the ears, lower back weakness — all signs that the kidney yin is declining. It's a mild, safe, long-term tonic — not dramatic, not powerful, but steady and reliable.
+
+In fact, the character of the medicine matches the character of the name perfectly: faithful, steady, enduring. It's not ginseng — it won't rescue you from collapse. It's the herb you take quietly, every day, over months and years, and slowly things get better. The dependable friend, not the flashy celebrity.
+
+And here's a detail for your American students: if you grew up on the East Coast, you've definitely seen privet before. Privet hedges are everywhere in suburban America — those dense, dark green hedges bordering driveways and separating yards. That's a close relative of this plant. So there's a pretty good chance there's a Chinese medicinal plant growing in your parents' front yard, and nobody ever knew.[cite: 4]`
+  },
+  {
+    title: "Plant 4：地黄 — Rehmannia",
+    content: `Now let me show you something that looks... dead. Follow me over here. See this patch of brown, wilted vegetation? Looks like something the gardener forgot to clean up, right?
+
+In May, this plant had fuzzy, wrinkled leaves close to the ground, and little purple trumpet-shaped flowers. It wasn't glamorous then, and it's even less glamorous now. The leaves are withered, brown, collapsed. If you didn't know better, you'd think this was yard waste.
+
+But right now, right under your feet, there is a thick, yellowish root sitting in that cold soil — and THAT is one of the most important herbs in the entire Chinese pharmacopoeia. This is 地黄 — "Earth Yellow" — and late autumn to early winter is the traditional harvest time. The above-ground part has died, which means all the plant's energy has retreated back into the root. The root is now at its most potent. This is exactly what the ancient farmers knew: you don't dig the root when the plant is green and thriving. You dig it when the plant looks dead. Because "dead" above ground means "fully charged" below ground.
+
+This is the principle of 秋收冬藏 in action. Autumn harvests, winter stores. The plant is storing. And the pharmacist is harvesting.
+
+Now, 地黄 has three lives — three different medicines from the same root:
+
+Fresh — 鲜地黄 — is juicy, cold, and used to cool the blood in emergencies. Think acute high fever with bleeding.
+Dried — 生地黄 — is still cool, used more broadly to nourish the yin and clear chronic low-grade heat.
+And then — steamed with rice wine, again and again, until it turns jet black and sticky like molasses — it becomes 熟地黄, "prepared Rehmannia." Now it's warm instead of cool. Now it nourishes blood instead of cooling it. And it becomes the lead herb — the "Monarch" — in 六味地黄丸, the "Six-Ingredient Rehmannia Pill" we analyzed in class. Three tonics, three drains, perfect balance.
+
+Same root. Three processing levels. Three temperatures. Three clinical functions. If you ever doubted that 炮制 — processing — is a real science, look at this wilted patch of brown leaves and know that beneath it lies a substance that can become three completely different drugs depending on what a trained pharmacist does with it.[cite: 4]`
+  },
+  {
+    title: "Plant 5：何首乌 — He Shou Wu / Fo-Ti",
+    content: `And right next to our triple-identity root — here's the shapeshifter we talked about yesterday.
+
+Remember this plant from the lecture? 何首乌 — "Mr. He's Hair Turned Black." In May, this would have been a vigorous climbing vine with heart-shaped leaves spiraling up every support it could find. Right now? Brown stems. Dead leaves. A skeleton of what it was.
+
+But again — same story as Rehmannia. Late autumn is PRIME harvest time for the root. And the root of this plant is genuinely strange-looking when you dig it up: large, lumpy, often vaguely shaped like a human body — which, in ancient Chinese folk culture, was taken as a sign that it must be especially good for the human body. (The same logic, by the way, was used for ginseng roots that looked like human figures — a concept called the "Doctrine of Signatures" that exists in European herbal traditions too.)
+
+We covered this in detail during the lecture, so I'll keep it brief: raw 何首乌 is a laxative and can be harsh on the liver. Processed 何首乌 — steamed with black bean juice, repeatedly — becomes a blood and kidney tonic that traditional texts credit with restoring gray hair to black.
+
+What I want to emphasize today, standing here in the cold, looking at this dead vine, is something you can't appreciate from a classroom: the harvest moment matters. Ancient texts specify: dig 何首乌 in autumn or winter, when the aerial parts have died back. Not spring. Not summer. Autumn or winter. Because that's when the root has received everything the plant had to give. All the sugar, all the starch, all the active compounds that the leaves manufactured through months of photosynthesis — it's all been sent downstairs for storage.
+
+If you dig the root in summer, when the plant is green and actively growing, you get a weaker root — because the plant is still using those resources upstairs. It's like raiding someone's bank account while they're still spending. You wait until they've deposited everything and gone to sleep. Then you dig.
+
+That's not folk wisdom. That's plant physiology. And Chinese farmers figured it out a thousand years before anyone could measure alkaloid concentrations in a lab.
+
+So — five plants in, and the theme is clear: November isn't the death of the garden. It's the vault. Everything valuable has gone underground or into the fruits. The rest is just wrapping paper. Let's go see what the fruits look like.[cite: 4]`
+  },
+  {
+    title: "Plant 6：南天竹 — Nandina / Heavenly Bamboo",
+    content: `You've probably noticed something as we've been walking: almost every splash of color left in this garden is red. Red berries, red fruits, orange-red seed pods. In a garden full of brown and gray and bare branches, the red things jump out like stop signs. That's not a coincidence — it's evolution. Those red colors are designed to attract birds, who eat the fruits and spread the seeds. The plants are advertising. And today, we're going to follow their advertisements.
+
+This might be the most beautiful single plant in the entire garden right now. Look at it.
+
+See those dense clusters of bright red berries hanging at the tips of the branches — like little bunches of tiny, perfectly round, glossy red grapes? Each berry is about the size of a peppercorn, and they grow in these elegant, branching pyramidal clusters, sometimes dozens of berries per cluster. That alone would make it gorgeous. But look at the leaves too.
+
+The leaves are compound — many small, pointed leaflets arranged along thin stems — and right now, in late autumn, many of them have turned from green to brilliant red, crimson, almost burgundy. So you have red berries AND red leaves, on a plant with graceful, arching stems that look vaguely like bamboo. The overall effect is... well, there's a reason this is one of the most popular ornamental plants in Chinese and Japanese gardens.
+
+The name 南天竹 means "Southern Heavenly Bamboo" — though it's not actually a bamboo at all. It's in the barberry family. The "bamboo" part comes from the hollow, jointed stems that resemble bamboo canes.
+
+Medicinally, the fruit — 南天竹子 — has been used in traditional medicine for coughs and asthma. But I need to give you an important warning here: the berries and leaves contain alkaloids, including compounds related to berberine and a toxin called nantenine and domesticine. In sufficient quantity, they can cause respiratory paralysis. Birds can eat a few berries without trouble because of their fast metabolism and small portion size. Humans — especially children — should NOT eat these.
+
+In the United States, nandina is actually a popular landscaping shrub — you've probably seen it in parking lot plantings and along suburban walkways. And there have been documented cases of cedar waxwings — those beautiful little songbirds — dying after gorging on nandina berries in American gardens. They eat too many at once and the toxins overwhelm them.
+
+So this plant perfectly illustrates a concept from yesterday's lecture: beauty and danger can live on the same branch. And the 毒性 principle — toxicity — applies to every living creature, including birds who don't read warning labels. The dose makes the poison. Always.[cite: 4]`
+  },
+  {
+    title: "Plant 7：枸骨 — Chinese Holly",
+    content: `Now — walk over here. And tell me if this gives you a feeling of... seasonal appropriateness.
+
+Red berries. Dark green, spiny, waxy leaves. Late November. Does this remind you of anything?
+
+Right! We're four weeks from Christmas, and you're looking at what is essentially China's version of the holly on your front door. This is 枸骨, Chinese holly — Ilex cornuta. The holly you know from home is Ilex aquifolium. Same genus, different species, separated by thousands of miles but looking almost identical.
+
+And the timing could not be more perfect. Right now, back in America, your friends are probably putting up holly wreaths. Here in Shanghai, you're standing in front of a medicinal plant that looks exactly like what's on their wreath. The berries are round, bright red, clustered among dark leathery leaves with those sharp, angular spines at the corners.
+
+The identification is easy: look at the leaf shape. Most holly leaves have spines all around the edge, but 枸骨 has a very distinctive pattern — typically five main spines, one at the tip and four at the corners, giving the leaf an almost rectangular outline with points. Like a throwing star that went to finishing school.
+
+Medicinally, the leaves — called 枸骨叶 — are used to tonify the liver and kidneys, nourish yin, and strengthen bones and tendons. It's a gentle tonic, used for things like chronic lower back pain, weak knees, and dizziness. The berries — 枸骨子 — are also used, with similar tonic effects.
+
+Now let me share the cultural parallel that I find fascinating. In Chinese folk tradition, this spiny-leaved plant was placed near doorways and gates to ward off evil spirits — the sharp spines were believed to prick any ghost trying to enter. In Western tradition, holly was hung on doors at Christmas for... exactly the same reason. The medieval European belief was that holly's prickly leaves would snag and trap evil spirits.
+
+Two cultures, thousands of miles apart, no contact with each other, looked at the same kind of spiny-leaved red-berried plant and independently decided: "This protects my house from evil."
+
+Whether that says something about plants or something about humans, I'll let you decide. But when you get home for the holidays and see holly on someone's door — you can tell them that Chinese grandmothers had the same idea a thousand years ago.[cite: 4]`
+  },
+  {
+    title: "Plant 8：山楂 — Hawthorn / Chinese Haw",
+    content: `Follow the red. See that small tree absolutely loaded with bright red fruits? Looks like it's decorated for the holidays.
+
+This is 山楂, Chinese hawthorn. And right now it's doing the most generous thing a tree can do in November: putting on a show. Hundreds of small, round, apple-red fruits — each one about the size of a large marble — clustered along every branch. Some might have started to wrinkle slightly in the cold, but the color is still stunning against the bare branches and gray sky.
+
+If you pick one — and you can, they're not toxic — you'll find it's firm, with a slightly mealy texture, and the taste is SOUR. Very, very sour. With a slight sweetness underneath. This is not a fruit you eat a dozen of like cherries. One or two and your face is already puckering.
+
+And that intense sourness tells you exactly what this herb does in Chinese medicine. Remember yesterday — the five flavors? Sour is the "tightening rope," the flavor that astringes and contracts. But 山楂 is special: it's one of the few sour herbs whose primary function isn't astringing — it's digesting. Specifically, digesting meat and fat. When you've eaten too much greasy, heavy food and your stomach feels like a brick, 山楂 is the solution.
+
+Now let me tell you about the most beloved snack in northern China: 冰糖葫芦 — candied hawthorn on a stick. Imagine five or six hawthorn fruits threaded onto a bamboo skewer, then dipped in hot sugar syrup that hardens into a crackly, glassy shell. Sweet on the outside, searingly sour on the inside. You bite through the candy coating and your mouth explodes with sweet-sour contrast. It's the iconic Beijing winter street food — you see vendors selling them on every corner when the temperature drops. Kids and adults alike.
+
+And the beautiful irony: it's a digestive medicine coated in sugar. It's treating your stomach while satisfying your sweet tooth. That's 药食同源 at its most delicious.
+
+Mountain hawthorn is also one of the key ingredients in 山楂糕 — hawthorn cake — a firm, sliceable, sweet-sour jelly that's served as a traditional after-meal digestive. The Western equivalent? An after-dinner digestif like limoncello or amaro. Different culture, same instinct: after a heavy meal, you reach for something that helps your stomach cope.[cite: 4]`
+  },
+  {
+    title: "Plant 9：枸杞 — Goji / Wolfberry",
+    content: `Next red fruit — and this one, I guarantee every single person here has heard of. Come look at this shrub.
+
+See those small, elongated, bright red-orange berries — each one about the size and shape of a raisin? Hanging in ones and twos along the drooping branches of this somewhat scraggly, untidy-looking shrub?
+
+This is 枸杞 — and in English, you know it as goji berry. The superfood. The one that health food stores charge $15 a bag for. The one that's in your açaí bowl, your trail mix, your overpriced smoothie.
+
+And here it is — growing on what looks like a slightly neglected bush in a Shanghai garden. Not very glamorous, is it? The plant itself is thorny, messy, with thin arching branches that droop under their own weight. It's not trying to impress anyone. But those little red fruits are one of the most commercially successful medicinal foods on the planet.
+
+Remember the concept of 道地药材 from the lecture — geo-authentic herbs? The most prized goji berries in China come from Ningxia province — a dry, high-altitude, intensely sun-baked region in northwestern China. Ningxia goji berries are larger, sweeter, and have a higher concentration of active compounds than those grown anywhere else. It's the same terroir principle as Champagne: you can grow grapes anywhere, but only Champagne grapes make Champagne. You can grow goji anywhere, but only Ningxia goji berries get the premium price.
+
+Medicinally, goji berry is classified as sweet and neutral — remember the thermostat? Neutral means it doesn't push you hot or cold. It just nourishes. Specifically, it nourishes the liver and kidneys and benefits the eyes. There's a famous classical formula called 杞菊地黄丸 — "Goji and Chrysanthemum Rehmannia Pill" — which combines goji berries with chrysanthemum flowers and Rehmannia root to treat blurry vision, dry eyes, and dizziness. Liver, kidneys, eyes — in Chinese medicine, these three are tightly connected. The liver "opens to the eyes" — so if you nourish the liver, your vision improves. Goji's reputation as an "eye herb" goes back thousands of years.
+
+And for what it's worth — modern research has identified high concentrations of zeaxanthin and other carotenoids in goji berries, which are indeed associated with eye health. Sometimes the ancient classifications and the modern chemistry end up pointing in the same direction.[cite: 4]`
+  },
+  {
+    title: "Plant 10：红豆杉 — Yew (Taxus)",
+    content: `One more red treasure before we leave the fruit trail. This one's quieter — tucked away, dark green, easy to miss. But it might be the most important plant we see today.
+
+This is 红豆杉, the Chinese yew. The needles are flat, soft to the touch — not prickly like a spruce or pine. They're arranged in two flat rows along the stem, like teeth on a comb. Dark green on top, lighter underneath. If you see small red berry-like structures — a red fleshy cup with a dark seed inside — that's the fruit. Beautiful, but very toxic. Do NOT eat it.
+
+So why did I say this might be the most important plant here? Because in the 1960s, scientists discovered that the bark of a related yew species — Taxus brevifolia, the Pacific Yew — contained a compound called taxol, now known as paclitaxel. Paclitaxel turned out to be one of the most powerful anti-cancer drugs ever found. It's on the World Health Organization's List of Essential Medicines and has been used to treat breast cancer, ovarian cancer, lung cancer, and many others. It has saved millions of lives.
+
+Remember yesterday, when we talked about 青蒿素 — artemisinin — and how Tu Youyou won the Nobel Prize for developing an antimalarial drug from a traditional Chinese herb? This is the same story, different plant. Ancient people noticed that yew had potent biological effects. Modern science isolated the specific molecule. The result changed oncology forever.
+
+The tragedy of the story is that it originally took the bark of three entire mature yew trees to produce enough taxol for one patient's treatment. Yew trees grow incredibly slowly — we're talking decades. So the initial supply chain was literally destroying old-growth forests to produce the drug. It took years of chemical engineering to figure out semi-synthetic production methods. Today, paclitaxel can be produced without cutting down trees — but the original discovery came from that bark.
+
+So when you look at this modest, dark, quiet tree — remember: sometimes the most world-changing medicines come in the most unassuming packages.[cite: 4]`
+  },
+  {
+    title: "Plant 11：菊花 — Chrysanthemum",
+    content: `So there's your red fruit trail: an orange peel worth more than gold if you wait long enough, a holly that wards off evil on two continents, a hawthorn you dip in candy, a goji berry that health food stores have made into a multi-billion dollar industry, and a quiet yew tree that saves lives from cancer while being toxic enough to kill a horse. All of them at their peak RIGHT NOW, in late November. The garden isn't dying. It's delivering.
+
+Now let's go find the rebels — the plants that decided November is a perfectly good time to bloom.
+
+So everything we've seen so far has been about fruits, roots, and things that are shutting down. But there are a few plants in this garden that apparently didn't get the memo. While everyone else is going dormant, these guys are blooming. In Chinese culture, that kind of defiance has deep meaning — flowering in adversity is one of the most admired qualities in both people and plants. Let's go meet the rebels.
+
+And here they are. The undisputed queens of autumn.
+
+I probably don't need to help you identify chrysanthemums — they're one of the most widely grown ornamental flowers on Earth. But look at the variety here: golden yellow, snow white, deep purple, soft pink, some with petals as thin as needles, others with thick, layered pom-pom heads, some the size of a dinner plate, others no bigger than a button. There might be more visual diversity in this one patch of chrysanthemums than in the rest of the garden combined right now.
+
+How to tell you're looking at a chrysanthemum and not, say, a daisy or an aster? The leaves are your clue: deeply lobed, almost feathery, with an irregular jagged edge — and when you crush a leaf, there's a distinctive sharp, herbal, slightly camphor-like smell. It's not sweet. It's not floral. It's green and pungent. That smell is chrysanthemum's signature.
+
+Now — in Chinese culture, chrysanthemum is one of the "Four Gentlemen" — 四君子 — four plants that represent the four seasons and four noble virtues:
+
+Orchid for spring — elegance.
+Bamboo for summer — resilience.
+Chrysanthemum for autumn — integrity.
+Plum blossom for winter — courage.
+
+Chrysanthemum represents autumn because it blooms when everything else fades. The great poet Tao Yuanming, who lived around 400 AD, resigned his government post, retired to a farm, planted chrysanthemums, and wrote poems about them. His most famous line: "I pick chrysanthemums by the eastern fence, and gaze serenely at the southern mountains." That image — the gentleman-hermit, content among his chrysanthemums, done with politics — became one of the most powerful cultural symbols in Chinese history. To this day, chrysanthemum = the person who chooses integrity over ambition.
+
+Medicinally, two types of chrysanthemum are most important:
+
+杭白菊 — white chrysanthemum from Hangzhou. Its strength is nourishing the liver and clearing the eyes. It's the gentler variety, the one you find in chrysanthemum tea — that pale golden drink served in almost every Chinese restaurant. If you've ever had dim sum, you've probably been drinking white chrysanthemum tea without realizing it was medicine.
+
+野菊花 — wild chrysanthemum. Small yellow flowers, much more bitter, much more potent. This one is for serious heat-clearing and detoxifying — skin infections, boils, angry red swellings. It's the emergency room doctor; the white one is the family physician.
+
+Remember the goji berry we just saw? There's a famous pairing: 枸杞 + 菊花. Goji nourishes the liver; chrysanthemum clears the liver. Together, they balance each other perfectly. You can make a tea with just those two ingredients — a handful of goji berries and a few dried chrysanthemum flowers in hot water — and you've got a gentle, pleasant-tasting eye-health formula that a billion Chinese people drink on a regular basis. It's probably the most popular "medicinal tea" in the world. And you just met both ingredients, ten minutes apart, in the same garden.[cite: 4]`
+  },
+  {
+    title: "Plant 12：大吴风草 — Leopard Plant (Farfugium)",
+    content: `Now — see those bright golden flowers glowing against the dark corner of the garden? That splash of yellow against all the brown and gray?
+
+This is 大吴风草, the Leopard Plant. And right now, in late November, it's at its absolute peak — which is exactly backwards from what you'd expect. While everything else has finished flowering months ago, 大吴风草 just got started.
+
+The identification is dead simple: those leaves. Look at them — huge, kidney-shaped or perfectly round, on long stalks, glossy dark green, each one the size of a dessert plate. They look like they belong in a tropical rainforest, not a Chinese garden in late November. The leaves alone would be distinctive any time of year. But right now, rising above those big round leaves, you have tall stalks topped with clusters of bright yellow daisy-like flowers. Golden flowers, giant round leaves, blooming in almost-winter. There's nothing else in this garden that looks even remotely similar.
+
+In some cultivated varieties, the leaves have yellow spots — like a leopard's markings. That's where the English name "Leopard Plant" comes from. The Chinese name 大吴风草 is less glamorous — it basically describes the plant's origin region and growth habit.
+
+Medicinally, this plant is used in folk medicine more than in the formal pharmacopoeia — it's applied externally for bruises, swelling, and insect bites. It's not a major player in the TCM pharmacy. I'm including it today for a different reason: it's a lesson in timing.
+
+Why does this plant bloom in November while everything else blooms in spring and summer? Because it's avoiding the competition. In May, this garden is full of flowers all fighting for the attention of pollinators — bees, butterflies, hoverflies. It's a crowded marketplace. But in November? Almost no one else is blooming. Any pollinator still active in late autumn has very few options. So 大吴风草 has this small window of opportunity basically to itself. No competition. All the remaining pollinators come to it.
+
+That's evolution, not mysticism. But I think there's a nice parallel to Chinese medicine's philosophy: timing isn't just about convenience. It's about strategy. The right herb at the right time — that's what makes the difference between a good doctor and a great one.[cite: 4]`
+  },
+  {
+    title: "Plant 13：枇杷 — Loquat (in bloom!)",
+    content: `Now I'm going to show you something that, if you visited this garden in May, would blow your mind. Come see the loquat tree.
+
+Remember loquat? Big leathery leaves, fuzzy undersides? If you were here six months ago, this tree was loaded with sweet orange fruit. It was the star of the May tour — everyone was eating loquats.
+
+Look at it now. No fruit. But look at the branch tips — see those clusters of tiny, creamy-white flowers? Lean in close. Smell.
+
+Sweet, right? Almost like honey and almonds. That is loquat in bloom — and this is its real flowering season. Late autumn to early winter. While every other fruit tree flowered back in March, April, May, loquat waited. It's blooming now, it will develop fruit through the winter, and the fruit won't ripen until next May.
+
+Think about what that means: this tree's fruit takes about six months to develop, crossing the coldest part of the year. Most fruit trees flower in spring, fruit in summer — a quick three-month cycle in warm weather. Loquat does the opposite: flowers in the cold, fruits through the cold, ripens in the warmth. It "experiences all four seasons," as the Chinese say.
+
+Now, medicinally — remember, the loquat leaf is the cough medicine. And here's a detail I didn't mention in May: the best time to harvest loquat leaves is... debated. Some traditions say summer, when the leaf is fully mature. Others say late autumn or winter is fine too, since the tree is evergreen and the leaves persist. But the flowers — these delicate little blossoms you're smelling — are also used in some folk medicine traditions for coughs and headaches, though less commonly than the leaf.
+
+What I really want you to take away is the contrast: if you could put May and November side by side, you'd see the same tree in two completely different acts of its life cycle. Fruit in May, flowers in November. This tree never really rests. And neither does the pharmacist — there's always something to harvest, something to dry, something to prepare. The pharmacy never closes; it just rotates its inventory with the seasons.[cite: 4]`
+  },
+  {
+    title: "Plant 14：胡颓子 — Elaeagnus / Autumn Olive",
+    content: `Here's one more autumn rebel — and this one might sneak up on you. It doesn't have giant flowers or dramatic colors. But step close and use your nose.
+
+This is a dense, somewhat scrubby shrub. The leaves are still on — they're narrow, leathery, dark green on top, and silvery-white underneath. Flip a leaf over — see that silver? That metallic sheen on the underside is your identification key. It's caused by tiny, dense scales covering the lower surface. When the wind blows and the leaves flip, the whole bush seems to shimmer between green and silver. Very distinctive once you know to look for it.
+
+But the real surprise is the flowers. Look among the leaves — see those tiny, tubular, creamy-silver flowers? They're small, easy to miss visually. But the fragrance — lean in.
+
+Incredible, right? A sweet, warm, honey-like scent. Some people say it smells like gardenia mixed with vanilla. This fragrance carries on the cold November air in a way that feels almost surreal — everything looks dead, and suddenly you catch this warm, sweet perfume from a bush you didn't even notice. It's like finding a bakery in the middle of a ghost town.
+
+胡颓子 flowers in autumn and early winter, and then produces small, oblong fruits that ripen the following spring — reddish when ripe, with a sweet-tart taste. The fruits are edible and have been used in folk medicine as astringents and for cough relief.
+
+In traditional Chinese medicine, different parts of Elaeagnus species are used for various purposes: the root for joint pain, the leaf for coughs and asthma, the fruit for diarrhea. It's not one of the "big name" herbs — you won't find it in famous formulas — but it represents something important: not every useful medicinal plant is famous. There are thousands of "minor" herbs in the Chinese tradition, plants that might only be well-known in one province, or one village, where local healers have used them for generations. The formal pharmacopoeia captures maybe 500-600 commonly used herbs. The full universe of plants that Chinese folk medicine has explored? Over 12,000.
+
+胡颓子 is one of the 12,000. A quiet worker. Not a celebrity. But if you're standing in a November garden and you catch that fragrance — you remember it forever.[cite: 4]`
+  },
+  {
+    title: "Plant 15：三脉紫菀 — Aster (Three-veined Aster)",
+    content: `And one last autumn bloomer — this one's modest but meaningful.
+
+See these small, pale purple daisy-like flowers? Each one with a ring of slender lavender petals around a yellow center disk. They're growing in loose clusters on slender stems, nothing showy, nothing dramatic. If chrysanthemum is the opera singer, this plant is the person humming quietly in the corner.
+
+This is 三脉紫菀 — Three-veined Aster. And the name gives you the identification trick: look at the leaves. Each leaf has three prominent veins running from base to tip — three parallel lines clearly visible on the leaf surface. Three veins, one leaf. That's your ID.
+
+Now, asters and chrysanthemums are close relatives — both in the daisy family, the Asteraceae. And just like chrysanthemum, many asters bloom in late autumn. It's a family trait, apparently — the whole clan likes to be fashionably late.
+
+In Chinese medicine, 紫菀 — aster root — is an important herb for the lungs. Specifically, it moistens the lungs and relieves cough. It's used for chronic, dry, persistent coughs — the kind where you've been coughing for weeks and your throat is raw and nothing seems to help. Where 枇杷叶 (loquat leaf) is for the acute cough that just started, 紫菀 is for the cough that won't go away.
+
+And here's a connection to something we discussed in the classroom: 紫菀 is classified as having a descending direction — it sends energy downward. Remember the elevator? Coughing is rebellious lung energy going UP when it should be going DOWN. 紫菀's job is to push that elevator back to the ground floor. Downward direction, targeting the lungs, moistening what's dry. Temperature, flavor, direction, channel — the whole framework we learned yesterday, applied to one modest purple flower.[cite: 4]`
+  },
+  {
+    title: "Plant 16：银杏 — Ginkgo",
+    content: `So — five plants that bloom while the world goes dark. Chrysanthemum, the cultural icon. Leopard plant, the strategic genius. Loquat, the tree that never rests. Elaeagnus, the invisible perfumer. And aster, the quiet cough specialist. In Chinese philosophy, blooming in adversity isn't just admirable — it's a sign of inner strength. 菊花 wouldn't be a cultural symbol if it bloomed in May alongside everything else. Its meaning comes precisely from blooming when nobody else dares.
+
+In American culture — and in most Western cultures — we celebrate bloom. The flower is the climax. When something withers, it's "over." We throw it away. We deadhead our gardens. We don't like looking at dead things.
+
+Chinese aesthetics has a very different relationship with decay. There's an entire tradition of finding beauty in endings — in the falling leaf, the empty branch, the last petal dropping. Not because Chinese people enjoy sadness, but because they see the whole cycle — growth, peak, decline, rest, renewal — as beautiful in every phase, not just at the top. A bare tree against a winter sky can be as moving as a cherry blossom in spring — maybe more, because it asks more of you.
+
+This section of the garden is going to test your aesthetic instincts. Ready?
+
+OK. I think this speaks for itself.
+
+This is 银杏, the ginkgo. And what you're standing in right now — this carpet of golden fan-shaped leaves — is one of the most iconic autumn sights in all of China. In fact, in all of East Asia. In Tokyo, in Seoul, in Shanghai, in Beijing — people plan entire trips around ginkgo season. There are famous "ginkgo avenues" where the trees form golden tunnels, and photographers line up at sunrise to capture the light filtering through the yellow leaves. It's the East Asian equivalent of New England fall foliage — except concentrated into this single species.
+
+You do not need my help identifying this tree. That leaf shape — the fan, split down the middle, with those delicate radiating veins — is unmistakable. There is no other living tree on Earth with this leaf form. Pick one up. Hold it up to the sky.
+
+See how the veins fan out from the stem like the ribs of a hand-held fan? No central midrib like most leaves — just this radiating spray. That's called "dichotomous venation" — but you don't need to remember that. Just remember: fan-shaped, split in the middle, and belonging to a tree that has existed for 200 million years.
+
+We talked about ginkgo in May if you were on the spring tour — living fossil, dinosaur contemporary, the last survivor of an entire plant family. All of that is still true. But what the spring tour couldn't show you is this. This golden display. This is ginkgo's farewell — the leaves turn from green to pure, blazing gold over about two weeks in November, and then they all drop within a few days. The Chinese call it 一夜落尽 — "all fallen in a single night." You can literally go to sleep with a golden tree outside your window and wake up to a bare skeleton standing in a pool of gold.
+
+Now — medicinally, remember: the leaf extract is a pharmaceutical product in Europe. EGb 761 — a standardized ginkgo leaf extract — is a prescription drug in Germany and France for cognitive impairment and circulation problems. Millions of prescriptions per year. Hundreds of millions of euros in sales. When someone says herbal medicine isn't "real" medicine, point them to the German national health insurance system, which reimburses ginkgo leaf extract. They seem to think it's real enough.
+
+And in traditional Chinese medicine, it's the seed — 白果 — that's been used for centuries. Roasted ginkgo seeds for asthma and cough, and as an ingredient in Cantonese tong sui (sweet soups). But remember: raw seeds are mildly toxic. Cook them, and eat no more than about ten at a time.
+
+So this tree manages to be simultaneously a 200-million-year-old living fossil, one of the world's great autumn spectacles, a European prescription drug, a Chinese traditional medicine, a Cantonese dessert ingredient, and — for cities that planted female trees — the source of the worst smell in the botanical kingdom when the fruit rots in October. A tree of contradictions. Which is maybe why it has survived for 200 million years — it contains multitudes.[cite: 4]`
+  },
+  {
+    title: "Plant 17：荷 / 莲 — Lotus (in winter)",
+    content: `Now — come to the water. And I want you to see something that most Western visitors find surprising.
+
+In May, this pond was full of enormous green lily-pad leaves and — later in summer — spectacular pink lotus flowers. People posed for photos. It was gorgeous in the way everyone understands gorgeous.
+
+Now look at it.
+
+Brown stems. Snapped and leaning. Dry, rattling seed pods — those shower-head-shaped structures — standing above gray water like little sentinels that forgot to leave. Withered leaf remnants, some collapsed into the water, some still curling upward like cupped hands with nothing left to hold. No color. No fragrance. Just the geometry of what used to be.
+
+In a Western garden, this would have been cleared out in October. Cut down, composted, tidied away. "Dead plants look messy." But in a Chinese garden — and in Japanese gardens too — this is deliberately left. The withered lotus in a winter pond is one of the most celebrated images in East Asian art and poetry.
+
+The greatest line written about it comes from the Tang Dynasty poet Li Shangyin, around 850 AD: "留得残荷听雨声" — "Keep the withered lotus, to hear the sound of rain." He's saying: don't cut it down. Leave it standing. Because on a rainy autumn night, the rain falling on those dry, hollow leaves makes a sound — a papery, hollow, percussive tapping — that is one of the most melancholy, beautiful sounds in the natural world. You can't hear it if the gardener has tidied everything up. You can only hear it if you have the courage to leave the decay in place.
+
+That — in a single line of poetry — is the difference between the Chinese and Western approach to "dead" things. One tradition removes them. The other tradition listens to them.
+
+Now, the medicinal relevance: remember, lotus has at least six medicinal parts — leaf, seed, seed embryo, root, seed pod, and root node. And right now? The dry seed pods you see standing in the water — those are 莲房, used to stop uterine bleeding. The rhizome beneath the mud — 莲藕 — is at peak harvest right now, being dug out of cold pond mud by farmers in rubber boots. If you go to a Shanghai wet market this week, you'll see piles of fresh lotus root, mud still clinging to them, selling briskly. Sliced into soups, stir-fried with vinegar, stuffed with sticky rice and steamed with osmanthus syrup — 桂花糯米藕 — one of the great winter comfort foods.
+
+So even now, with the above-ground plant looking completely dead, the underground pharmacy is open. The root is getting sweeter and starchier every week as the cold deepens. And remember — raw lotus root is cooling, but cooked lotus root is warming. The same principle we've seen over and over: processing changes everything.[cite: 4]`
+  },
+  {
+    title: "Plant 18：夏枯草 — Prunella / Self-Heal (in withered state)",
+    content: `Now here's a plant whose name is its lesson. Come look at this — and honestly, you might think I'm showing you a dead weed.
+
+See these brown, dry, stubby little spikes sitting on short stems near the ground? Papery, crumbly, the color of an old cardboard box. If you saw this in your yard, you'd probably pull it and toss it.
+
+This is 夏枯草. And the name tells you everything: 夏 means summer, 枯 means wither, 草 means herb. "The Herb That Withers in Summer."
+
+Back in May, this plant had lush green foliage and beautiful purple flower spikes — it was one of the prettiest plants in the garden. Then, as the Summer Solstice approached — the longest day of the year, the peak of yang energy — the flower spikes began to dry out. By July, they were brown. By now, they look like this. Dead. Finished. Done.
+
+But here's the punchline: this IS the medicine. You are looking at the product. What a pharmacist puts in a bag and hands to a patient — that brown, dried spike — is exactly what you see right here. Not processed, not extracted. Just harvested after it dries naturally on the plant, collected, cleaned, and used.
+
+In Chinese medical theory, the explanation is poetic: 夏枯草 is so full of cold, yin energy that when the yang of summer reaches its peak, the plant literally cannot survive in all that heat. It surrenders. And because it's so intensely yin, it's a powerful medicine for conditions of excess yang — specifically, liver fire rising. Red, painful, swollen eyes. Throbbing headaches. High blood pressure. Irritability. A red face. All signs of too much fire going upward. 夏枯草 pulls it back down and cools it off.
+
+I love this plant because it teaches you something no textbook can quite convey: the medicine isn't always the pretty version of the plant. Sometimes the medicine IS the decay. The withering is the point. The drying is the preparation. Nature did the processing. All the pharmacist had to do was wait, and collect.
+
+If there's one image from today's tour that I hope you remember, let it be this one: a dried brown spike that looks like garbage, and IS one of the most effective liver-cooling medicines in the Chinese pharmacopoeia. Never judge a medicine by its appearance.[cite: 4]`
+  },
+  {
+    title: "Plant 19：桑 — Mulberry (in autumn)",
+    content: `Walk with me over to this tree — the one that's half-bare, with a few yellowing leaves still clinging on.
+
+Remember the mulberry? In May, it was lush and green, loaded with those sweet purple berries that stained everyone's fingers. The "one-tree pharmacy" — leaf, twig, bark, fruit, four different medicines.
+
+Look at it now. The berries are long gone — birds finished those off in June. The leaves are yellowing, many have fallen. The tree looks stripped, tired, exposed. The branching structure is visible for the first time — you can see the architecture of the tree that was hidden under all that summer foliage.
+
+But I brought you here for one specific reason, and it has to do with the LEAVES. See the ones still on the branches? Some of them might have a light frost coating on cold mornings this time of year. And those frost-touched leaves have a special name in Chinese medicine: 霜桑叶 — "frost mulberry leaf."
+
+The traditional texts say: mulberry leaves harvested after the first frost are medicinally superior to those picked in summer. 霜桑叶 — frost-kissed mulberry leaf — is considered better at clearing heat from the lungs and soothing the eyes. The frost, in traditional thinking, adds an extra layer of "cold" energy to a leaf that's already classified as cool. It's like nature giving the leaf a final seasoning before it falls.
+
+Is there a scientific basis? Possibly. Cold stress — frost exposure — triggers biochemical changes in plant tissues. Sugars concentrate as a kind of natural antifreeze. Certain secondary metabolites may increase. Whether those specific changes make the leaf more medicinally effective is debatable, but the observation that frost-exposed leaves taste different and behave differently in decoction — that's not unreasonable. Plants genuinely ARE chemically different after cold stress.
+
+So the same tree, in May, gave you fruit to eat. Now, in November, it gives you frost-kissed leaves for your lungs. Different seasons, different gifts, same tree. And if you dig around the base and peel the root bark — 桑白皮 — that's available year-round. The pharmacy never closes. It just changes the menu.[cite: 4]`
+  },
+  {
+    title: "Plant 20：盐肤木 — Chinese Sumac",
+    content: `One last stop in the "beauty of endings" section. See that tree over there with the red and orange leaves?
+
+In a garden where most color has faded, this tree is putting on a final show. The compound leaves — each one made of many leaflets arranged along a central stem — have turned from green to shades of orange, scarlet, and deep red. It's one of the few trees still showing real autumn color this late in the season.
+
+But look more closely at the leaf stem — the main axis that the leaflets are attached to. See how it has flat, wing-like extensions running between the leaflets? Little green flanges along the stem? That's the key identification feature: a winged leaf axis. Not many plants have that.
+
+Now look at the fruit clusters at the tips of the branches — dense, compact, reddish-brown. And here's the trick: touch the surface of the fruits. Rub gently.
+
+Feel that powdery, slightly gritty coating? Look at your fingers — there might be a whitish residue. Taste it — very carefully, just a tiny touch on your tongue tip.
+
+Salty, right? That white powder on the fruit surface is a natural salt — a mixture of organic acids and mineral salts secreted by the plant. And THAT is why this tree is called 盐肤木 — literally "Salt Skin Tree." 盐 is salt, 肤 is skin, 木 is tree. The tree that grows salt on its skin.
+
+Medicinally, the most important product from this tree isn't the fruit itself — it's something called 五倍子, "Five-Pour-Seed." These are galls — abnormal growths caused by aphids that parasitize the leaves. The aphids inject chemicals that make the leaf tissue swell into hollow, bulbous structures, and THOSE dried galls are the medicine. They're extraordinarily rich in tannins — up to 70% tannic acid by weight — making them one of the most potent astringent substances in nature. They're used to stop diarrhea, stop sweating, stop bleeding — basically, to stop anything that's leaking out of the body when it shouldn't be. The "tightening rope" flavor from yesterday's lecture — sour and astringent — in its most extreme form.
+
+And beyond medicine, 五倍子 was historically essential for ink-making. The tannic acid reacts with iron salts to produce iron gall ink — the same ink that was used to write the Magna Carta, the U.S. Constitution, and most European manuscripts from the medieval period through the 19th century. So a Chinese tree, parasitized by Chinese aphids, producing a gall that shares its core chemistry with the ink of Western civilization. The connections between East and West run deeper than we usually imagine.[cite: 4]`
+  },
+  {
+    title: "Plant 21：板蓝根 / 菘蓝 — Isatis / Woad",
+    content: `Golden ginkgo leaves on the ground. Rain on dead lotus leaves. A dried spike that IS the medicine. Frost-kissed mulberry leaves. Salt crystals on sumac fruit. None of this looks like a "beautiful garden" in the conventional sense. But if you've been paying attention, you've seen something that most tourists never notice: the garden isn't dying. It's completing. Every one of these plants is exactly where it's supposed to be in its cycle. And Chinese medicine — at its deepest level — is a system built on understanding cycles. Not fighting them. Not denying them. Understanding them, and working with them.
+
+We've seen fruits. We've seen rebels that bloom in the cold. We've seen the beauty of decay. Now I want to take you on one last walk, and this time, I want you to use your imagination more than your eyes. Because the most important things in this section are the things you can't see.
+
+Look at this patch of ground. Some low rosettes of leaves, maybe a few dried stalks from last season. Nothing exciting, right? But I guarantee you, if there is ONE Chinese medicine that every person in China has taken at least once in their life, it's made from the root of this plant.
+
+This is 菘蓝 — and in Chinese pharmacy, its root is sold under the name 板蓝根, which is probably the single most purchased over-the-counter herbal medicine in China. Period. Full stop. Nothing else comes close.
+
+The plant itself? Not much to see, especially now. It's in the cabbage family — yes, the same family as broccoli, kale, and Brussels sprouts. In spring, it sends up a stalk of small yellow flowers with four petals arranged in a cross — a classic cruciferous flower. Then it develops small, flat, winged seed pods that dangle like little paddles. But right now, in late November, you're mainly seeing low rosettes of gray-green leaves hugging the ground, and maybe some dried-out stalks from the past season.
+
+But underground — that root. Right now, late autumn, is harvest time. And when this root is dried, sliced, and packaged, it becomes the medicine that Chinese parents reach for at the FIRST sign of any cold, flu, sore throat, or fever in their children. Walk into any pharmacy in China and say "板蓝根冲剂" — "Isatis root granules" — and the pharmacist will hand you a box without even looking up. It's that routine.
+
+During SARS in 2003, people panic-bought 板蓝根 until it sold out nationwide. During H1N1 in 2009 — same thing. During COVID in 2020 — same thing AGAIN. Every time China faces a viral scare, the first thing that disappears from pharmacy shelves is 板蓝根. It's the Chinese equivalent of Americans panic-buying Tylenol, Vitamin C, and chicken soup — all rolled into one product.
+
+Is it effective? Traditional classification says it's cold and bitter — it clears heat and detoxifies. Modern research has found some antiviral and anti-inflammatory compounds. But is it a cure for SARS or COVID? No. Is it a reasonable supportive measure for a mild sore throat and early cold symptoms? Probably. The gap between "what people believe it does" and "what it can actually do" is... a familiar tension in the herbal medicine world.
+
+But here's what I find fascinating: the fact that a billion people, across decades, facing different viruses, keep reaching for the same plant root — that tells you something about the depth of trust in this tradition. Whether or not 板蓝根 is a miracle cure, it has achieved something very few medicines achieve: it has become part of the cultural reflex. Getting sick in China without taking 板蓝根 would feel as strange as getting sick in America without having chicken soup. The medicine has transcended pharmacology and become ritual.
+
+Oh — and one more thing. This plant, or its close relative Isatis tinctoria, was used for centuries in Europe as the source of a blue dye called woad. The ancient Britons — the ones Julius Caesar fought — painted their bodies with woad before going into battle. Blue war paint. From the same plant family that Chinese grandmothers use for sore throats. History is strange.[cite: 4]`
+  },
+  {
+    title: "Plant 22：紫苏 — Perilla (in seed)",
+    content: `Remember this plant from — well, from the classroom, or from the May garden tour if you were here? Come look at what's left.
+
+In May, this was a gorgeous plant — purple leaves, aromatic, the one I told you Japanese restaurants serve alongside sashimi. You could rub the leaves and smell that warm, herby, anise-like fragrance.
+
+Now? A dry brown stick with clusters of tiny dried seed pods along the top. It looks like it belongs in a compost bin. But reach up and rub one of those dry seed clusters between your fingers. Crush a few seeds.
+
+Smell that? Even now — dried, dead, months past its prime — there's still a ghost of that aromatic oil in the seeds. Fainter than the fresh leaf, but recognizably the same plant.
+
+And those seeds have their own name and their own job: 紫苏子 — Perilla Seed. In the May tour, I told you that every part of this plant is a different medicine. The leaf releases the exterior and disperses cold. The stem calms the stomach and settles the fetus — yes, it's used in pregnancy formulas. And the seed? The seed goes to the lungs and pushes energy downward.
+
+Remember the elevator? The leaf sends energy UP and OUT — to the surface of the body, to push out a cold. The seed sends energy DOWN — into the lungs, to stop coughing and wheezing and resolve phlegm. Same plant. Leaf goes up. Seed goes down. Opposite directions from opposite ends of the same organism.
+
+And when do you harvest the seed? Right now. Late autumn. After the plant has dried and the seeds have matured. The plant has to "die" before the seeds are ready. You can't harvest ripe perilla seeds from a green, living plant — they aren't mature yet. You have to wait for this. The brown stick. The dead appearance. Then — and only then — are the seeds at their medicinal best.
+
+Same lesson, over and over: what looks like death is actually readiness.[cite: 4]`
+  },
+  {
+    title: "Plant 23：虎杖 — Japanese Knotweed (in winter)",
+    content: `And here's an old friend in a new outfit. Or rather, no outfit at all.
+
+In May, this was a tall, aggressive, fast-growing monster with broad shield-shaped leaves and hollow bamboo-like stems covered in reddish-purple speckles — "Tiger Cane," the plant that terrorizes British homeowners and is one of the most invasive species in Europe and North America.
+
+Now look at it. The leaves are gone. The stems are dry, pale, hollow. But — look closely — can you still see those speckles? Those reddish spots on the stems? Even dead and dried, the tiger-stripe pattern is still there. That's your winter ID: hollow, jointed stems with residual dark spots. Like a bamboo cane that someone splattered with wine.
+
+But here's what I want you to think about. This plant is still standing. The stems are dead but structurally intact. And underneath the soil, the root system is very much alive — in fact, it's thriving. Knotweed's root system is extraordinary: it can extend three meters deep and seven meters in any horizontal direction from the visible plant. It can push through concrete, asphalt, and building foundations. A fragment of root as small as one centimeter can regenerate an entire plant.
+
+That underground persistence is exactly why it's such a nightmare for Western countries. You can cut the stems, mow the leaves, poison the surface — and the root system just waits you out and comes back. In its native East Asian habitat, natural competitors — insects, fungi, soil organisms — keep it under control. Remove those natural enemies, and you get... British houses with knotweed growing through their floors.
+
+In Chinese medicine, the root — called 虎杖根 — is harvested in, you guessed it, autumn and winter. It's used to clear heat, resolve toxins, invigorate blood, and relieve pain. It's in formulas for jaundice, hepatitis, joint pain, and menstrual problems. And as I mentioned before, it's loaded with resveratrol — the antioxidant compound that made red wine famous in the 1990s.
+
+So the next time you read a headline about Japanese Knotweed destroying a neighborhood in London — remember that underneath all that destruction is a root system full of one of the most-hyped health compounds of the modern era. The universe has a sense of humor.[cite: 4]`
+  },
+  {
+    title: "Plant 24：牛蒡 — Burdock (in fruit)",
+    content: `Come here — and watch your clothes.
+
+Remember the plant with the giant heart-shaped leaves? In May, burdock was all leaf — enormous, dramatic foliage. Now the leaves are mostly wilted or gone. But what's left is something you need to experience to appreciate.
+
+See those brown, spiky balls at the tops of the dried stems? About the size of a large marble, covered in tiny hooks? Those are burdock fruits — technically called burrs. And they are incredibly sticky. Here — I'll demonstrate.
+
+See? It grabbed on immediately. Try to pull it off. You can, but you feel those little hooks releasing one by one. Now imagine walking your dog through a field of these. Your dog comes out looking like it's wearing a medieval suit of armor made of brown spiky balls.
+
+And that — THAT — is how Velcro was invented. I told this story in the spring tour, and I'm telling it again because it's too good: 1941, Swiss engineer George de Mestral, dog covered in burrs, microscope, tiny hooks grabbing tiny loops, patent filed, billion-dollar industry born. Every Velcro strap on your shoes, your backpack, your laptop bag, NASA space suits, military gear — all of it traces back to this ugly brown ball on a dead burdock stem.
+
+In Chinese medicine, the seed inside the burr — 牛蒡子 — is the medicine. It's pungent and cold, used for sore throats, skin rashes that are "stuck" and need to be pushed out to the surface, and mumps. The pungent flavor disperses outward. The cold nature clears heat. Combined: it pushes hot, stuck things up and out through the skin.
+
+But today, just enjoy the engineering. Pick up a burr. Look at it closely. Each one of those hooks is a masterpiece of microscale engineering — curved, flexible, strong enough to grip but not so rigid that it breaks. Two hundred million years of evolution produced this design. George de Mestral just copied the homework.[cite: 4]`
+  },
+  {
+    title: "Plant 25：小茴香 — Fennel (in seed)",
+    content: `Last plant of the tour. And this one ends us right where we began — with smell.
+
+See this tall, dried-out plant with the umbrella-shaped seed heads? The stems are hollow, ridged, pale brown. The "umbrellas" — technically called umbels — are dried and turned upward like satellite dishes, with dozens of tiny, elongated seeds still clinging to the stalks.
+
+This is 小茴香 — fennel. And it has one of the most instantly recognizable smells in the plant kingdom. Pick a few of those dried seeds. Crush them between your fingers. Smell.
+
+There it is. Anise. Licorice. That warm, sweet, slightly spicy fragrance that you know from Italian sausage, from Indian chai, from French bouillabaisse, from Thanksgiving stuffing. Fennel might be the most internationally used spice in this entire garden — it shows up in virtually every culinary tradition on Earth.
+
+And here's your 药食同源 moment for the day: what you're holding in your fingers right now is simultaneously a spice in your kitchen, a medicine in a Chinese pharmacy, and a digestive aid your grandmother might have given you as a baby.
+
+In Chinese medicine, 小茴香 is warm — remember the thermostat? Warm. Its flavor is pungent — the "key" flavor that opens and moves. Its target is the liver, kidney, spleen, and stomach channels. And its primary job is to warm the interior and relieve pain — specifically, cold-type abdominal pain. The cramping, contracting pain you get when you eat too much cold food or get chilled in the belly. 小茴香 is like a warm hand pressing gently on a cold stomach. It relaxes, it warms, it moves trapped energy.
+
+In European folk medicine — same plant, same use. Fennel tea for colicky babies. Fennel seeds chewed after a meal in Indian restaurants. Fennel in Italian digestivo. Across every culture that has access to this plant, people independently figured out: fennel helps digestion. Warms the stomach. Stops cramping.
+
+And those seeds you're holding? Harvested right now. Autumn. After the plant has dried and the seeds have fully matured. You crush them, you smell them, and you're smelling medicine that works in every language.[cite: 4]`
+  },
+  {
+    title: "Conclusion: Cycles of Nature",
+    content: `That feels like the right note to end on.
+
+Let's gather up.
+
+An hour and a half ago, I told you this garden looked dead. And on the surface, I wasn't wrong — brown stalks, bare branches, fallen leaves, empty ponds. If you'd come here as a tourist with no context, you might have walked through in ten minutes, shrugged, and gone to find lunch.
+
+But now you know better. You know that the brown spike on that dried weed IS the liver medicine. You know that the orange peel on that citrus tree becomes more valuable with every year it ages. You know that underneath a dead vine, a root is sitting at peak potency, waiting to be dug by someone who understands the calendar. You know that the golden ginkgo leaves on the ground come from a tree older than dinosaurs, and that their extract is a prescription drug in European hospitals. You know that the ugly brown ball on a dead burdock stalk inspired a billion-dollar industry. And you know that if you crush a dried fennel seed in November in Shanghai, it smells exactly the same as it does in a kitchen in Rome, in Mumbai, in Istanbul, in your grandmother's house.
+
+Chinese medicine is built on a principle that's easy to say and hard to truly understand: 天人合一 — "Heaven and humanity are one." It means that humans are not separate from nature. We are part of the same system. The seasons that affect the plants affect us. The cold that drives a plant's energy underground drives our energy inward too. When we eat warming foods in winter and cooling foods in summer, we're not following arbitrary rules — we're synchronizing with the same cycles that every plant in this garden is following right now.
+
+Spring gives birth. Summer grows. Autumn harvests. Winter stores.
+
+Six months ago, this garden was giving birth and growing — flowers exploding, leaves expanding, fruits swelling. Today, it is harvesting and storing. And so should we. In the Chinese tradition, winter is not a time for aggressive action. It's a time for rest, for reflection, for consolidation. You store your energy now so you have something to spend in spring.
+
+The garden knows this without being told. The question is whether we can learn it.
+
+Thank you for walking this with me. And one last thing — those fennel seeds in your pocket? Take them home. Put them in your pasta sauce. And when someone asks what spice you used, you can tell them: "It's a Chinese medicine for cold-type abdominal pain with qi stagnation in the liver channel, classified as warm in nature and pungent in flavor, entering the liver, kidney, spleen, and stomach meridians."
+
+Or you can just say, "Fennel." Either way — you'll know the full story now.[cite: 4]`
+  }
+];
+
+const listContainer = document.getElementById('exhibitList');
+const searchBox = document.getElementById('searchBox');
+
+function renderList(dataToRender) {
+  listContainer.innerHTML = '';
+  if (dataToRender.length === 0) {
+    listContainer.innerHTML = '<div class="empty">No results found</div>';
+    return;
+  }
+  
+  dataToRender.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="item-header" onclick="this.parentElement.classList.toggle('active')">
+        <span>${item.title}</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="item-content">
+        <div class="text-box">${item.content}</div>
+      </div>
+    `;
+    listContainer.appendChild(el);
+  });
+}
+
+function filterList() {
+  const query = searchBox.value.toLowerCase().trim();
+  if (!query) {
+    renderList(database);
+    return;
+  }
+  
+  const filtered = database.filter(item => 
+    item.title.toLowerCase().includes(query) || 
+    item.content.toLowerCase().includes(query)
+  );
+  
+  renderList(filtered);
+  
+  setTimeout(() => {
+    document.querySelectorAll('.item').forEach(card => card.classList.add('active'));
+  }, 10);
+}
+
+renderList(database);
+</script>
+</body>
+</html>
